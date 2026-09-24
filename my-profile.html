@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Profile - Karnataka Travel</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4faf6;
+            color: #333;
+        }
+
+
+        /* HEADER */
+
+        header {
+            min-height: 60px;
+            background: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            box-shadow:
+                0 2px 8px rgba(0,0,0,0.08);
+        }
+
+
+        .logo {
+            font-size: 19px;
+            font-weight: bold;
+            color: #087f3d;
+        }
+
+
+        .logo span {
+            color: #222;
+        }
+
+
+        nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+        }
+
+
+        nav a:hover {
+            color: #087f3d;
+        }
+
+
+        /* PROFILE PAGE */
+
+        .profile-page {
+            min-height: calc(100vh - 60px);
+
+            padding: 50px 20px;
+        }
+
+
+        .profile-container {
+            max-width: 600px;
+            margin: auto;
+        }
+
+
+        .profile-title {
+            text-align: center;
+
+            color: #087f3d;
+
+            font-size: 32px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .profile-subtitle {
+            text-align: center;
+
+            color: #777;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* PROFILE CARD */
+
+        .profile-card {
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.10);
+        }
+
+
+        .profile-icon {
+            width: 85px;
+            height: 85px;
+
+            margin: 0 auto 25px;
+
+            border-radius: 50%;
+
+            background: #087f3d;
+
+            color: white;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-size: 40px;
+        }
+
+
+        /* DETAILS */
+
+        .profile-details {
+            background: #f4faf6;
+
+            border-radius: 10px;
+
+            padding: 5px 20px;
+        }
+
+
+        .profile-row {
+            padding: 16px 0;
+
+            border-bottom:
+                1px solid #ddd;
+        }
+
+
+        .profile-row:last-child {
+            border-bottom: none;
+        }
+
+
+        .profile-label {
+            display: block;
+
+            font-size: 13px;
+
+            color: #777;
+
+            margin-bottom: 6px;
+
+            font-weight: bold;
+        }
+
+
+        .profile-value {
+            display: block;
+
+            color: #087f3d;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            word-break: break-word;
+        }
+
+
+        /* BUTTONS */
+
+        .profile-buttons {
+            margin-top: 25px;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 12px;
+        }
+
+
+        .profile-buttons a,
+        .logout-btn {
+
+            padding: 14px;
+
+            border-radius: 8px;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            border: none;
+
+            cursor: pointer;
+
+            font-size: 15px;
+        }
+
+
+        .home-btn {
+            background: #087f3d;
+            color: white;
+        }
+
+
+        .history-btn {
+            background: #087f3d;
+            color: white;
+        }
+
+
+        .logout-btn {
+            grid-column: 1 / -1;
+
+            background: #c62828;
+
+            color: white;
+        }
+
+
+        .logout-btn:hover {
+            background: #a91f1f;
+        }
+
+
+        @media(max-width:600px) {
+
+            header {
+                padding: 12px 20px;
+
+                flex-direction: column;
+
+                gap: 10px;
+            }
+
+
+            nav {
+                flex-wrap: wrap;
+
+                justify-content: center;
+            }
+
+
+            .profile-card {
+                padding: 20px;
+            }
+
+
+            .profile-buttons {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        🏛️ Karnataka <span>Travel</span>
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="district.html">
+            Districts
+        </a>
+
+        <a href="contact.html">
+            Contact
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<section class="profile-page">
+
+    <div class="profile-container">
+
+
+        <h1 class="profile-title">
+            👤 My Profile
+        </h1>
+
+
+        <p class="profile-subtitle">
+            Welcome to Karnataka Travel
+        </p>
+
+
+
+        <div class="profile-card">
+
+
+            <div class="profile-icon">
+                👤
+            </div>
+
+
+            <div class="profile-details">
+
+
+                <div class="profile-row">
+
+                    <span class="profile-label">
+                        👤 Name
+                    </span>
+
+                    <span
+                        class="profile-value"
+                        id="userName"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="profile-row">
+
+                    <span class="profile-label">
+                        🆔 User ID
+                    </span>
+
+                    <span
+                        class="profile-value"
+                        id="userId"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="profile-row">
+
+                    <span class="profile-label">
+                        📱 Mobile Number
+                    </span>
+
+                    <span
+                        class="profile-value"
+                        id="userMobile"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="profile-row">
+
+                    <span class="profile-label">
+                        📧 Email
+                    </span>
+
+                    <span
+                        class="profile-value"
+                        id="userEmail"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="profile-buttons">
+
+
+                <a
+                    href="index.html"
+                    class="home-btn"
+                >
+                    🏠 Home
+                </a>
+
+
+                <a
+                    href="booking-history.html"
+                    class="history-btn"
+                >
+                    📋 Booking History
+                </a>
+
+
+                <button
+                    type="button"
+                    id="logoutBtn"
+                    class="logout-btn"
+                >
+                    🚪 Logout
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<script>
+
+"use strict";
+
+
+/* =====================================================
+   CHECK LOGIN
+===================================================== */
+
+const currentUserString =
+    sessionStorage.getItem(
+        "currentUser"
+    );
+
+
+/*
+   Login ಇಲ್ಲದಿದ್ದರೆ ಮಾತ್ರ
+   login page ಗೆ ಕಳುಹಿಸುತ್ತದೆ.
+*/
+
+if (!currentUserString) {
+
+    window.location.replace(
+        "login.html"
+    );
+
+} else {
+
+    let currentUser = null;
+
+
+    try {
+
+        currentUser =
+            JSON.parse(
+                currentUserString
+            );
+
+    } catch (error) {
+
+        sessionStorage.removeItem(
+            "currentUser"
+        );
+
+        window.location.replace(
+            "login.html"
+        );
+
+    }
+
+
+    if (
+        !currentUser ||
+        !currentUser.id
+    ) {
+
+        sessionStorage.removeItem(
+            "currentUser"
+        );
+
+        window.location.replace(
+            "login.html"
+        );
+
+    } else {
+
+
+        /* =============================================
+           SHOW USER INFORMATION
+        ============================================= */
+
+        document.getElementById(
+            "userName"
+        ).textContent =
+            currentUser.name || "-";
+
+
+        document.getElementById(
+            "userId"
+        ).textContent =
+            currentUser.id || "-";
+
+
+        document.getElementById(
+            "userMobile"
+        ).textContent =
+            currentUser.mobile || "-";
+
+
+        document.getElementById(
+            "userEmail"
+        ).textContent =
+            currentUser.email || "-";
+
+    }
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+document.getElementById(
+    "logoutBtn"
+).addEventListener(
+    "click",
+    function() {
+
+
+        /* Remove login session */
+
+        sessionStorage.removeItem(
+            "currentUser"
+        );
+
+        sessionStorage.removeItem(
+            "loggedInUser"
+        );
+
+        sessionStorage.removeItem(
+            "user"
+        );
+
+        sessionStorage.removeItem(
+            "currentBooking"
+        );
+
+
+        /*
+           Logout ಆದ ನಂತರ ಮಾತ್ರ
+           login page open ಆಗುತ್ತದೆ.
+        */
+
+        window.location.replace(
+            "login.html"
+        );
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

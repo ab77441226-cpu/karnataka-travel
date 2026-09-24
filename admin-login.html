@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login - Karnataka Travel</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        .admin-login-page {
+            min-height: 100vh;
+            padding: 50px 20px;
+            background: #f4faf6;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .admin-login-box {
+            width: 100%;
+            max-width: 450px;
+
+            background: white;
+            padding: 40px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 10px 40px rgba(0,0,0,0.12);
+        }
+
+        .admin-icon {
+            text-align: center;
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .admin-login-box h1 {
+            text-align: center;
+            color: #087f3d;
+            margin-bottom: 8px;
+        }
+
+        .admin-login-box > p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            box-sizing: border-box;
+
+            padding: 14px;
+
+            border: 1px solid #ccc;
+            border-radius: 7px;
+
+            font-size: 16px;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #087f3d;
+        }
+
+        .login-btn {
+            width: 100%;
+
+            margin-top: 8px;
+
+            padding: 14px;
+
+            border: none;
+            border-radius: 8px;
+
+            background: #087f3d;
+            color: white;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background: #05652f;
+        }
+
+        .login-btn:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+        .message {
+            display: none;
+
+            margin-top: 15px;
+
+            padding: 12px;
+
+            border-radius: 7px;
+
+            text-align: center;
+
+            font-weight: bold;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .success {
+            background: #eaf7ee;
+            color: #087f3d;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #087f3d;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .admin-note {
+            margin-top: 20px;
+            padding: 12px;
+
+            background: #fff8e1;
+            color: #795548;
+
+            border-radius: 7px;
+
+            font-size: 13px;
+            text-align: center;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        🏛️ Karnataka <span>Travel Admin</span>
+    </div>
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="district.html">
+            Districts
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<section class="admin-login-page">
+
+
+    <div class="admin-login-box">
+
+
+        <div class="admin-icon">
+            🔐
+        </div>
+
+
+        <h1>
+            Admin Login
+        </h1>
+
+
+        <p>
+            Login to manage Karnataka Travel bookings.
+        </p>
+
+
+        <form id="adminLoginForm">
+
+
+            <div class="form-group">
+
+                <label for="email">
+                    Admin Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter admin email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter admin password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                id="loginBtn"
+                class="login-btn"
+            >
+                Admin Login →
+            </button>
+
+
+            <div
+                id="loginMessage"
+                class="message"
+            ></div>
+
+
+        </form>
+
+
+        <div class="admin-note">
+
+            ⚠️ This page is only for administrators.
+
+        </div>
+
+
+        <div class="back-link">
+
+            <a href="login.html">
+                ← Back to User Login
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<script>
+
+
+/* =====================================================
+   ADMIN LOGIN
+===================================================== */
+
+document.getElementById(
+    "adminLoginForm"
+).addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        const email =
+            document.getElementById(
+                "email"
+            ).value.trim().toLowerCase();
+
+
+        const password =
+            document.getElementById(
+                "password"
+            ).value;
+
+
+        const button =
+            document.getElementById(
+                "loginBtn"
+            );
+
+
+        const message =
+            document.getElementById(
+                "loginMessage"
+            );
+
+
+        message.style.display =
+            "none";
+
+
+        button.disabled =
+            true;
+
+        button.textContent =
+            "Checking...";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "http://localhost:5000/api/admin/login",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                email:
+                                    email,
+
+                                password:
+                                    password
+
+                            })
+
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                throw new Error(
+                    data.message ||
+                    "Invalid admin login."
+                );
+
+            }
+
+
+            /* ==============================
+               SAVE ADMIN LOGIN
+            ============================== */
+
+            sessionStorage.setItem(
+                "adminLoggedIn",
+                "true"
+            );
+
+
+            if (data.admin) {
+
+                sessionStorage.setItem(
+                    "adminUser",
+                    JSON.stringify(
+                        data.admin
+                    )
+                );
+
+            }
+
+
+            message.textContent =
+                "Admin login successful! Redirecting...";
+
+            message.className =
+                "message success";
+
+            message.style.display =
+                "block";
+
+
+            setTimeout(
+                function() {
+
+                    window.location.href =
+                        "admin.html";
+
+                },
+                800
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Admin login error:",
+                error
+            );
+
+
+            message.textContent =
+                error.message ||
+                "Cannot connect to server.";
+
+            message.className =
+                "message error";
+
+            message.style.display =
+                "block";
+
+
+            button.disabled =
+                false;
+
+            button.textContent =
+                "Admin Login →";
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

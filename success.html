@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Booking Successful - Karnataka Travel</title>
+
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            background: #f4faf6;
+
+            color: #333;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        header {
+
+            height: 58px;
+
+            background: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 8%;
+
+            box-shadow:
+                0 2px 8px rgba(0,0,0,0.08);
+        }
+
+
+        .logo {
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            color: #087f3d;
+        }
+
+
+        .logo span {
+
+            color: #222;
+        }
+
+
+        nav {
+
+            display: flex;
+
+            gap: 18px;
+        }
+
+
+        nav a {
+
+            text-decoration: none;
+
+            color: #333;
+
+            font-size: 13px;
+        }
+
+
+        nav a:hover {
+
+            color: #087f3d;
+        }
+
+
+        /* =====================================================
+           SUCCESS PAGE
+        ===================================================== */
+
+        .success-page {
+
+            min-height:
+                calc(100vh - 58px);
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 40px 15px;
+        }
+
+
+        /* =====================================================
+           SUCCESS BOX
+        ===================================================== */
+
+        .success-box {
+
+            width: 100%;
+
+            max-width: 520px;
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 8px 30px rgba(0,0,0,0.12);
+        }
+
+
+        /* =====================================================
+           SUCCESS ICON
+        ===================================================== */
+
+        .success-icon {
+
+            width: 60px;
+
+            height: 60px;
+
+            margin: 0 auto 15px;
+
+            border-radius: 50%;
+
+            background: #e5f7ed;
+
+            color: #087f3d;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 32px;
+
+            font-weight: bold;
+        }
+
+
+        /* =====================================================
+           TITLE
+        ===================================================== */
+
+        .success-title {
+
+            text-align: center;
+
+            color: #087f3d;
+
+            font-size: 27px;
+
+            margin: 0 0 8px;
+        }
+
+
+        .success-message {
+
+            text-align: center;
+
+            color: #777;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+
+            margin: 0 0 25px;
+        }
+
+
+        /* =====================================================
+           BOOKING DETAILS
+        ===================================================== */
+
+        .booking-details {
+
+            background: #f4faf6;
+
+            border-radius: 10px;
+
+            padding: 8px 15px;
+        }
+
+
+        .booking-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+            padding: 12px 0;
+
+            border-bottom:
+                1px solid #d8e3dc;
+        }
+
+
+        .booking-row:last-child {
+
+            border-bottom: none;
+        }
+
+
+        .booking-label {
+
+            color: #666;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+
+        .booking-value {
+
+            color: #222;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            text-align: right;
+
+            word-break: break-word;
+        }
+
+
+        .booking-id {
+
+            color: #087f3d;
+        }
+
+
+        /* =====================================================
+           PAYMENT STATUS
+        ===================================================== */
+
+        .paid-status {
+
+            display: inline-block;
+
+            padding: 5px 10px;
+
+            border-radius: 15px;
+
+            background: #dff5e8;
+
+            color: #087f3d;
+
+            font-size: 11px;
+
+            font-weight: bold;
+        }
+
+
+        /* =====================================================
+           TOTAL
+        ===================================================== */
+
+        .total-row {
+
+            margin-top: 4px;
+
+            padding-top: 14px;
+
+            border-top:
+                1px solid #bbb;
+        }
+
+
+        .total-row .booking-label {
+
+            color: #087f3d;
+
+            font-size: 14px;
+        }
+
+
+        .total-row .booking-value {
+
+            color: #087f3d;
+
+            font-size: 18px;
+        }
+
+
+        /* =====================================================
+           BUTTONS
+           ONLY PRINT + HOME
+        ===================================================== */
+
+        .success-buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-top: 22px;
+        }
+
+
+        .print-btn,
+        .home-btn {
+
+            min-width: 120px;
+
+            padding: 11px 22px;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            text-align: center;
+
+            cursor: pointer;
+
+            text-decoration: none;
+
+            border: none;
+        }
+
+
+        /* PRINT */
+
+        .print-btn {
+
+            background: #087f3d;
+
+            color: white;
+        }
+
+
+        .print-btn:hover {
+
+            background: #05652f;
+        }
+
+
+        /* HOME */
+
+        .home-btn {
+
+            background: #eeeeee;
+
+            color: #333;
+        }
+
+
+        .home-btn:hover {
+
+            background: #dddddd;
+        }
+
+
+        /* =====================================================
+           BOTTOM MESSAGE
+        ===================================================== */
+
+        .bottom-message {
+
+            text-align: center;
+
+            margin-top: 18px;
+
+            color: #777;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 600px) {
+
+            header {
+
+                padding: 0 15px;
+            }
+
+
+            nav {
+
+                gap: 8px;
+            }
+
+
+            nav a {
+
+                font-size: 10px;
+            }
+
+
+            .success-page {
+
+                padding: 25px 12px;
+            }
+
+
+            .success-box {
+
+                padding: 22px;
+            }
+
+
+            .success-title {
+
+                font-size: 23px;
+            }
+
+
+            .booking-row {
+
+                gap: 10px;
+            }
+
+
+            .booking-label,
+            .booking-value {
+
+                font-size: 12px;
+            }
+
+
+            .success-buttons {
+
+                flex-direction: row;
+
+                gap: 8px;
+            }
+
+
+            .print-btn,
+            .home-btn {
+
+                min-width: 110px;
+
+                padding: 10px 15px;
+            }
+        }
+
+
+        /* =====================================================
+           PRINT
+        ===================================================== */
+
+        @media print {
+
+            body {
+
+                background: white;
+            }
+
+
+            header {
+
+                display: none !important;
+            }
+
+
+            .success-page {
+
+                min-height: auto;
+
+                padding: 0;
+
+                display: block;
+            }
+
+
+            .success-box {
+
+                max-width: 700px;
+
+                margin: 20px auto;
+
+                padding: 25px;
+
+                box-shadow: none;
+
+                border: 1px solid #ddd;
+            }
+
+
+            .success-icon {
+
+                display: none;
+            }
+
+
+            .success-message {
+
+                display: none;
+            }
+
+
+            .success-buttons {
+
+                display: none !important;
+            }
+
+
+            .bottom-message {
+
+                display: none;
+            }
+
+
+            .success-title {
+
+                color: #000;
+
+                margin-bottom: 25px;
+            }
+
+
+            .booking-details {
+
+                background: white;
+
+                border:
+                    1px solid #ccc;
+            }
+
+
+            .booking-row {
+
+                padding: 13px 8px;
+
+                font-size: 14px;
+            }
+
+
+            .booking-label,
+            .booking-value {
+
+                color: #000;
+            }
+
+
+            .paid-status {
+
+                color: #000;
+
+                background: white;
+
+                border:
+                    1px solid #999;
+            }
+
+
+            .total-row .booking-label,
+            .total-row .booking-value {
+
+                color: #000;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header>
+
+        <div class="logo">
+
+            🏛️ Karnataka
+            <span>Travel</span>
+
+        </div>
+
+
+        <nav>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="district.html">
+                Districts
+            </a>
+
+            <a href="contact.html">
+                Contact
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         SUCCESS PAGE
+    ====================================================== -->
+
+    <section class="success-page">
+
+
+        <div class="success-box">
+
+
+            <!-- SUCCESS ICON -->
+
+            <div class="success-icon">
+
+                ✓
+
+            </div>
+
+
+            <!-- TITLE -->
+
+            <h1 class="success-title">
+
+                Booking Successful!
+
+            </h1>
+
+
+            <p class="success-message">
+
+                Your Karnataka Travel booking
+                has been successfully completed.
+
+            </p>
+
+
+
+            <!-- =================================================
+                 BOOKING DETAILS
+            ================================================== -->
+
+            <div class="booking-details">
+
+
+                <!-- BOOKING ID -->
+
+                <div class="booking-row">
+
+                    <span class="booking-label">
+                        Booking ID
+                    </span>
+
+                    <span
+                        class="booking-value booking-id"
+                        id="bookingId">
+
+                        -
+
+                    </span>
+
+                </div>
+
+
+                <!-- NAME -->
+
+                <div class="booking-row">
+
+                    <span class="booking-label">
+                        Name
+                    </span>
+
+                    <span
+                        class="booking-value"
+                        id="bookingName">
+
+                        -
+
+                    </span>
+
+                </div>
+
+
+                <!-- MOBILE -->
+
+                <div class="booking-row">
+
+                    <span class="booking-label">
+                        Mobile Number
+                    </span>
+
+                    <span
+                        class="booking-value"
+                        id="bookingMobile">
+
+                        -
+
+                    </span>
+
+                </div>
+
+
+                <!-- FROM -->
+
+                <div class="booking-row">
+
+                    <span class="booking-label">
+                        From
+                    </span>
+
+                    <span
+                        class="booking-value"
+                        id="bookingFrom">
+
+                        -
+
+                    </span>
+
+                </div>
+
+
+                <!-- TO -->
+
+                <div class="booking-row">
+
+                    <span class="booking-label">
+                        To
+                    </span>
+
+                    <span
+                        class="booking-value"
+                        id="bookingDestination">
+
+                        -
+
+                    </span>
+
+                </div>
+
+
+                <!-- DATE -->
+
+                <div class="booking-row">
+
+                    <span class="booking-label">
+                        Travel Date
+                    </span>
+
+                    <span
+                        class="booking-value"
+                        id="bookingDate">
+
+                        -
+
+                    </span>
+
+                </div>
+
+
+                <!-- DAYS -->
+
+                <div class="booking-row">
+
+                    <span class="booking-label">
+                        Number of Days
+                    </span>
+
+                    <span
+                        class="booking-value"
+                        id="bookingDays">
+
+                        -
+
+                    </span>
+
+                </div>
+
+
+                <!-- TRAVELERS -->
+
+                <div class="booking-row">
+
+                    <span class="booking-label">
+                        Travelers
+                    </span>
+
+                    <span
+                        class="booking-value"
+                        id="bookingTravelers">
+
+                        -
+
+                    </span>
+
+                </div>
+
+
+                <!-- VEHICLE -->
+
+                <div class="booking-row">
+
+                    <span class="booking-label">
+                        Vehicle
+                    </span>
+
+                    <span
+                        class="booking-value"
+                        id="bookingVehicle">
+
+                        -
+
+                    </span>
+
+                </div>
+
+
+                <!-- PAYMENT METHOD -->
+
+                <div class="booking-row">
+
+                    <span class="booking-label">
+                        Payment Method
+                    </span>
+
+                    <span
+                        class="booking-value"
+                        id="paymentMethod">
+
+                        -
+
+                    </span>
+
+                </div>
+
+
+                <!-- PAYMENT STATUS -->
+
+                <div class="booking-row">
+
+                    <span class="booking-label">
+                        Payment Status
+                    </span>
+
+                    <span class="booking-value">
+
+                        <span
+                            class="paid-status"
+                            id="paymentStatus">
+
+                            Paid
+
+                        </span>
+
+                    </span>
+
+                </div>
+
+
+                <!-- TOTAL -->
+
+                <div
+                    class="booking-row total-row">
+
+                    <span class="booking-label">
+
+                        Total Amount
+
+                    </span>
+
+                    <span
+                        class="booking-value"
+                        id="totalAmount">
+
+                        ₹0
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 ONLY TWO BUTTONS
+                 PRINT + HOME
+            ================================================== -->
+
+            <div class="success-buttons">
+
+
+                <!-- PRINT -->
+
+                <button
+                    type="button"
+                    class="print-btn"
+                    onclick="printBooking()">
+
+                    🖨️ Print
+
+                </button>
+
+
+                <!-- HOME -->
+
+                <a
+                    href="index.html"
+                    class="home-btn">
+
+                    🏠 Home
+
+                </a>
+
+
+            </div>
+
+
+            <p class="bottom-message">
+
+                🌴 Have a wonderful journey
+                through Karnataka!
+
+            </p>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+
+        /* =================================================
+           GET CURRENT BOOKING
+        ================================================= */
+
+        let booking = null;
+
+
+        const bookingString =
+            sessionStorage.getItem(
+                "currentBooking"
+            );
+
+
+        if (bookingString) {
+
+            try {
+
+                booking =
+                    JSON.parse(
+                        bookingString
+                    );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Booking data error:",
+                    error
+                );
+
+                booking = null;
+
+            }
+
+        }
+
+
+
+        /* =================================================
+           FORMAT CURRENCY
+        ================================================= */
+
+        function formatCurrency(amount) {
+
+            const number =
+                Number(amount) || 0;
+
+            return (
+                "₹" +
+                number.toLocaleString("en-IN")
+            );
+
+        }
+
+
+
+        /* =================================================
+           DISPLAY BOOKING
+        ================================================= */
+
+        if (booking) {
+
+
+            /* BOOKING ID */
+
+            document.getElementById(
+                "bookingId"
+            ).textContent =
+
+                booking.bookingId ||
+
+                booking.booking_id ||
+
+                booking.id ||
+
+                "KT-DEMO";
+
+
+
+            /* NAME */
+
+            document.getElementById(
+                "bookingName"
+            ).textContent =
+
+                booking.name ||
+
+                "Customer";
+
+
+
+            /* MOBILE */
+
+            document.getElementById(
+                "bookingMobile"
+            ).textContent =
+
+                booking.mobile ||
+
+                "-";
+
+
+
+            /* FROM */
+
+            document.getElementById(
+                "bookingFrom"
+            ).textContent =
+
+                booking.from ||
+
+                booking.fromCity ||
+
+                booking.startingLocation ||
+
+                booking.start_location ||
+
+                "-";
+
+
+
+            /* DESTINATION */
+
+            document.getElementById(
+                "bookingDestination"
+            ).textContent =
+
+                booking.destination ||
+
+                booking.to ||
+
+                booking.toCity ||
+
+                "-";
+
+
+
+            /* DATE */
+
+            document.getElementById(
+                "bookingDate"
+            ).textContent =
+
+                booking.travelDate ||
+
+                booking.travel_date ||
+
+                booking.date ||
+
+                "-";
+
+
+
+            /* DAYS */
+
+            document.getElementById(
+                "bookingDays"
+            ).textContent =
+
+                booking.days ||
+
+                booking.numberOfDays ||
+
+                "1";
+
+
+
+            /* TRAVELERS */
+
+            document.getElementById(
+                "bookingTravelers"
+            ).textContent =
+
+                booking.travelers ||
+
+                booking.numberOfTravelers ||
+
+                "1";
+
+
+
+            /* VEHICLE */
+
+            document.getElementById(
+                "bookingVehicle"
+            ).textContent =
+
+                booking.vehicle ||
+
+                "-";
+
+
+
+            /* PAYMENT METHOD */
+
+            document.getElementById(
+                "paymentMethod"
+            ).textContent =
+
+                booking.paymentMethod ||
+
+                booking.payment_method ||
+
+                "Cash";
+
+
+
+            /* PAYMENT STATUS */
+
+            document.getElementById(
+                "paymentStatus"
+            ).textContent =
+
+                booking.status ||
+
+                booking.paymentStatus ||
+
+                booking.payment_status ||
+
+                "Paid";
+
+
+
+            /* TOTAL */
+
+            const total =
+
+                booking.total ||
+
+                booking.totalAmount ||
+
+                booking.total_amount ||
+
+                0;
+
+
+            document.getElementById(
+                "totalAmount"
+            ).textContent =
+
+                formatCurrency(total);
+
+        }
+
+
+
+        /* =================================================
+           IF BOOKING NOT FOUND
+        ================================================== */
+
+        else {
+
+            document.getElementById(
+                "bookingId"
+            ).textContent =
+                "Not Available";
+
+            document.getElementById(
+                "bookingName"
+            ).textContent =
+                "-";
+
+            document.getElementById(
+                "bookingMobile"
+            ).textContent =
+                "-";
+
+            document.getElementById(
+                "bookingFrom"
+            ).textContent =
+                "-";
+
+            document.getElementById(
+                "bookingDestination"
+            ).textContent =
+                "-";
+
+            document.getElementById(
+                "bookingDate"
+            ).textContent =
+                "-";
+
+            document.getElementById(
+                "bookingDays"
+            ).textContent =
+                "-";
+
+            document.getElementById(
+                "bookingTravelers"
+            ).textContent =
+                "-";
+
+            document.getElementById(
+                "bookingVehicle"
+            ).textContent =
+                "-";
+
+            document.getElementById(
+                "paymentMethod"
+            ).textContent =
+                "-";
+
+            document.getElementById(
+                "paymentStatus"
+            ).textContent =
+                "Not Available";
+
+            document.getElementById(
+                "totalAmount"
+            ).textContent =
+                "₹0";
+
+        }
+
+
+
+        /* =================================================
+           PRINT
+        ================================================== */
+
+        function printBooking() {
+
+            window.print();
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

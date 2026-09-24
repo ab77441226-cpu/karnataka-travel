@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - Karnataka Travel</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4faf6;
+        }
+
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 420px;
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .login-title {
+            text-align: center;
+            color: #087f3d;
+            margin-bottom: 8px;
+        }
+
+        .login-subtitle {
+            text-align: center;
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .form-group input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #087f3d;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 7px;
+            background: #087f3d;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background: #05652f;
+        }
+
+        .message {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 7px;
+            text-align: center;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .register-link a {
+            color: #087f3d;
+            font-weight: bold;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-page">
+
+    <div class="login-box">
+
+        <h1 class="login-title">
+            🏛️ Karnataka Travel
+        </h1>
+
+        <p class="login-subtitle">
+            Login to your account
+        </p>
+
+        <form id="loginForm">
+
+            <div class="form-group">
+
+                <label for="email">
+                    📧 Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">
+                    🔒 Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="login-btn"
+                id="loginBtn"
+            >
+                Login
+            </button>
+
+        </form>
+
+
+        <div
+            id="loginMessage"
+            class="message"
+        ></div>
+
+
+        <div class="register-link">
+
+            Don't have an account?
+
+            <a href="register.html">
+                Register
+            </a>
+<a href="forgot-password.html" class="forgot-link">
+    Forgot Password?
+</a>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+"use strict";
+
+
+/* =====================================================
+   CHECK ALREADY LOGGED-IN USER
+   LOGIN PAGE → HOME PAGE
+===================================================== */
+
+const savedUser =
+    sessionStorage.getItem("currentUser");
+
+
+if (savedUser) {
+
+    try {
+
+        const user =
+            JSON.parse(savedUser);
+
+        if (user && user.id) {
+
+            window.location.replace(
+                "index.html"
+            );
+
+        }
+
+    } catch (error) {
+
+        sessionStorage.removeItem(
+            "currentUser"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   LOGIN FORM
+===================================================== */
+
+const loginForm =
+    document.getElementById("loginForm");
+
+
+loginForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        const email =
+            document.getElementById(
+                "email"
+            ).value.trim();
+
+
+        const password =
+            document.getElementById(
+                "password"
+            ).value;
+
+
+        const loginBtn =
+            document.getElementById(
+                "loginBtn"
+            );
+
+
+        /* =========================================
+           VALIDATION
+        ========================================= */
+
+        if (!email || !password) {
+
+            showMessage(
+                "Please enter email and password."
+            );
+
+            return;
+        }
+
+
+        loginBtn.disabled = true;
+
+        loginBtn.textContent =
+            "Logging in...";
+
+
+        /* =========================================
+           LOGIN API
+        ========================================= */
+
+        try {
+
+            const response =
+                await fetch(
+                    "http://localhost:5000/api/login",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                email: email,
+
+                                password: password
+
+                            })
+
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            /* =====================================
+               LOGIN FAILED
+            ===================================== */
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                throw new Error(
+                    data.message ||
+                    "Invalid email or password."
+                );
+
+            }
+
+
+            /* =====================================
+               GET USER
+            ===================================== */
+
+            const user =
+                data.user;
+
+
+            if (
+                !user ||
+                !user.id
+            ) {
+
+                throw new Error(
+                    "Invalid user information received."
+                );
+
+            }
+
+
+            /* =====================================
+               SAVE CURRENT USER
+            ===================================== */
+
+            sessionStorage.setItem(
+                "currentUser",
+                JSON.stringify(user)
+            );
+
+
+            /* =====================================
+               LOGIN SUCCESS
+               → HOME PAGE
+            ===================================== */
+
+            window.location.replace(
+                "index.html"
+            );
+
+        }
+
+
+        /* =========================================
+           ERROR
+        ========================================= */
+
+        catch (error) {
+
+            console.error(
+                "Login error:",
+                error
+            );
+
+
+            showMessage(
+                error.message ||
+                "Login failed."
+            );
+
+
+            loginBtn.disabled =
+                false;
+
+
+            loginBtn.textContent =
+                "Login";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SHOW ERROR MESSAGE
+===================================================== */
+
+function showMessage(text) {
+
+    const message =
+        document.getElementById(
+            "loginMessage"
+        );
+
+
+    message.textContent =
+        text;
+
+
+    message.className =
+        "message error";
+
+
+    message.style.display =
+        "block";
+}
+
+</script>
+
+</body>
+</html>

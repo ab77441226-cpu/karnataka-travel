@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Booking History - Karnataka Travel</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4faf6;
+            color: #333;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            background: #087f3d;
+            color: white;
+            padding: 15px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #d7ffd9;
+        }
+
+        nav {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        nav a,
+        nav button {
+            text-decoration: none;
+            border: none;
+
+            background: white;
+            color: #087f3d;
+
+            padding: 9px 14px;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .logout-btn {
+            background: #c62828 !important;
+            color: white !important;
+        }
+
+        .logout-btn:hover {
+            background: #a91f1f !important;
+        }
+
+
+        /* ================= MAIN ================= */
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .heading h1 {
+            color: #087f3d;
+            font-size: 34px;
+            margin-bottom: 8px;
+        }
+
+        .heading p {
+            color: #777;
+        }
+
+
+        /* ================= HISTORY ================= */
+
+        #bookingHistory {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .history-card {
+            background: white;
+            padding: 22px;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.10);
+
+            border-top: 4px solid #087f3d;
+        }
+
+        .history-card h2 {
+            margin-top: 0;
+            color: #087f3d;
+        }
+
+        .booking-id {
+            display: inline-block;
+
+            background: #e8f5e9;
+            color: #087f3d;
+
+            padding: 6px 10px;
+
+            border-radius: 6px;
+
+            font-size: 13px;
+            font-weight: bold;
+
+            margin-bottom: 15px;
+        }
+
+        .detail {
+            display: flex;
+            justify-content: space-between;
+
+            padding: 9px 0;
+
+            border-bottom: 1px solid #eee;
+
+            gap: 15px;
+        }
+
+        .detail strong {
+            color: #444;
+        }
+
+        .detail span {
+            text-align: right;
+            color: #555;
+        }
+
+
+        /* ================= STATUS ================= */
+
+        .status {
+            display: inline-block;
+
+            padding: 5px 10px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-paid {
+            background: #e8f5e9;
+            color: #087f3d;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-cancelled {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+
+        /* ================= LOADING ================= */
+
+        .loading {
+            grid-column: 1 / -1;
+
+            background: white;
+
+            padding: 40px;
+
+            text-align: center;
+
+            border-radius: 14px;
+
+            color: #087f3d;
+
+            font-weight: bold;
+        }
+
+
+        /* ================= EMPTY ================= */
+
+        .empty-history {
+            grid-column: 1 / -1;
+
+            background: white;
+
+            text-align: center;
+
+            padding: 50px 20px;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .empty-history h2 {
+            color: #087f3d;
+        }
+
+        .book-btn {
+            display: inline-block;
+
+            background: #087f3d;
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 12px 20px;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+        }
+
+
+        /* ================= ERROR ================= */
+
+        .error-box {
+            grid-column: 1 / -1;
+
+            background: #ffebee;
+
+            color: #c62828;
+
+            padding: 20px;
+
+            text-align: center;
+
+            border-radius: 10px;
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 800px) {
+
+            #bookingHistory {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .heading h1 {
+                font-size: 27px;
+            }
+
+            .detail {
+                flex-direction: column;
+            }
+
+            .detail span {
+                text-align: left;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+    <div class="logo">
+
+        🏛️ Karnataka
+        <span>Travel</span>
+
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">
+            🏠 Home
+        </a>
+
+        <button
+            class="logout-btn"
+            onclick="logout()">
+
+            🚪 Logout
+
+        </button>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<div class="container">
+
+
+    <div class="heading">
+
+        <h1>
+            📋 Booking History
+        </h1>
+
+        <p>
+            Your previous bookings
+        </p>
+
+    </div>
+
+
+    <!-- ONLY BOOKING HISTORY -->
+
+    <div id="bookingHistory">
+
+        <div class="loading">
+
+            ⏳ Loading booking history...
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+"use strict";
+
+
+/* =====================================================
+   GET CURRENT USER
+
+   IMPORTANT:
+   Login page saves user in:
+
+   sessionStorage -> currentUser
+
+   So here also use currentUser.
+===================================================== */
+
+function getCurrentUser() {
+
+    const savedUser =
+        sessionStorage.getItem(
+            "currentUser"
+        );
+
+
+    if (!savedUser) {
+
+        return null;
+
+    }
+
+
+    try {
+
+        return JSON.parse(
+            savedUser
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "User data error:",
+            error
+        );
+
+        sessionStorage.removeItem(
+            "currentUser"
+        );
+
+        return null;
+
+    }
+
+}
+
+
+/* =====================================================
+   PAGE LOAD
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadBookingHistory();
+
+    }
+);
+
+
+
+/* =====================================================
+   LOAD USER BOOKING HISTORY
+===================================================== */
+
+async function loadBookingHistory() {
+
+
+    /* ---------------------------------------------
+       GET LOGGED-IN USER
+    --------------------------------------------- */
+
+    const user =
+        getCurrentUser();
+
+
+    /* ---------------------------------------------
+       USER NOT LOGGED IN
+    --------------------------------------------- */
+
+    if (
+        !user ||
+        !user.id
+    ) {
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    console.log(
+        "Logged in user:",
+        user
+    );
+
+
+    /* ---------------------------------------------
+       LOAD BOOKINGS FROM DATABASE
+    --------------------------------------------- */
+
+    try {
+
+        const response =
+            await fetch(
+                "http://localhost:5000/api/bookings/user/" +
+                encodeURIComponent(
+                    user.id
+                )
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Booking history:",
+            data
+        );
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            showError(
+                data.message ||
+                "Unable to load booking history."
+            );
+
+            return;
+
+        }
+
+
+        displayBookings(
+            data.bookings || []
+        );
+
+
+    }
+    catch (error) {
+
+        console.error(
+            "Booking history error:",
+            error
+        );
+
+
+        showError(
+            "Server connection failed. Please start your backend server."
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   DISPLAY BOOKINGS
+===================================================== */
+
+function displayBookings(
+    bookings
+) {
+
+    const container =
+        document.getElementById(
+            "bookingHistory"
+        );
+
+
+    /* ---------------------------------------------
+       NO BOOKINGS
+    --------------------------------------------- */
+
+    if (
+        !Array.isArray(bookings) ||
+        bookings.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty-history">
+
+                <h2>
+                    📋 No Booking History
+                </h2>
+
+                <p>
+                    You have not booked any trip yet.
+                </p>
+
+                <a
+                    href="index.html"
+                    class="book-btn">
+
+                    🚌 Book Your Trip
+
+                </a>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /* ---------------------------------------------
+       SHOW BOOKINGS
+    --------------------------------------------- */
+
+    container.innerHTML =
+        bookings
+        .slice()
+        .reverse()
+        .map(
+            createBookingCard
+        )
+        .join("");
+
+}
+
+
+
+/* =====================================================
+   CREATE BOOKING CARD
+===================================================== */
+
+function createBookingCard(
+    booking
+) {
+
+
+    const status =
+        booking.status ||
+        "Pending";
+
+
+    const statusText =
+        String(status)
+        .toLowerCase();
+
+
+    let statusClass =
+        "status-pending";
+
+
+    if (
+        statusText.includes(
+            "paid"
+        )
+    ) {
+
+        statusClass =
+            "status-paid";
+
+    }
+
+
+    if (
+        statusText.includes(
+            "cancel"
+        )
+    ) {
+
+        statusClass =
+            "status-cancelled";
+
+    }
+
+
+    /* ---------------------------------------------
+       DATE
+    --------------------------------------------- */
+
+    let travelDate =
+        booking.travel_date ||
+        booking.travelDate ||
+        "-";
+
+
+    if (
+        travelDate !== "-"
+    ) {
+
+        const date =
+            new Date(
+                travelDate
+            );
+
+
+        if (
+            !isNaN(
+                date.getTime()
+            )
+        ) {
+
+            travelDate =
+                date.toLocaleDateString(
+                    "en-IN"
+                );
+
+        }
+
+    }
+
+
+    /* ---------------------------------------------
+       TOTAL
+    --------------------------------------------- */
+
+    const total =
+        Number(
+            booking.total || 0
+        );
+
+
+    return `
+
+        <div class="history-card">
+
+
+            <h2>
+
+                🚌
+                ${escapeHTML(
+                    booking.destination ||
+                    "Karnataka Trip"
+                )}
+
+            </h2>
+
+
+            <div class="booking-id">
+
+                🎫 Booking ID:
+                ${escapeHTML(
+                    booking.booking_id ||
+                    booking.bookingId ||
+                    "-"
+                )}
+
+            </div>
+
+
+            <!-- FROM -->
+
+            <div class="detail">
+
+                <strong>
+                    📍 From
+                </strong>
+
+                <span>
+
+                    ${escapeHTML(
+                        booking.from_location ||
+                        booking.from ||
+                        "-"
+                    )}
+
+                </span>
+
+            </div>
+
+
+            <!-- DESTINATION -->
+
+            <div class="detail">
+
+                <strong>
+                    🎯 Destination
+                </strong>
+
+                <span>
+
+                    ${escapeHTML(
+                        booking.destination ||
+                        "-"
+                    )}
+
+                </span>
+
+            </div>
+
+
+            <!-- DATE -->
+
+            <div class="detail">
+
+                <strong>
+                    📅 Travel Date
+                </strong>
+
+                <span>
+
+                    ${escapeHTML(
+                        travelDate
+                    )}
+
+                </span>
+
+            </div>
+
+
+            <!-- DAYS -->
+
+            <div class="detail">
+
+                <strong>
+                    🗓️ Days
+                </strong>
+
+                <span>
+
+                    ${escapeHTML(
+                        booking.days ||
+                        "-"
+                    )}
+
+                </span>
+
+            </div>
+
+
+            <!-- TRAVELERS -->
+
+            <div class="detail">
+
+                <strong>
+                    👥 Travelers
+                </strong>
+
+                <span>
+
+                    ${escapeHTML(
+                        booking.travelers ||
+                        "-"
+                    )}
+
+                </span>
+
+            </div>
+
+
+            <!-- VEHICLE -->
+
+            <div class="detail">
+
+                <strong>
+                    🚐 Vehicle
+                </strong>
+
+                <span>
+
+                    ${escapeHTML(
+                        booking.vehicle ||
+                        "-"
+                    )}
+
+                </span>
+
+            </div>
+
+
+            <!-- TOTAL -->
+
+            <div class="detail">
+
+                <strong>
+                    💰 Total
+                </strong>
+
+                <span>
+
+                    ₹${total.toLocaleString(
+                        "en-IN"
+                    )}
+
+                </span>
+
+            </div>
+
+
+            <!-- PAYMENT -->
+
+            <div class="detail">
+
+                <strong>
+                    💳 Payment
+                </strong>
+
+                <span>
+
+                    ${escapeHTML(
+                        booking.payment_method ||
+                        booking.paymentMethod ||
+                        "Pending"
+                    )}
+
+                </span>
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="detail">
+
+                <strong>
+                    📌 Status
+                </strong>
+
+                <span>
+
+                    <span
+                        class="status ${statusClass}">
+
+                        ${escapeHTML(
+                            status
+                        )}
+
+                    </span>
+
+                </span>
+
+            </div>
+
+
+        </div>
+
+    `;
+
+}
+
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+function showError(
+    message
+) {
+
+    const container =
+        document.getElementById(
+            "bookingHistory"
+        );
+
+
+    container.innerHTML = `
+
+        <div class="error-box">
+
+            ❌
+            ${escapeHTML(
+                message
+            )}
+
+        </div>
+
+    `;
+
+}
+
+
+
+/* =====================================================
+   SECURITY
+===================================================== */
+
+function escapeHTML(
+    value
+) {
+
+    return String(
+        value ?? ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout() {
+
+    sessionStorage.removeItem(
+        "currentUser"
+    );
+
+    sessionStorage.removeItem(
+        "currentBooking"
+    );
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+</script>
+
+
+</body>
+
+</html>

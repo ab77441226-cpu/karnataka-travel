@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Karnataka Travel & Tourism</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Leaflet Map -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <style>
+
+        /* ================================
+           SEARCH SECTION
+        ================================= */
+
+        .search-section {
+            padding: 35px 20px;
+            background: #f4faf6;
+        }
+
+        .search-box {
+            max-width: 1100px;
+            margin: auto;
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.10);
+
+            display: grid;
+
+            grid-template-columns:
+                1.3fr 1.3fr 1fr 0.8fr 1fr;
+
+            gap: 15px;
+
+            align-items: end;
+        }
+
+        .search-field label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+            color: #333;
+        }
+
+        .search-field select,
+        .search-field input {
+            width: 100%;
+            box-sizing: border-box;
+
+            padding: 12px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+
+            background: white;
+        }
+
+        .search-field select:focus,
+        .search-field input:focus {
+            border-color: #087f3d;
+            outline: none;
+        }
+
+        /* =================================
+           FROM AREA
+        ================================= */
+
+        .from-area {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .location-btn {
+            width: 100%;
+
+            margin-top: 8px;
+
+            padding: 9px 10px;
+
+            border: none;
+
+            border-radius: 6px;
+
+            background: #087f3d;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .location-btn:hover {
+            background: #05652f;
+        }
+
+        .location-status {
+            display: block;
+
+            margin-top: 5px;
+
+            font-size: 11px;
+
+            color: #087f3d;
+        }
+
+        .search-btn {
+            width: 100%;
+
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #087f3d;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .search-btn:hover {
+            background: #05652f;
+        }
+
+        /* =================================
+           MOBILE
+        ================================= */
+
+        @media(max-width: 1000px) {
+
+            .search-box {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+        @media(max-width: 600px) {
+
+            .search-box {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
+<header>
+
+    <div class="logo">
+        🏛️ Karnataka <span>Travel</span>
+    </div>
+
+    <nav>
+
+        <a href="#home">
+            Home
+        </a>
+
+        <a href="#destinations">
+            Districts
+        </a>
+
+        <a href="#vehicles">
+            Vehicles
+        </a>
+
+        <a href="#about">
+            About
+        </a>
+
+        <a href="contact.html">
+            Contact
+        </a>
+
+       <a href="login.html" id="loginProfileLink">
+    Login
+</a>
+
+        <a href="register.html"
+           class="book-btn">
+            Register
+        </a>
+
+        <a href="booking-history.html">
+            Booking History
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- =========================================
+     HERO
+========================================= -->
+
+<section class="hero"
+         id="home">
+
+    <div class="hero-content">
+
+        <h1>
+            Explore Beautiful
+            <span>Karnataka</span>
+        </h1>
+
+        <p>
+            Discover historical cities, beautiful beaches,
+            waterfalls, mountains, temples and wildlife
+            across Karnataka.
+        </p>
+
+        <a href="#destinations"
+           class="main-btn">
+            Explore Karnataka
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     SEARCH TRIP
+========================================= -->
+
+<section class="search-section">
+
+    <div class="search-box">
+
+
+        <!-- ==============================
+             FROM
+        =============================== -->
+
+        <div class="search-field from-area">
+
+            <label for="fromCity">
+                📍 From
+            </label>
+
+            <select id="fromCity">
+
+                <option value="">
+                    Select Starting Location
+                </option>
+
+            </select>
+
+
+            <!-- USE MY LOCATION
+                 BELOW FROM -->
+
+            <button
+                type="button"
+                class="location-btn"
+                onclick="useMyLocation()">
+
+                📍 Use My Location
+
+            </button>
+
+
+            <span
+                id="locationStatus"
+                class="location-status">
+            </span>
+
+        </div>
+
+
+        <!-- ==============================
+             TO
+        =============================== -->
+
+        <div class="search-field">
+
+            <label for="toCity">
+                🎯 To
+            </label>
+
+            <select id="toCity">
+
+                <option value="">
+                    Select Destination
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- ==============================
+             DATE
+        =============================== -->
+
+        <div class="search-field">
+
+            <label for="travelDate">
+                📅 Travel Date
+            </label>
+
+            <input
+                type="date"
+                id="travelDate">
+
+        </div>
+
+
+        <!-- ==============================
+             DAYS
+        =============================== -->
+
+        <div class="search-field">
+
+            <label for="travelDays">
+                🗓️ Days
+            </label>
+
+            <input
+                type="number"
+                id="travelDays"
+                min="1"
+                max="30"
+                value="1">
+
+        </div>
+
+
+        <!-- ==============================
+             SEARCH
+        =============================== -->
+
+        <div>
+
+            <button
+                type="button"
+                class="search-btn"
+                onclick="searchTrip()">
+
+                Search Trip 🔍
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     DISTRICTS
+========================================= -->
+
+<section class="section"
+         id="destinations">
+
+    <h2>
+        All Karnataka Districts
+    </h2>
+
+    <p class="section-text">
+        Explore all 31 districts of Karnataka
+    </p>
+
+    <div
+        class="cards"
+        id="districtCards">
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     VEHICLES
+========================================= -->
+
+<section
+    class="section vehicle-section"
+    id="vehicles">
+
+    <h2>
+        Our Travel Vehicles
+    </h2>
+
+    <p class="section-text">
+        Choose a comfortable vehicle for your journey
+    </p>
+
+
+    <div class="vehicle-container">
+
+
+        <div class="vehicle">
+
+            <div class="vehicle-icon">
+                🚌
+            </div>
+
+            <h3>
+                Chadchan Express
+            </h3>
+
+            <p>
+                ₹2,500 / day
+            </p>
+
+            <a href="booking.html"
+               class="vehicle-btn">
+                Book Vehicle
+            </a>
+
+        </div>
+
+
+        <div class="vehicle">
+
+            <div class="vehicle-icon">
+                🚐
+            </div>
+
+            <h3>
+                Ranadhir
+            </h3>
+
+            <p>
+                ₹3,000 / day
+            </p>
+
+            <a href="booking.html"
+               class="vehicle-btn">
+                Book Vehicle
+            </a>
+
+        </div>
+
+
+        <div class="vehicle">
+
+            <div class="vehicle-icon">
+                🚙
+            </div>
+
+            <h3>
+                Devil
+            </h3>
+
+            <p>
+                ₹3,500 / day
+            </p>
+
+            <a href="booking.html"
+               class="vehicle-btn">
+                Book Vehicle
+            </a>
+
+        </div>
+
+
+        <div class="vehicle">
+
+            <div class="vehicle-icon">
+                🚘
+            </div>
+
+            <h3>
+                Toxic
+            </h3>
+
+            <p>
+                ₹4,000 / day
+            </p>
+
+            <a href="booking.html"
+               class="vehicle-btn">
+                Book Vehicle
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     ABOUT
+========================================= -->
+
+<section class="about"
+         id="about">
+
+    <h2>
+        Why Choose Karnataka Travel?
+    </h2>
+
+    <div class="features">
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                💰
+            </div>
+
+            <h3>
+                Best Price
+            </h3>
+
+            <p>
+                Affordable travel packages
+                for everyone.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🚗
+            </div>
+
+            <h3>
+                Comfortable Travel
+            </h3>
+
+            <p>
+                Clean and comfortable
+                vehicles.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                📞
+            </div>
+
+            <h3>
+                24/7 Support
+            </h3>
+
+            <p>
+                Customer support whenever
+                you need us.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🔒
+            </div>
+
+            <h3>
+                Secure Booking
+            </h3>
+
+            <p>
+                Simple and secure
+                booking process.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
+<footer>
+
+    <h2>
+        🏛️ Karnataka Travel & Tourism
+    </h2>
+
+    <p>
+        Explore • Travel • Discover • Enjoy
+    </p>
+
+    <p>
+        <a href="contact.html"
+           style="color:white;">
+            Contact Us
+        </a>
+    </p>
+
+    <p>
+        © 2026 Karnataka Travel
+    </p>
+
+</footer>
+
+
+<!-- =========================================
+     LEAFLET
+========================================= -->
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+
+<script src="script.js"></script>
+
+
+<script>
+
+/* =========================================
+   KARNATAKA DISTRICTS
+========================================= */
+
+const karnatakaDistricts = [
+
+    "Bagalkot",
+    "Ballari",
+    "Belagavi",
+    "Bengaluru Urban",
+    "Bengaluru Rural",
+    "Bidar",
+    "Chamarajanagar",
+    "Chikkaballapur",
+    "Chikkamagaluru",
+    "Chitradurga",
+    "Dakshina Kannada",
+    "Davanagere",
+    "Dharwad",
+    "Gadag",
+    "Hassan",
+    "Haveri",
+    "Kalaburagi",
+    "Kodagu",
+    "Kolar",
+    "Koppal",
+    "Mandya",
+    "Mysuru",
+    "Raichur",
+    "Ramanagara",
+    "Shivamogga",
+    "Tumakuru",
+    "Udupi",
+    "Uttara Kannada",
+    "Vijayanagara",
+    "Vijayapura",
+    "Yadgir"
+
+];
+
+
+/* =========================================
+   ADD DISTRICTS TO DROPDOWNS
+========================================= */
+
+const fromCity =
+    document.getElementById("fromCity");
+
+const toCity =
+    document.getElementById("toCity");
+
+
+karnatakaDistricts.forEach(function(district) {
+
+    const fromOption =
+        document.createElement("option");
+
+    fromOption.value =
+        district;
+
+    fromOption.textContent =
+        district;
+
+    fromCity.appendChild(
+        fromOption
+    );
+
+
+    const toOption =
+        document.createElement("option");
+
+    toOption.value =
+        district;
+
+    toOption.textContent =
+        district;
+
+    toCity.appendChild(
+        toOption
+    );
+
+});
+
+
+/* =========================================
+   TODAY MINIMUM DATE
+========================================= */
+
+const travelDate =
+    document.getElementById(
+        "travelDate"
+    );
+
+
+const today =
+    new Date();
+
+
+const todayString =
+    today.getFullYear() +
+    "-" +
+    String(
+        today.getMonth() + 1
+    ).padStart(2, "0") +
+    "-" +
+    String(
+        today.getDate()
+    ).padStart(2, "0");
+
+
+travelDate.min =
+    todayString;
+
+
+/* =========================================
+   SEARCH TRIP
+========================================= */
+
+function searchTrip() {
+
+    const from =
+        fromCity.value;
+
+    const to =
+        toCity.value;
+
+    const date =
+        travelDate.value;
+
+    const days =
+        document.getElementById(
+            "travelDays"
+        ).value;
+
+
+    if (!from) {
+
+        alert(
+            "Please select starting location."
+        );
+
+        return;
+
+    }
+
+
+    if (!to) {
+
+        alert(
+            "Please select destination."
+        );
+
+        return;
+
+    }
+
+
+    if (from === to) {
+
+        alert(
+            "Starting location and destination cannot be same."
+        );
+
+        return;
+
+    }
+
+
+    if (!date) {
+
+        alert(
+            "Please select travel date."
+        );
+
+        return;
+
+    }
+
+
+    if (!days || Number(days) < 1) {
+
+        alert(
+            "Please select number of days."
+        );
+
+        return;
+
+    }
+
+
+    const url =
+        "booking.html?" +
+
+        "from=" +
+        encodeURIComponent(from) +
+
+        "&destination=" +
+        encodeURIComponent(to) +
+
+        "&date=" +
+        encodeURIComponent(date) +
+
+        "&days=" +
+        encodeURIComponent(days);
+
+
+    window.location.href =
+        url;
+
+}
+
+
+/* =========================================
+   USE MY LOCATION
+========================================= */
+
+function useMyLocation() {
+
+    const status =
+        document.getElementById(
+            "locationStatus"
+        );
+
+
+    if (!navigator.geolocation) {
+
+        status.textContent =
+            "Location is not supported.";
+
+        return;
+
+    }
+
+
+    status.textContent =
+        "Getting your location...";
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        async function(position) {
+
+            const latitude =
+                position.coords.latitude;
+
+            const longitude =
+                position.coords.longitude;
+
+
+            try {
+
+                const response =
+                    await fetch(
+
+                        "https://nominatim.openstreetmap.org/reverse?" +
+
+                        "format=json" +
+
+                        "&lat=" +
+                        latitude +
+
+                        "&lon=" +
+                        longitude +
+
+                        "&zoom=10"
+
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                const address =
+                    data.address || {};
+
+
+                const possibleNames = [
+
+                    address.county,
+                    address.city_district,
+                    address.city,
+                    address.town,
+                    address.municipality
+
+                ].filter(Boolean);
+
+
+                let found =
+                    "";
+
+
+                for (
+                    const name of possibleNames
+                ) {
+
+                    const match =
+                        karnatakaDistricts.find(
+                            function(district) {
+
+                                return (
+
+                                    district
+                                        .toLowerCase()
+                                        .includes(
+                                            name.toLowerCase()
+                                        )
+
+                                    ||
+
+                                    name
+                                        .toLowerCase()
+                                        .includes(
+                                            district.toLowerCase()
+                                        )
+
+                                );
+
+                            }
+                        );
+
+
+                    if (match) {
+
+                        found =
+                            match;
+
+                        break;
+
+                    }
+
+                }
+
+
+                if (found) {
+
+                    fromCity.value =
+                        found;
+
+
+                    status.textContent =
+                        "📍 Starting location: " +
+                        found;
+
+                }
+                else {
+
+                    status.textContent =
+                        "Location detected. Please select your district.";
+
+                }
+
+            }
+            catch(error) {
+
+                console.error(error);
+
+                status.textContent =
+                    "Unable to detect district. Please select manually.";
+
+            }
+
+        },
+
+
+        function(error) {
+
+            if (
+                error.code === 1
+            ) {
+
+                status.textContent =
+                    "Please allow location permission.";
+
+            }
+            else {
+
+                status.textContent =
+                    "Unable to get your location.";
+
+            }
+
+        },
+
+
+        {
+
+            enableHighAccuracy: true,
+
+            timeout: 10000,
+
+            maximumAge: 0
+
+        }
+
+    );
+
+}
+
+
+/* =========================================
+   DISTRICT FROM URL
+========================================= */
+
+const urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const destinationFromURL =
+    urlParams.get(
+        "destination"
+    );
+
+
+if (destinationFromURL) {
+
+    const match =
+        karnatakaDistricts.find(
+            function(district) {
+
+                return (
+                    district.toLowerCase() ===
+                    destinationFromURL.toLowerCase()
+                );
+
+            }
+        );
+
+
+    if (match) {
+
+        toCity.value =
+            match;
+
+    }
+
+}
+
+</script>
+<script>
+const loggedUser =
+    sessionStorage.getItem("currentUser");
+
+if (loggedUser) {
+
+    try {
+
+        const user =
+            JSON.parse(loggedUser);
+
+        if (user && user.id) {
+
+            const loginLink =
+                document.getElementById(
+                    "loginProfileLink"
+                );
+
+            if (loginLink) {
+
+                loginLink.textContent =
+                    "👤 My Profile";
+
+                loginLink.href =
+                    "my-profile.html";
+            }
+        }
+
+    } catch(error) {
+
+        sessionStorage.removeItem(
+            "currentUser"
+        );
+
+    }
+}
+</script>
+
+</body>
+
+</html>

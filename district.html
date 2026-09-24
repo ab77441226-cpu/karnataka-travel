@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Karnataka District - Travel</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* =========================================
+           DISTRICT PAGE
+        ========================================= */
+
+        .district-page {
+            width: 100%;
+            min-height: 100vh;
+            background: #f4faf6;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        .district-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 18px;
+            padding: 40px;
+            box-sizing: border-box;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.10);
+        }
+
+
+        /* =========================================
+           DISTRICT DETAILS
+        ========================================= */
+
+        .district-details {
+            text-align: center;
+        }
+
+        .district-icon {
+            font-size: 45px;
+            margin-bottom: 10px;
+        }
+
+        .district-details h1 {
+            color: #087f3d;
+            font-size: 42px;
+            margin: 10px 0;
+        }
+
+        .district-description {
+            font-size: 18px;
+            color: #555;
+            margin: 10px auto 30px;
+            line-height: 1.6;
+        }
+
+        .district-details h2 {
+            color: #087f3d;
+            font-size: 28px;
+            margin: 25px 0;
+        }
+
+
+        /* =========================================
+           TOURIST PLACES
+        ========================================= */
+
+        .places-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .place-card {
+            width: 100%;
+            min-height: 100px;
+            padding: 25px;
+            box-sizing: border-box;
+
+            background: #f4faf6;
+            border: 1px solid #d4eadf;
+            border-radius: 12px;
+
+            display: flex;
+            align-items: center;
+            gap: 18px;
+
+            text-align: left;
+
+            transition: 0.3s ease;
+        }
+
+        .place-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+            border-color: #087f3d;
+        }
+
+        .place-card span {
+            font-size: 25px;
+            flex-shrink: 0;
+        }
+
+        .place-card strong {
+            color: #087f3d;
+            font-size: 20px;
+        }
+
+
+        /* =========================================
+           BUTTON AREA
+           BACK = LEFT
+           BOOK = RIGHT
+        ========================================= */
+
+        .district-actions {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+
+            justify-content: space-between;
+            align-items: center;
+
+            margin-top: 35px;
+            gap: 30px;
+        }
+
+
+        /* =========================================
+           BACK BUTTON - LEFT
+        ========================================= */
+
+        .back-district-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-width: 210px;
+            padding: 14px 24px;
+
+            background: #f1f3f4;
+            color: #333;
+
+            text-decoration: none;
+
+            border: 1px solid #d5dadd;
+            border-radius: 9px;
+
+            font-size: 16px;
+            font-weight: 600;
+
+            box-sizing: border-box;
+
+            transition: 0.3s ease;
+        }
+
+        .back-district-btn:hover {
+            background: #e2e6e8;
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================================
+           BOOK BUTTON - RIGHT
+        ========================================= */
+
+        .book-district-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-width: 220px;
+            padding: 14px 24px;
+
+            background: #087f3d;
+            color: white;
+
+            text-decoration: none;
+
+            border: none;
+            border-radius: 9px;
+
+            font-size: 16px;
+            font-weight: 700;
+
+            box-sizing: border-box;
+
+            transition: 0.3s ease;
+        }
+
+        .book-district-btn:hover {
+            background: #066b32;
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================================
+           ERROR MESSAGE
+        ========================================= */
+
+        .error-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 700px) {
+
+            .district-page {
+                padding: 20px 10px;
+            }
+
+            .district-container {
+                padding: 25px 15px;
+            }
+
+            .district-details h1 {
+                font-size: 32px;
+            }
+
+            .district-description {
+                font-size: 16px;
+            }
+
+            .district-details h2 {
+                font-size: 24px;
+            }
+
+            .place-card {
+                padding: 20px;
+            }
+
+
+            /* Mobile also keeps buttons in one line
+               when enough space is available */
+
+            .district-actions {
+                gap: 15px;
+            }
+
+            .back-district-btn,
+            .book-district-btn {
+                min-width: 0;
+                width: 50%;
+                padding: 12px 10px;
+                font-size: 14px;
+            }
+        }
+
+
+        /* Very small screens */
+
+        @media (max-width: 450px) {
+
+            .district-actions {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .back-district-btn,
+            .book-district-btn {
+                width: 100%;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
+<header>
+
+    <div class="logo">
+        🏛️ Karnataka <span>Travel</span>
+    </div>
+
+    <nav>
+
+        <a href="index.html#home">
+            Home
+        </a>
+
+        <a href="index.html#destinations">
+            Districts
+        </a>
+
+        <a href="index.html#vehicles">
+            Vehicles
+        </a>
+
+        <a href="index.html#about">
+            About
+        </a>
+
+        <a href="contact.html">
+            Contact
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =========================================
+     DISTRICT PAGE
+========================================= -->
+
+<main class="district-page">
+
+    <div class="district-container">
+
+        <div id="districtDetails"
+             class="district-details">
+
+            <h1>Loading...</h1>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<!-- =========================================
+     MAIN SCRIPT
+========================================= -->
+
+<script src="script.js"></script>
+
+
+
+<!-- =========================================
+     DISTRICT PAGE SCRIPT
+========================================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+
+    const details =
+        document.getElementById("districtDetails");
+
+
+    /* =========================================
+       GET URL PARAMETER
+    ========================================= */
+
+    const urlParams =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    let districtName =
+        urlParams.get("district");
+
+
+    /* =========================================
+       OLD LINK SUPPORT
+    ========================================= */
+
+    if (!districtName) {
+
+        districtName =
+            urlParams.get("place");
+
+    }
+
+
+    /* =========================================
+       DISTRICT NOT SELECTED
+    ========================================= */
+
+    if (!districtName) {
+
+        details.innerHTML = `
+
+            <div class="error-icon">
+                ⚠️
+            </div>
+
+            <h1>
+                Select a District
+            </h1>
+
+            <p class="district-description">
+                Please select a district from
+                the Karnataka Travel home page.
+            </p>
+
+            <div class="district-actions">
+
+                <a
+                    href="index.html#destinations"
+                    class="back-district-btn"
+                >
+                    ← Back to Districts
+                </a>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /* =========================================
+       DECODE DISTRICT NAME
+    ========================================= */
+
+    try {
+
+        districtName =
+            decodeURIComponent(
+                districtName
+            );
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+
+    /* =========================================
+       CHECK DISTRICTS ARRAY
+    ========================================= */
+
+    if (
+        typeof districts === "undefined" ||
+        !Array.isArray(districts)
+    ) {
+
+        details.innerHTML = `
+
+            <div class="error-icon">
+                ⚠️
+            </div>
+
+            <h1>
+                District Data Not Found
+            </h1>
+
+            <p class="district-description">
+                Please check your script.js file.
+            </p>
+
+            <div class="district-actions">
+
+                <a
+                    href="index.html#destinations"
+                    class="back-district-btn"
+                >
+                    ← Back to Districts
+                </a>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /* =========================================
+       FIND SELECTED DISTRICT
+    ========================================= */
+
+    const district =
+        districts.find(function (item) {
+
+            return (
+                item.name.toLowerCase() ===
+                districtName.toLowerCase()
+            );
+
+        });
+
+
+    /* =========================================
+       DISTRICT NOT FOUND
+    ========================================= */
+
+    if (!district) {
+
+        details.innerHTML = `
+
+            <div class="error-icon">
+                ⚠️
+            </div>
+
+            <h1>
+                District Not Found
+            </h1>
+
+            <p class="district-description">
+
+                Sorry, details for
+                <strong>
+                    ${districtName}
+                </strong>
+                are not available.
+
+            </p>
+
+            <div class="district-actions">
+
+                <a
+                    href="index.html#destinations"
+                    class="back-district-btn"
+                >
+                    ← Back to Districts
+                </a>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /* =========================================
+       DESCRIPTIONS
+    ========================================= */
+
+    const descriptions = {
+
+        "Bagalkot":
+            "Bagalkot is famous for its ancient temples, historical monuments and beautiful architectural heritage.",
+
+        "Ballari":
+            "Ballari is known for historical forts, temples and beautiful heritage attractions.",
+
+        "Belagavi":
+            "Belagavi is known for forts, waterfalls, temples and beautiful natural attractions.",
+
+        "Bengaluru Urban":
+            "Bengaluru is the capital city of Karnataka and is famous for parks, technology and modern attractions.",
+
+        "Bengaluru Rural":
+            "Bengaluru Rural is known for historical places, temples and scenic hill areas.",
+
+        "Bidar":
+            "Bidar is famous for its magnificent fort, historical monuments and Bidri handicrafts.",
+
+        "Chamarajanagar":
+            "Chamarajanagar is known for hills, forests, temples and wildlife.",
+
+        "Chikkaballapur":
+            "Chikkaballapur is famous for Nandi Hills, temples and beautiful mountain landscapes.",
+
+        "Chikkamagaluru":
+            "Chikkamagaluru is famous for coffee plantations, mountains, waterfalls and beautiful scenery.",
+
+        "Chitradurga":
+            "Chitradurga is famous for its historic fort, hills and ancient archaeological sites.",
+
+        "Dakshina Kannada":
+            "Dakshina Kannada is famous for beaches, temples, food and coastal attractions.",
+
+        "Davanagere":
+            "Davanagere is known for temples, lakes and its famous local cuisine.",
+
+        "Dharwad":
+            "Dharwad is famous for its cultural heritage, music and educational institutions.",
+
+        "Gadag":
+            "Gadag is known for ancient temples and remarkable Chalukyan architecture.",
+
+        "Hassan":
+            "Hassan is famous for Hoysala temples, historical monuments and beautiful heritage sites.",
+
+        "Haveri":
+            "Haveri is known for ancient temples, historical places and natural attractions.",
+
+        "Kalaburagi":
+            "Kalaburagi is famous for historical forts, religious places and architectural heritage.",
+
+        "Kodagu":
+            "Kodagu is famous for coffee plantations, waterfalls, forests and beautiful hill landscapes.",
+
+        "Kolar":
+            "Kolar is known for historical sites, temples and scenic attractions.",
+
+        "Koppal":
+            "Koppal is famous for ancient temples, historical monuments and heritage places.",
+
+        "Mandya":
+            "Mandya is known for waterfalls, temples, historical places and beautiful gardens.",
+
+        "Mysuru":
+            "Mysuru is famous for its magnificent palace, gardens, temples, culture and heritage.",
+
+        "Raichur":
+            "Raichur is known for historical forts, temples and archaeological sites.",
+
+        "Ramanagara":
+            "Ramanagara is famous for rocky hills, silk production and scenic landscapes.",
+
+        "Shivamogga":
+            "Shivamogga is famous for waterfalls, forests, hills and beautiful natural attractions.",
+
+        "Tumakuru":
+            "Tumakuru is known for temples, hills, natural springs and cultural attractions.",
+
+        "Udupi":
+            "Udupi is famous for its temples, beaches, islands and delicious coastal cuisine.",
+
+        "Uttara Kannada":
+            "Uttara Kannada is famous for beaches, waterfalls, forests, temples and wildlife.",
+
+        "Vijayanagara":
+            "Vijayanagara is famous for Hampi, ancient temples, monuments and historical heritage.",
+
+        "Vijayapura":
+            "Vijayapura is famous for magnificent historical monuments and Islamic architecture.",
+
+        "Yadgir":
+            "Yadgir is known for historical forts, ancient archaeological sites and temples."
+
+    };
+
+
+    const description =
+        descriptions[district.name] ||
+        "Explore the beautiful tourist places and attractions of this district in Karnataka.";
+
+
+
+    /* =========================================
+       SHOW DISTRICT DETAILS
+    ========================================= */
+
+    details.innerHTML = `
+
+        <div class="district-icon">
+            📍
+        </div>
+
+
+        <h1>
+            ${district.name}
+        </h1>
+
+
+        <p class="district-description">
+            ${description}
+        </p>
+
+
+        <h2>
+            🗺️ Tourist Places
+        </h2>
+
+
+        <div class="places-list">
+
+            ${
+                district.places.map(function (place) {
+
+                    return `
+
+                        <div class="place-card">
+
+                            <span>
+                                📍
+                            </span>
+
+                            <strong>
+                                ${place}
+                            </strong>
+
+                        </div>
+
+                    `;
+
+                }).join("")
+            }
+
+        </div>
+
+
+
+        <!-- =================================
+             BUTTONS
+             BACK LEFT
+             BOOK RIGHT
+        ================================= -->
+
+        <div class="district-actions">
+
+
+            <!-- LEFT BUTTON -->
+
+            <a
+                href="index.html#destinations"
+                class="back-district-btn"
+            >
+                ← Back to Districts
+            </a>
+
+
+
+            <!-- RIGHT BUTTON -->
+
+            <a
+                href="booking.html?destination=${encodeURIComponent(district.name)}"
+                class="book-district-btn"
+            >
+                🚌 Book Trip to ${district.name}
+            </a>
+
+
+        </div>
+
+    `;
+
+});
+
+</script>
+
+
+</body>
+
+</html>

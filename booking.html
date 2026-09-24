@@ -1,0 +1,1977 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Book Your Trip - Karnataka Travel</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- LEAFLET CSS -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+    <style>
+
+        /* =====================================================
+           BOOKING PAGE
+        ===================================================== */
+
+        .booking-page {
+            min-height: 100vh;
+            background: #f4faf6;
+            padding: 45px 20px;
+        }
+
+        .booking-container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .booking-title {
+            text-align: center;
+            color: #087f3d;
+            font-size: 36px;
+            margin-bottom: 8px;
+        }
+
+        .booking-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .booking-box {
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+        }
+
+        /* =====================================================
+           FORM
+        ===================================================== */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 5px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            box-sizing: border-box;
+
+            padding: 13px;
+
+            border: 1px solid #ccc;
+            border-radius: 7px;
+
+            font-size: 15px;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #087f3d;
+        }
+
+        /* =====================================================
+           FROM / TO
+        ===================================================== */
+
+        .location-box {
+            background: #f8fbf9;
+            border: 1px solid #dce9df;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .location-title {
+            font-weight: bold;
+            color: #087f3d;
+            margin-bottom: 8px;
+        }
+
+        /* =====================================================
+           PRICE
+        ===================================================== */
+
+        .price-box {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f4faf6;
+            border-radius: 10px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            color: #555;
+        }
+
+        .total-row {
+            border-top: 1px solid #ccc;
+            margin-top: 12px;
+            padding-top: 12px;
+
+            font-size: 20px;
+            font-weight: bold;
+            color: #087f3d;
+        }
+
+        /* =====================================================
+           MAP BUTTON
+        ===================================================== */
+
+        .route-map-section {
+            margin-top: 25px;
+        }
+
+        .open-map-btn {
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+            border-radius: 8px;
+
+            background: #087f3d;
+            color: white;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .open-map-btn:hover {
+            background: #05652f;
+        }
+
+        /* =====================================================
+           ROUTE INFORMATION
+        ===================================================== */
+
+        .route-info {
+            display: none;
+
+            margin-top: 12px;
+
+            padding: 14px;
+
+            background: #f4faf6;
+
+            border-radius: 8px;
+
+            border-left: 4px solid #087f3d;
+        }
+
+        .route-info.show {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .route-text {
+            color: #333;
+            font-weight: bold;
+        }
+
+        .distance-text {
+            color: #087f3d;
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        /* =====================================================
+           ONE AND ONLY MAP
+        ===================================================== */
+
+        #karnatakaMap {
+            display: none;
+
+            width: 100%;
+            height: 430px;
+
+            margin-top: 12px;
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            border: 1px solid #ccc;
+
+            box-shadow: 0 4px 15px rgba(0,0,0,0.10);
+        }
+
+        #karnatakaMap.show {
+            display: block;
+        }
+
+        /* =====================================================
+           SUBMIT
+        ===================================================== */
+
+        .submit-btn {
+            width: 100%;
+
+            margin-top: 25px;
+
+            padding: 15px;
+
+            border: none;
+            border-radius: 8px;
+
+            background: #087f3d;
+            color: white;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #05652f;
+        }
+
+        .submit-btn:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+        /* =====================================================
+           MESSAGE
+        ===================================================== */
+
+        .message {
+            display: none;
+
+            margin-top: 15px;
+
+            padding: 12px;
+
+            border-radius: 7px;
+
+            text-align: center;
+
+            font-weight: bold;
+        }
+
+        .message.error {
+            display: block;
+
+            background: #ffebee;
+
+            color: #c62828;
+        }
+
+        .message.success {
+            display: block;
+
+            background: #e8f5e9;
+
+            color: #087f3d;
+        }
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 650px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+
+            .booking-box {
+                padding: 22px;
+            }
+
+            .booking-title {
+                font-size: 29px;
+            }
+
+            #karnatakaMap {
+                height: 350px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+    <div class="logo">
+        🏛️ Karnataka <span>Travel</span>
+    </div>
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="district.html">
+            Districts
+        </a>
+
+        <a href="index.html#vehicles">
+            Vehicles
+        </a>
+
+        <a href="contact.html">
+            Contact
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- =====================================================
+     BOOKING
+===================================================== -->
+
+<section class="booking-page">
+
+    <div class="booking-container">
+
+
+        <h1 class="booking-title">
+            🚌 Book Your Karnataka Trip
+        </h1>
+
+
+        <p class="booking-subtitle">
+            Enter your travel details and choose your vehicle.
+        </p>
+
+
+        <div class="booking-box">
+
+
+            <form id="bookingForm">
+
+
+                <div class="form-grid">
+
+
+                    <!-- =================================================
+                         NAME
+                    ================================================= -->
+
+                    <div class="form-group">
+
+                        <label for="name">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            placeholder="Enter your name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- =================================================
+                         MOBILE
+                    ================================================= -->
+
+                    <div class="form-group">
+
+                        <label for="mobile">
+                            Mobile Number
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="mobile"
+                            maxlength="10"
+                            placeholder="Enter 10 digit mobile number"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- =================================================
+                         FROM
+                    ================================================= -->
+
+                    <div class="form-group">
+
+                        <div class="location-box">
+
+                            <div class="location-title">
+                                📍 From
+                            </div>
+
+                            <select
+                                id="fromCity"
+                                required
+                            >
+
+                                <option value="">
+                                    Select Starting Location
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         TO
+                    ================================================= -->
+
+                    <div class="form-group">
+
+                        <div class="location-box">
+
+                            <div class="location-title">
+                                🎯 To
+                            </div>
+
+                            <select
+                                id="destination"
+                                required
+                            >
+
+                                <option value="">
+                                    Select Destination
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         DATE
+                    ================================================= -->
+
+                    <div class="form-group">
+
+                        <label for="travelDate">
+                            Travel Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="travelDate"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- =================================================
+                         DAYS
+                    ================================================= -->
+
+                    <div class="form-group">
+
+                        <label for="days">
+                            Number of Days
+                        </label>
+
+                        <input
+                            type="number"
+                            id="days"
+                            min="1"
+                            max="30"
+                            value="1"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- =================================================
+                         TRAVELERS
+                    ================================================= -->
+
+                    <div class="form-group">
+
+                        <label for="travelers">
+                            Number of Travelers
+                        </label>
+
+                        <input
+                            type="number"
+                            id="travelers"
+                            min="1"
+                            max="100"
+                            value="1"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- =================================================
+                         VEHICLE
+                    ================================================= -->
+
+                    <div class="form-group">
+
+                        <label for="vehicle">
+                            Select Vehicle
+                        </label>
+
+                        <select
+                            id="vehicle"
+                            required
+                        >
+
+                            <option value="">
+                                Select Vehicle
+                            </option>
+
+                            <option value="Car">
+                                🚗 Car - ₹2,500/day
+                            </option>
+
+                            <option value="SUV">
+                                🚙 SUV - ₹3,500/day
+                            </option>
+
+                            <option value="Tempo Traveller">
+                                🚌 Tempo Traveller - ₹5,000/day
+                            </option>
+
+                            <option value="Mini Bus">
+                                🚐 Mini Bus - ₹7,000/day
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- =====================================================
+                     ROUTE MAP
+                ===================================================== -->
+
+                <div class="route-map-section">
+
+
+                    <button
+                        type="button"
+                        id="openMapBtn"
+                        class="open-map-btn"
+                    >
+                        🗺️ Open Karnataka Route Map
+                    </button>
+
+
+                    <div
+                        id="routeInfo"
+                        class="route-info"
+                    >
+
+                        <span
+                            id="routeText"
+                            class="route-text"
+                        >
+                            Select From and To
+                        </span>
+
+
+                        <span
+                            id="distanceText"
+                            class="distance-text"
+                        >
+                            📏 0 KM
+                        </span>
+
+                    </div>
+
+
+                    <!-- ONLY ONE MAP -->
+
+                    <div id="karnatakaMap"></div>
+
+
+                </div>
+
+
+                <!-- =====================================================
+                     PRICE
+                ===================================================== -->
+
+                <div class="price-box">
+
+
+                    <div class="price-row">
+
+                        <span>
+                            Vehicle Rate
+                        </span>
+
+                        <span id="vehicleRate">
+                            ₹0 / day
+                        </span>
+
+                    </div>
+
+
+                    <div class="price-row">
+
+                        <span>
+                            Number of Days
+                        </span>
+
+                        <span id="displayDays">
+                            1
+                        </span>
+
+                    </div>
+
+
+                    <div class="price-row">
+
+                        <span>
+                            Travelers
+                        </span>
+
+                        <span id="displayTravelers">
+                            1
+                        </span>
+
+                    </div>
+
+
+                    <div class="price-row total-row">
+
+                        <span>
+                            Total Amount
+                        </span>
+
+                        <span id="totalAmount">
+                            ₹0
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- =====================================================
+                     SUBMIT
+                ===================================================== -->
+
+                <button
+                    type="submit"
+                    id="submitBtn"
+                    class="submit-btn"
+                >
+                    Continue to Payment →
+                </button>
+
+
+                <div
+                    id="bookingMessage"
+                    class="message"
+                ></div>
+
+
+            </form>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     LEAFLET JS
+===================================================== -->
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+
+<script>
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+const currentUserString =
+    sessionStorage.getItem("currentUser");
+
+let currentUser = null;
+
+if (currentUserString) {
+
+    try {
+
+        currentUser =
+            JSON.parse(currentUserString);
+
+    } catch (error) {
+
+        currentUser = null;
+
+    }
+
+}
+
+if (
+    !currentUser ||
+    !currentUser.id
+) {
+
+    alert(
+        "Please login before booking a trip."
+    );
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* =====================================================
+   KARNATAKA LOCATIONS
+===================================================== */
+
+const locations = {
+
+    "Bengaluru Urban": [12.9716, 77.5946],
+
+    "Bengaluru Rural": [13.2257, 77.5750],
+
+    "Bagalkot": [16.1691, 75.6615],
+
+    "Ballari": [15.1394, 76.9214],
+
+    "Belagavi": [15.8497, 74.4977],
+
+    "Bidar": [17.9133, 77.5301],
+
+    "Chamarajanagar": [11.9261, 76.9437],
+
+    "Chikkaballapur": [13.4355, 77.7315],
+
+    "Chikkamagaluru": [13.3153, 75.7754],
+
+    "Chitradurga": [14.2306, 76.3980],
+
+    "Dakshina Kannada": [12.9141, 74.8560],
+
+    "Davanagere": [14.4644, 75.9218],
+
+    "Dharwad": [15.4589, 75.0078],
+
+    "Gadag": [15.4167, 75.6167],
+
+    "Hassan": [13.0033, 76.1004],
+
+    "Haveri": [14.7951, 75.3991],
+
+    "Kalaburagi": [17.3297, 76.8343],
+
+    "Kodagu": [12.4244, 75.7382],
+
+    "Kolar": [13.1367, 78.1290],
+
+    "Koppal": [15.3500, 76.1500],
+
+    "Mandya": [12.5218, 76.8951],
+
+    "Mysuru": [12.2958, 76.6394],
+
+    "Raichur": [16.2076, 77.3463],
+
+    "Ramanagara": [12.7209, 77.2810],
+
+    "Shivamogga": [13.9299, 75.5681],
+
+    "Tumakuru": [13.3379, 77.1173],
+
+    "Udupi": [13.3409, 74.7421],
+
+    "Uttara Kannada": [14.7937, 74.6869],
+
+    "Vijayanagara": [15.2695, 76.3905],
+
+    "Vijayapura": [16.8302, 75.7100],
+
+    "Yadgir": [16.7700, 77.1370]
+
+};
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const fromCity =
+    document.getElementById("fromCity");
+
+const destination =
+    document.getElementById("destination");
+
+const travelDate =
+    document.getElementById("travelDate");
+
+const days =
+    document.getElementById("days");
+
+const travelers =
+    document.getElementById("travelers");
+
+const vehicle =
+    document.getElementById("vehicle");
+
+const vehicleRate =
+    document.getElementById("vehicleRate");
+
+const displayDays =
+    document.getElementById("displayDays");
+
+const displayTravelers =
+    document.getElementById("displayTravelers");
+
+const totalAmount =
+    document.getElementById("totalAmount");
+
+const bookingForm =
+    document.getElementById("bookingForm");
+
+const submitBtn =
+    document.getElementById("submitBtn");
+
+const message =
+    document.getElementById("bookingMessage");
+
+const openMapBtn =
+    document.getElementById("openMapBtn");
+
+const routeInfo =
+    document.getElementById("routeInfo");
+
+const routeText =
+    document.getElementById("routeText");
+
+const distanceText =
+    document.getElementById("distanceText");
+
+const mapContainer =
+    document.getElementById("karnatakaMap");
+
+
+/* =====================================================
+   LOAD FROM / TO OPTIONS
+===================================================== */
+
+function loadLocations() {
+
+    Object.keys(locations)
+        .sort()
+        .forEach(function(name) {
+
+            const fromOption =
+                document.createElement("option");
+
+            fromOption.value = name;
+
+            fromOption.textContent = name;
+
+            fromCity.appendChild(
+                fromOption
+            );
+
+
+            const toOption =
+                document.createElement("option");
+
+            toOption.value = name;
+
+            toOption.textContent = name;
+
+            destination.appendChild(
+                toOption
+            );
+
+        });
+
+}
+
+loadLocations();
+
+
+/* =====================================================
+   URL DESTINATION
+===================================================== */
+
+const urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const urlDestination =
+    urlParams.get("destination");
+
+const urlDate =
+    urlParams.get("date");
+
+const urlDays =
+    urlParams.get("days");
+
+
+if (urlDestination) {
+
+    const decoded =
+        decodeURIComponent(
+            urlDestination
+        ).trim();
+
+    const option =
+        Array.from(
+            destination.options
+        ).find(function(item) {
+
+            return (
+                item.value.toLowerCase() ===
+                decoded.toLowerCase()
+            );
+
+        });
+
+    if (option) {
+
+        destination.value =
+            option.value;
+
+    }
+
+}
+
+
+if (urlDate) {
+
+    travelDate.value =
+        urlDate;
+
+}
+
+
+if (urlDays) {
+
+    days.value =
+        urlDays;
+
+}
+
+
+/* =====================================================
+   USER DETAILS
+===================================================== */
+
+if (currentUser) {
+
+    document.getElementById("name").value =
+        currentUser.name || "";
+
+    document.getElementById("mobile").value =
+        currentUser.mobile || "";
+
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+const today =
+    new Date();
+
+const yyyy =
+    today.getFullYear();
+
+const mm =
+    String(
+        today.getMonth() + 1
+    ).padStart(2, "0");
+
+const dd =
+    String(
+        today.getDate()
+    ).padStart(2, "0");
+
+travelDate.min =
+    `${yyyy}-${mm}-${dd}`;
+
+
+/* =====================================================
+   VEHICLE PRICES
+===================================================== */
+
+const vehiclePrices = {
+
+    "Car": 2500,
+
+    "SUV": 3500,
+
+    "Tempo Traveller": 5000,
+
+    "Mini Bus": 7000
+
+};
+
+
+/* =====================================================
+   CALCULATE TOTAL
+===================================================== */
+
+function calculateTotal() {
+
+    const rate =
+        vehiclePrices[
+            vehicle.value
+        ] || 0;
+
+    const numberOfDays =
+        Math.max(
+            Number(days.value) || 1,
+            1
+        );
+
+    const numberOfTravelers =
+        Math.max(
+            Number(travelers.value) || 1,
+            1
+        );
+
+    const total =
+        rate *
+        numberOfDays;
+
+
+    vehicleRate.textContent =
+        "₹" +
+        rate.toLocaleString("en-IN") +
+        " / day";
+
+
+    displayDays.textContent =
+        numberOfDays;
+
+
+    displayTravelers.textContent =
+        numberOfTravelers;
+
+
+    totalAmount.textContent =
+        "₹" +
+        total.toLocaleString("en-IN");
+
+
+    return total;
+
+}
+
+
+vehicle.addEventListener(
+    "change",
+    calculateTotal
+);
+
+days.addEventListener(
+    "input",
+    calculateTotal
+);
+
+travelers.addEventListener(
+    "input",
+    calculateTotal
+);
+
+calculateTotal();
+
+
+/* =====================================================
+   MAP VARIABLES
+===================================================== */
+
+let map = null;
+
+let routeLayer = null;
+
+let fromMarker = null;
+
+let toMarker = null;
+
+
+/* =====================================================
+   OPEN MAP
+===================================================== */
+
+openMapBtn.addEventListener(
+    "click",
+    async function() {
+
+        if (!fromCity.value) {
+
+            showMessage(
+                "Please select From location first.",
+                "error"
+            );
+
+            fromCity.focus();
+
+            return;
+
+        }
+
+
+        if (!destination.value) {
+
+            showMessage(
+                "Please select To destination first.",
+                "error"
+            );
+
+            destination.focus();
+
+            return;
+
+        }
+
+
+        mapContainer.classList.add("show");
+
+        routeInfo.classList.add("show");
+
+
+        openMapBtn.textContent =
+            "🗺️ Karnataka Route Map";
+
+
+        if (!map) {
+
+            map =
+                L.map(
+                    "karnatakaMap"
+                ).setView(
+                    [15.3173, 75.7139],
+                    7
+                );
+
+
+            L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+
+                    maxZoom: 19,
+
+                    attribution:
+                        "&copy; OpenStreetMap contributors"
+
+                }
+            ).addTo(map);
+
+        }
+
+
+        setTimeout(
+            function() {
+
+                map.invalidateSize(true);
+
+                if (routeLayer) {
+                    map.fitBounds(
+                        routeLayer.getBounds(),
+                        { padding: [30, 30] }
+                    );
+                }
+
+            },
+            500
+        );
+
+
+        await drawRoute();
+
+    }
+);
+
+
+/* =====================================================
+   FROM / TO CHANGE
+===================================================== */
+
+fromCity.addEventListener(
+    "change",
+    function() {
+
+        if (
+            map &&
+            destination.value
+        ) {
+
+            drawRoute();
+
+        }
+
+    }
+);
+
+
+destination.addEventListener(
+    "change",
+    function() {
+
+        if (
+            map &&
+            fromCity.value
+        ) {
+
+            drawRoute();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   DRAW ROAD ROUTE
+===================================================== */
+
+async function drawRoute() {
+
+    const from =
+        locations[
+            fromCity.value
+        ];
+
+    const to =
+        locations[
+            destination.value
+        ];
+
+
+    if (!from || !to) {
+        return;
+    }
+
+
+    routeText.textContent =
+        fromCity.value +
+        " → " +
+        destination.value;
+
+
+    distanceText.textContent =
+        "📏 Finding road distance...";
+
+
+    try {
+
+        /*
+         OSRM ROAD ROUTING
+         This gives road route,
+         NOT a straight line.
+        */
+
+        const url =
+            "https://router.project-osrm.org/route/v1/driving/" +
+            from[1] + "," + from[0] +
+            ";" +
+            to[1] + "," + to[0] +
+            "?overview=full&geometries=geojson";
+
+
+        const response =
+            await fetch(url);
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Route service unavailable"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !data.routes ||
+            !data.routes.length
+        ) {
+
+            throw new Error(
+                "Road route not found"
+            );
+
+        }
+
+
+        const route =
+            data.routes[0];
+
+
+        const distanceKm =
+            (
+                route.distance / 1000
+            ).toFixed(1);
+
+
+        /* REMOVE OLD ROUTE */
+
+        if (routeLayer) {
+
+            map.removeLayer(
+                routeLayer
+            );
+
+        }
+
+
+        if (fromMarker) {
+
+            map.removeLayer(
+                fromMarker
+            );
+
+        }
+
+
+        if (toMarker) {
+
+            map.removeLayer(
+                toMarker
+            );
+
+        }
+
+
+        /* =================================================
+           ROAD ROUTE LINE
+        ================================================= */
+
+        routeLayer =
+            L.geoJSON(
+                route.geometry,
+                {
+
+                    style: {
+
+                        color: "#087f3d",
+
+                        weight: 6,
+
+                        opacity: 0.85
+
+                    }
+
+                }
+            ).addTo(map);
+
+
+        /* =================================================
+           FROM MARKER
+        ================================================= */
+
+        fromMarker =
+            L.marker(from)
+                .addTo(map)
+                .bindPopup(
+                    "<b>📍 From</b><br>" +
+                    fromCity.value
+                );
+
+
+        /* =================================================
+           TO MARKER
+        ================================================= */
+
+        toMarker =
+            L.marker(to)
+                .addTo(map)
+                .bindPopup(
+                    "<b>🎯 To</b><br>" +
+                    destination.value
+                );
+
+
+        /* =================================================
+           FIT ROUTE
+        ================================================= */
+
+        map.fitBounds(
+            routeLayer.getBounds(),
+            {
+
+                padding: [
+                    30,
+                    30
+                ]
+
+            }
+        );
+
+
+        /* =================================================
+           SHOW DISTANCE
+        ================================================= */
+
+        distanceText.textContent =
+            "📏 " +
+            distanceKm +
+            " KM";
+
+
+        /*
+         Save route distance temporarily.
+        It will also be sent with booking.
+        */
+
+        window.currentRouteDistance =
+            Number(distanceKm);
+
+
+    } catch (error) {
+
+        console.error(
+            "Route error:",
+            error
+        );
+
+
+        distanceText.textContent =
+            "📏 Route unavailable";
+
+
+        window.currentRouteDistance =
+            0;
+
+    }
+
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showMessage(
+    text,
+    type
+) {
+
+    message.textContent =
+        text;
+
+    message.className =
+        "message " +
+        type;
+
+    message.style.display =
+        "block";
+
+}
+
+
+/* =====================================================
+   BOOKING SUBMIT
+===================================================== */
+
+bookingForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        const name =
+            document.getElementById(
+                "name"
+            ).value.trim();
+
+
+        const mobile =
+            document.getElementById(
+                "mobile"
+            ).value.trim();
+
+
+        const selectedFrom =
+            fromCity.value;
+
+
+        const selectedDestination =
+            destination.value;
+
+
+        const selectedDate =
+            travelDate.value;
+
+
+        const numberOfDays =
+            Number(days.value);
+
+
+        const numberOfTravelers =
+            Number(travelers.value);
+
+
+        const selectedVehicle =
+            vehicle.value;
+
+
+        const total =
+            calculateTotal();
+
+
+        /* =================================================
+           VALIDATION
+        ================================================= */
+
+        if (!name) {
+
+            showMessage(
+                "Please enter your name.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (
+            !/^[0-9]{10}$/.test(
+                mobile
+            )
+        ) {
+
+            showMessage(
+                "Please enter a valid 10 digit mobile number.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (!selectedFrom) {
+
+            showMessage(
+                "Please select From location.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (!selectedDestination) {
+
+            showMessage(
+                "Please select To destination.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (
+            selectedFrom ===
+            selectedDestination
+        ) {
+
+            showMessage(
+                "From and To locations cannot be the same.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (!selectedDate) {
+
+            showMessage(
+                "Please select travel date.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (
+            numberOfDays < 1 ||
+            numberOfDays > 30
+        ) {
+
+            showMessage(
+                "Number of days must be between 1 and 30.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (
+            numberOfTravelers < 1 ||
+            numberOfTravelers > 100
+        ) {
+
+            showMessage(
+                "Number of travelers must be between 1 and 100.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (!selectedVehicle) {
+
+            showMessage(
+                "Please select a vehicle.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /*
+         Make sure route has been calculated
+         */
+
+        if (
+            !window.currentRouteDistance
+        ) {
+
+            showMessage(
+                "Please open the Karnataka Route Map and check the route before booking.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        submitBtn.disabled =
+            true;
+
+        submitBtn.textContent =
+            "Creating Booking...";
+
+
+        try {
+
+            const bookingId =
+                "KT" +
+                Date.now();
+
+
+            /* =================================================
+               BOOKING DATA
+            ================================================= */
+
+            const bookingData = {
+
+                bookingId:
+
+                    bookingId,
+
+
+                userId:
+
+                    Number(
+                        currentUser.id
+                    ),
+
+
+                name:
+
+                    name,
+
+
+                mobile:
+
+                    mobile,
+
+
+                from_location:
+
+                    selectedFrom,
+
+
+                from:
+
+                    selectedFrom,
+
+
+                fromCity:
+
+                    selectedFrom,
+
+
+                destination:
+
+                    selectedDestination,
+
+
+                toCity:
+
+                    selectedDestination,
+
+
+                travelDate:
+
+                    selectedDate,
+
+
+                days:
+
+                    numberOfDays,
+
+
+                travelers:
+
+                    numberOfTravelers,
+
+
+                vehicle:
+
+                    selectedVehicle,
+
+
+                total:
+
+                    Number(total),
+
+
+                distanceKm:
+
+                    Number(
+                        window.currentRouteDistance
+                    ),
+
+
+                paymentMethod:
+
+                    "Pending",
+
+
+                status:
+
+                    "Pending Payment"
+
+            };
+
+
+            /* =================================================
+               SEND TO BACKEND
+            ================================================= */
+
+            const response =
+                await fetch(
+                    "http://localhost:5000/api/bookings",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json"
+
+                        },
+
+                        body:
+                            JSON.stringify(
+                                bookingData
+                            )
+
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                throw new Error(
+                    data.message ||
+                    "Booking could not be created."
+                );
+
+            }
+
+
+            /* =================================================
+               SAVE CURRENT BOOKING
+            ================================================= */
+
+            const booking =
+                data.booking || bookingData;
+
+
+            /*
+             Make sure these fields exist
+             even if backend returns old fields.
+            */
+
+            booking.from =
+                booking.from ||
+                selectedFrom;
+
+
+            booking.fromCity =
+                booking.fromCity ||
+                selectedFrom;
+
+
+            booking.destination =
+                booking.destination ||
+                selectedDestination;
+
+
+            booking.toCity =
+                booking.toCity ||
+                selectedDestination;
+
+
+            booking.distanceKm =
+                booking.distanceKm ||
+                Number(
+                    window.currentRouteDistance
+                );
+
+
+            sessionStorage.setItem(
+                "currentBooking",
+                JSON.stringify(
+                    booking
+                )
+            );
+
+
+            /* =================================================
+               PAYMENT
+            ================================================= */
+
+            window.location.href =
+                "payment.html";
+
+
+        } catch (error) {
+
+            console.error(
+                "Booking error:",
+                error
+            );
+
+
+            showMessage(
+                error.message ||
+                "Unable to connect to server.",
+                "error"
+            );
+
+
+            submitBtn.disabled =
+                false;
+
+
+            submitBtn.textContent =
+                "Continue to Payment →";
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,832 @@
+/* =========================================================
+   KARNATAKA TRAVEL
+   COMPLETE STYLE.CSS
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4faf6;
+    color: #222;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header {
+    width: 100%;
+    min-height: 75px;
+    background: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 15px 6%;
+
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #087f3d;
+    white-space: nowrap;
+}
+
+.logo span {
+    color: #222;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #087f3d;
+}
+
+.book-btn {
+    background: #087f3d;
+    color: white !important;
+    padding: 10px 18px;
+    border-radius: 8px;
+}
+
+.book-btn:hover {
+    background: #05662f;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    min-height: 550px;
+
+    background-image:
+        linear-gradient(
+            rgba(0, 0, 0, 0.35),
+            rgba(0, 0, 0, 0.35)
+        ),
+        url(https://image.slidesharecdn.com/ourstatekarnatakaandphysiographicdivisionsstd9th-230408054603-358d1ff2/75/OUR-STATE-KARNATAKA-AND-PHYSIOGRAPHIC-DIVISIONS-STD-9TH-pptx-5-2048.jpg);
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    color: white;
+}
+
+.hero-content {
+    width: 100%;
+    max-width: 900px;
+    padding: 40px 20px;
+}
+
+.hero h1 {
+    font-size: 52px;
+    margin-bottom: 20px;
+    color: white;
+    line-height: 1.2;
+}
+
+.hero h1 span {
+    color: #90ee90;
+}
+
+.hero p {
+    max-width: 800px;
+    margin: 0 auto 30px;
+
+    font-size: 19px;
+    line-height: 1.7;
+
+    color: white;
+}
+
+.main-btn {
+    display: inline-block;
+
+    background: #087f3d;
+    color: white;
+
+    border: none;
+
+    padding: 13px 25px;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.main-btn:hover {
+    background: #05662f;
+    transform: translateY(-2px);
+}
+
+.hero .main-btn {
+    padding: 15px 30px;
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search-section {
+    padding: 35px 6%;
+    background: #f4faf6;
+}
+
+.search-box {
+    max-width: 1200px;
+    margin: auto;
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.10);
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr) auto;
+
+    gap: 15px;
+
+    align-items: end;
+}
+
+.search-box label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+.search-box select,
+.search-box input {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 7px;
+
+    font-size: 15px;
+}
+
+.search-box select:focus,
+.search-box input:focus {
+    outline: none;
+    border-color: #087f3d;
+}
+
+
+/* =========================================================
+   COMMON SECTION
+========================================================= */
+
+.section {
+    padding: 70px 6%;
+}
+
+.section h2,
+.about h2 {
+    text-align: center;
+
+    font-size: 35px;
+
+    color: #087f3d;
+
+    margin-bottom: 10px;
+}
+
+.section-text {
+    text-align: center;
+    color: #666;
+    margin-bottom: 35px;
+}
+
+
+/* =========================================================
+   DISTRICT CARDS
+========================================================= */
+
+.cards {
+    max-width: 1250px;
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 25px;
+}
+
+.card {
+    background: white;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.10);
+
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-7px);
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.district-image {
+    width: 100%;
+    height: 210px;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+.card-content {
+    padding: 20px;
+}
+
+.card-content h3 {
+    color: #087f3d;
+
+    font-size: 21px;
+
+    margin-bottom: 10px;
+}
+
+.card-content p {
+    color: #666;
+
+    min-height: 50px;
+
+    margin-bottom: 15px;
+}
+
+.card-content a {
+    color: #087f3d;
+
+    font-weight: bold;
+
+    text-decoration: none;
+}
+
+.card-content a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   VEHICLES
+========================================================= */
+
+.vehicle-section {
+    background: white;
+}
+
+.vehicle-container {
+    max-width: 1200px;
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 25px;
+}
+
+.vehicle {
+    background: #f4faf6;
+
+    border-radius: 14px;
+
+    padding: 30px 20px;
+
+    text-align: center;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.vehicle-icon {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.vehicle h3 {
+    color: #087f3d;
+    margin-bottom: 10px;
+}
+
+.vehicle p {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.vehicle-btn {
+    display: inline-block;
+
+    background: #087f3d;
+    color: white;
+
+    text-decoration: none;
+
+    padding: 10px 18px;
+
+    border-radius: 7px;
+}
+
+.vehicle-btn:hover {
+    background: #05662f;
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.about {
+    padding: 70px 6%;
+}
+
+.features {
+    max-width: 1200px;
+
+    margin: 40px auto 0;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 25px;
+}
+
+.feature {
+    background: white;
+
+    text-align: center;
+
+    padding: 30px 20px;
+
+    border-radius: 14px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.feature-icon {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.feature h3 {
+    color: #087f3d;
+    margin-bottom: 10px;
+}
+
+/* =========================================================
+   KARNATAKA TRAVEL - DISTRICT DETAILS PAGE
+========================================================= */
+
+.district-page {
+    min-height: calc(100vh - 75px);
+    background: #f4faf6;
+    padding: 40px 20px 70px;
+}
+
+/* Main container */
+.district-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* =========================================================
+   DISTRICT DETAILS CARD
+========================================================= */
+
+.district-details {
+    background: white;
+    border-radius: 18px;
+    padding: 0 50px 45px;
+    text-align: center;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.10);
+
+    overflow: hidden;
+}
+
+/* =========================================================
+   DISTRICT IMAGE
+========================================================= */
+
+.district-details img,
+.district-image-detail {
+    width: 100%;
+    height: 400px;
+
+    object-fit: cover;
+    display: block;
+
+    border-radius: 0 0 12px 12px;
+
+    margin: 0 auto 25px;
+}
+
+/* =========================================================
+   DISTRICT ICON
+========================================================= */
+
+.district-icon {
+    font-size: 55px;
+    margin-bottom: 5px;
+}
+
+/* =========================================================
+   DISTRICT TITLE
+========================================================= */
+
+.district-details h1 {
+    color: #087f3d;
+
+    font-size: 42px;
+    font-weight: bold;
+
+    margin: 20px 0 10px;
+
+    text-align: center;
+}
+
+/* =========================================================
+   DISTRICT DESCRIPTION
+========================================================= */
+
+.district-description {
+    max-width: 800px;
+
+    margin: 0 auto 30px;
+
+    font-size: 18px;
+    line-height: 1.7;
+
+    color: #555;
+
+    text-align: center;
+}
+
+/* =========================================================
+   PLACES HEADING
+========================================================= */
+
+.district-details h2 {
+    color: #087f3d;
+
+    font-size: 28px;
+
+    margin: 20px 0 25px;
+
+    text-align: center;
+}
+
+/* =========================================================
+   PLACES LIST
+========================================================= */
+
+.places-list {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 18px;
+
+    width: 100%;
+
+    margin: 0 auto 35px;
+}
+
+/* =========================================================
+   PLACE CARD
+========================================================= */
+
+.place-card {
+    background: #f4faf6;
+
+    border: 1px solid #d9eee2;
+
+    border-radius: 10px;
+
+    padding: 22px;
+
+    min-height: 130px;
+
+    text-align: left;
+
+    transition: 0.3s;
+
+    box-sizing: border-box;
+}
+
+.place-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Pin */
+.place-card span {
+    display: block;
+
+    font-size: 30px;
+
+    margin-bottom: 8px;
+}
+
+/* Place name */
+.place-card h3 {
+    color: #087f3d;
+
+    font-size: 20px;
+
+    margin: 0 0 8px;
+}
+
+/* Place text */
+.place-card p {
+    color: #555;
+
+    font-size: 14px;
+
+    margin: 0;
+
+    line-height: 1.5;
+}
+/* =========================================================
+   DISTRICT ACTION BUTTONS
+========================================================= */
+
+.district-actions {
+    width: 100% !important;
+
+    display: flex !important;
+
+    flex-direction: row !important;
+
+    justify-content: space-between !important;
+
+    align-items: center !important;
+
+    gap: 100px !important;
+
+    margin-top: 35px !important;
+
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   BACK TO DISTRICTS - LEFT
+========================================================= */
+
+.district-actions .back-district-btn {
+    display: inline-flex !important;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #eeeeee !important;
+
+    color: #333 !important;
+
+    padding: 14px 25px !important;
+
+    min-width: 210px;
+
+    height: 52px;
+
+    border-radius: 8px;
+
+    text-decoration: none !important;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    order: 1;
+
+    flex-shrink: 0;
+}
+
+.district-actions .back-district-btn:hover {
+    background: #dddddd !important;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   BOOK TRIP - RIGHT
+========================================================= */
+
+.district-actions .book-district-btn {
+    display: inline-flex !important;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #087f3d !important;
+
+    color: white !important;
+
+    padding: 14px 25px !important;
+
+    min-width: 250px;
+
+    height: 52px;
+
+    border-radius: 8px;
+
+    text-decoration: none !important;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    order: 2;
+
+    flex-shrink: 0;
+}
+
+.district-actions .book-district-btn:hover {
+    background: #066b32 !important;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .district-actions {
+        flex-direction: column !important;
+
+        gap: 15px !important;
+    }
+
+    .district-actions .back-district-btn,
+    .district-actions .book-district-btn {
+        width: 100%;
+
+        min-width: 0;
+    }
+}
+/* ================= FOOTER ================= */
+
+footer {
+    text-align: center;
+    padding: 25px 20px;
+    background: #f4faf6;
+    color: #333;
+}
+
+footer h3 {
+    margin: 0 0 8px;
+    color: #087f3d;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+footer a {
+    color: #087f3d;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+.search-result {
+    max-width: 600px;
+    margin: 25px auto;
+    padding: 22px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+    text-align: center;
+}
+
+.search-result h3 {
+    color: #087f3d;
+    margin-bottom: 15px;
+}
+
+.search-result p {
+    margin: 8px 0;
+    color: #444;
+}
+
+.search-result .main-btn {
+    margin-top: 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.search-message {
+    max-width: 600px;
+    margin: 15px auto;
+    padding: 12px;
+    text-align: center;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.search-message.error {
+    background: #ffebee;
+    color: #c62828;
+}
+.route-map-section {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f4faf6;
+    border-radius: 10px;
+}
+
+.route-map-section h3 {
+    color: #087f3d;
+    margin-bottom: 8px;
+}
+
+#routeMap {
+    width: 100%;
+    height: 380px;
+    border-radius: 10px;
+    margin-top: 12px;
+}
+.forgot-link {
+    display: block;
+    text-align: center;
+    margin-top: 12px;
+    color: #087f3d;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}

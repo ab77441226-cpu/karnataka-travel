@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Payment - Karnataka Travel</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        .payment-page {
+            min-height: 100vh;
+            background: #f4faf6;
+            padding: 45px 20px;
+        }
+
+        .payment-container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .payment-title {
+            text-align: center;
+            color: #087f3d;
+            font-size: 36px;
+            margin-bottom: 8px;
+        }
+
+        .payment-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .payment-card {
+            background: white;
+            padding: 28px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+        }
+
+        .payment-card h2 {
+            color: #087f3d;
+            margin-top: 0;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .summary-row span:first-child {
+            color: #666;
+        }
+
+        .summary-row span:last-child {
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .amount-box {
+            margin-top: 20px;
+            padding: 18px;
+
+            background: #f4faf6;
+            border-radius: 10px;
+
+            display: flex;
+            justify-content: space-between;
+
+            font-size: 21px;
+            font-weight: bold;
+
+            color: #087f3d;
+        }
+
+        .method-title {
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        .payment-method {
+            display: block;
+            margin-bottom: 12px;
+            padding: 15px;
+
+            border: 1px solid #ddd;
+            border-radius: 8px;
+
+            cursor: pointer;
+        }
+
+        .payment-method:hover {
+            border-color: #087f3d;
+            background: #f8fffa;
+        }
+
+        .payment-method input {
+            margin-right: 8px;
+        }
+
+        .payment-details {
+            display: none;
+            margin-top: 18px;
+        }
+
+        .payment-details.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            box-sizing: border-box;
+
+            padding: 13px;
+
+            border: 1px solid #ccc;
+            border-radius: 7px;
+
+            font-size: 15px;
+
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #087f3d;
+        }
+
+        .pay-btn {
+            width: 100%;
+
+            margin-top: 15px;
+
+            padding: 15px;
+
+            border: none;
+            border-radius: 8px;
+
+            background: #087f3d;
+            color: white;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .pay-btn:hover {
+            background: #05652f;
+        }
+
+        .pay-btn:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+        .message {
+            display: none;
+
+            margin-top: 15px;
+
+            padding: 12px;
+
+            border-radius: 7px;
+
+            text-align: center;
+
+            font-weight: bold;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .secure-note {
+            margin-top: 18px;
+            text-align: center;
+            color: #666;
+            font-size: 13px;
+        }
+
+        @media (max-width: 700px) {
+
+            .payment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-title {
+                font-size: 29px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        🏛️ Karnataka <span>Travel</span>
+    </div>
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="district.html">
+            Districts
+        </a>
+
+        <a href="contact.html">
+            Contact
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<section class="payment-page">
+
+    <div class="payment-container">
+
+
+        <h1 class="payment-title">
+            💳 Trip Payment
+        </h1>
+
+        <p class="payment-subtitle">
+            Review your booking and complete the payment.
+        </p>
+
+
+
+        <div class="payment-grid">
+
+
+            <!-- ==============================
+                 BOOKING SUMMARY
+            =============================== -->
+
+            <div class="payment-card">
+
+                <h2>
+                    📋 Booking Summary
+                </h2>
+
+
+                <div class="summary-row">
+                    <span>Booking ID</span>
+                    <span id="bookingId">-</span>
+                </div>
+
+
+                <div class="summary-row">
+                    <span>Name</span>
+                    <span id="bookingName">-</span>
+                </div>
+
+
+                <div class="summary-row">
+                    <span>Mobile</span>
+                    <span id="bookingMobile">-</span>
+                </div>
+
+
+                <div class="summary-row">
+                    <span>Destination</span>
+                    <span id="bookingDestination">-</span>
+                </div>
+
+
+                <div class="summary-row">
+                    <span>Travel Date</span>
+                    <span id="bookingDate">-</span>
+                </div>
+
+
+                <div class="summary-row">
+                    <span>Days</span>
+                    <span id="bookingDays">-</span>
+                </div>
+
+
+                <div class="summary-row">
+                    <span>Travelers</span>
+                    <span id="bookingTravelers">-</span>
+                </div>
+
+
+                <div class="summary-row">
+                    <span>Vehicle</span>
+                    <span id="bookingVehicle">-</span>
+                </div>
+
+
+                <div class="amount-box">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <span id="bookingTotal">
+                        ₹0
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ==============================
+                 PAYMENT
+            =============================== -->
+
+            <div class="payment-card">
+
+                <h2>
+                    💰 Payment Method
+                </h2>
+
+
+                <p class="method-title">
+                    Select a payment method:
+                </p>
+
+
+                <label class="payment-method">
+
+                    <input
+                        type="radio"
+                        name="paymentMethod"
+                        value="UPI"
+                    >
+
+                    📱 UPI
+
+                </label>
+
+
+                <label class="payment-method">
+
+                    <input
+                        type="radio"
+                        name="paymentMethod"
+                        value="Card"
+                    >
+
+                    💳 Debit / Credit Card
+
+                </label>
+
+
+                <label class="payment-method">
+
+                    <input
+                        type="radio"
+                        name="paymentMethod"
+                        value="Cash"
+                    >
+
+                    💵 Cash
+
+                </label>
+
+
+
+                <!-- UPI -->
+
+                <div
+                    id="upiDetails"
+                    class="payment-details"
+                >
+
+                    <div class="form-group">
+
+                        <label for="upiId">
+                            UPI ID
+                        </label>
+
+                        <input
+                            type="text"
+                            id="upiId"
+                            placeholder="example@upi"
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CARD -->
+
+                <div
+                    id="cardDetails"
+                    class="payment-details"
+                >
+
+                    <div class="form-group">
+
+                        <label for="cardNumber">
+                            Card Number
+                        </label>
+
+                        <input
+                            type="text"
+                            id="cardNumber"
+                            maxlength="16"
+                            placeholder="Enter 16 digit card number"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="cardName">
+                            Card Holder Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="cardName"
+                            placeholder="Enter card holder name"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="expiry">
+                            Expiry Date
+                        </label>
+
+                        <input
+                            type="text"
+                            id="expiry"
+                            maxlength="5"
+                            placeholder="MM/YY"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="cvv">
+                            CVV
+                        </label>
+
+                        <input
+                            type="password"
+                            id="cvv"
+                            maxlength="3"
+                            placeholder="3 digit CVV"
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <button
+                    id="payBtn"
+                    class="pay-btn"
+                >
+                    Pay Now →
+                </button>
+
+
+                <div
+                    id="paymentMessage"
+                    class="message"
+                ></div>
+
+
+                <p class="secure-note">
+                    🔒 Demo payment page — do not enter real card details.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<script>
+
+
+/* =====================================================
+   GET CURRENT BOOKING
+===================================================== */
+
+const bookingString =
+    sessionStorage.getItem(
+        "currentBooking"
+    );
+
+
+let booking = null;
+
+
+if (bookingString) {
+
+    try {
+
+        booking =
+            JSON.parse(
+                bookingString
+            );
+
+    } catch (error) {
+
+        booking = null;
+
+    }
+
+}
+
+
+/* =====================================================
+   CHECK BOOKING
+===================================================== */
+
+if (!booking) {
+
+    alert(
+        "No booking found. Please create a booking first."
+    );
+
+    window.location.href =
+        "booking.html";
+
+}
+
+
+/* =====================================================
+   HELPER
+===================================================== */
+
+function safeValue(value) {
+
+    if (
+        value === undefined ||
+        value === null ||
+        value === ""
+    ) {
+
+        return "-";
+
+    }
+
+    return String(value);
+
+}
+
+
+/* =====================================================
+   DISPLAY BOOKING
+===================================================== */
+
+if (booking) {
+
+
+    document.getElementById(
+        "bookingId"
+    ).textContent =
+        safeValue(
+            booking.booking_id ||
+            booking.bookingId
+        );
+
+
+    document.getElementById(
+        "bookingName"
+    ).textContent =
+        safeValue(
+            booking.name
+        );
+
+
+    document.getElementById(
+        "bookingMobile"
+    ).textContent =
+        safeValue(
+            booking.mobile
+        );
+
+
+    document.getElementById(
+        "bookingDestination"
+    ).textContent =
+        safeValue(
+            booking.destination
+        );
+
+
+    document.getElementById(
+        "bookingDate"
+    ).textContent =
+        safeValue(
+            booking.travel_date ||
+            booking.date
+        );
+
+
+    document.getElementById(
+        "bookingDays"
+    ).textContent =
+        safeValue(
+            booking.days
+        );
+
+
+    document.getElementById(
+        "bookingTravelers"
+    ).textContent =
+        safeValue(
+            booking.travelers
+        );
+
+
+    document.getElementById(
+        "bookingVehicle"
+    ).textContent =
+        safeValue(
+            booking.vehicle
+        );
+
+
+    const total =
+        Number(
+            booking.total || 0
+        );
+
+
+    document.getElementById(
+        "bookingTotal"
+    ).textContent =
+        "₹" +
+        total.toLocaleString(
+            "en-IN"
+        );
+
+}
+
+
+/* =====================================================
+   PAYMENT METHOD CHANGE
+===================================================== */
+
+const paymentMethods =
+    document.querySelectorAll(
+        'input[name="paymentMethod"]'
+    );
+
+
+paymentMethods.forEach(
+    function(radio) {
+
+        radio.addEventListener(
+            "change",
+            function() {
+
+                document.getElementById(
+                    "upiDetails"
+                ).classList.remove(
+                    "active"
+                );
+
+
+                document.getElementById(
+                    "cardDetails"
+                ).classList.remove(
+                    "active"
+                );
+
+
+                if (
+                    this.value === "UPI"
+                ) {
+
+                    document.getElementById(
+                        "upiDetails"
+                    ).classList.add(
+                        "active"
+                    );
+
+                }
+
+
+                if (
+                    this.value === "Card"
+                ) {
+
+                    document.getElementById(
+                        "cardDetails"
+                    ).classList.add(
+                        "active"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   PAY BUTTON
+===================================================== */
+
+document.getElementById(
+    "payBtn"
+).addEventListener(
+    "click",
+    async function() {
+
+
+        const selected =
+            document.querySelector(
+                'input[name="paymentMethod"]:checked'
+            );
+
+
+        const message =
+            document.getElementById(
+                "paymentMessage"
+            );
+
+
+        if (!selected) {
+
+            showMessage(
+                "Please select a payment method.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        const method =
+            selected.value;
+
+
+        /* =================================================
+           UPI VALIDATION
+        ================================================= */
+
+        if (
+            method === "UPI"
+        ) {
+
+            const upi =
+                document.getElementById(
+                    "upiId"
+                ).value.trim();
+
+
+            if (
+                !/^[\w.-]+@[\w.-]+$/
+                    .test(upi)
+            ) {
+
+                showMessage(
+                    "Please enter a valid UPI ID.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+        }
+
+
+        /* =================================================
+           CARD VALIDATION
+        ================================================= */
+
+        if (
+            method === "Card"
+        ) {
+
+            const cardNumber =
+                document.getElementById(
+                    "cardNumber"
+                ).value
+                .replace(/\s/g, "");
+
+
+            const cardName =
+                document.getElementById(
+                    "cardName"
+                ).value.trim();
+
+
+            const expiry =
+                document.getElementById(
+                    "expiry"
+                ).value.trim();
+
+
+            const cvv =
+                document.getElementById(
+                    "cvv"
+                ).value.trim();
+
+
+            if (
+                !/^[0-9]{16}$/.test(
+                    cardNumber
+                )
+            ) {
+
+                showMessage(
+                    "Please enter a valid 16 digit card number.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            if (
+                cardName.length < 2
+            ) {
+
+                showMessage(
+                    "Please enter card holder name.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            if (
+                !/^(0[1-9]|1[0-2])\/[0-9]{2}$/
+                    .test(expiry)
+            ) {
+
+                showMessage(
+                    "Please enter expiry in MM/YY format.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            if (
+                !/^[0-9]{3}$/.test(
+                    cvv
+                )
+            ) {
+
+                showMessage(
+                    "Please enter a valid CVV.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+        }
+
+
+        const payBtn =
+            document.getElementById(
+                "payBtn"
+            );
+
+
+        payBtn.disabled =
+            true;
+
+
+        payBtn.textContent =
+            "Processing Payment...";
+
+
+        try {
+
+
+            /* =================================================
+               UPDATE PAYMENT IN BACKEND
+            ================================================= */
+
+            const bookingId =
+                booking.booking_id ||
+                booking.bookingId;
+
+
+            const response =
+                await fetch(
+                    "http://localhost:5000/api/bookings/" +
+                    encodeURIComponent(
+                        bookingId
+                    ) +
+                    "/payment",
+                    {
+
+                        method: "PUT",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                payment_method:
+                                    method,
+
+                                status:
+                                    "Paid"
+
+                            })
+
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                throw new Error(
+                    data.message ||
+                    "Payment update failed."
+                );
+
+            }
+
+
+            /* =================================================
+               UPDATE LOCAL BOOKING
+            ================================================= */
+
+            booking.payment_method =
+                method;
+
+
+            booking.paymentMethod =
+                method;
+
+
+            booking.status =
+                "Paid";
+
+
+            sessionStorage.setItem(
+                "currentBooking",
+                JSON.stringify(
+                    booking
+                )
+            );
+
+
+            /* =================================================
+               SUCCESS PAGE
+            ================================================= */
+
+            window.location.href =
+                "success.html";
+
+
+        } catch (error) {
+
+            console.error(
+                "Payment error:",
+                error
+            );
+
+
+            /*
+             * Demo fallback.
+             * The booking is still marked paid locally.
+             */
+
+            booking.payment_method =
+                method;
+
+
+            booking.paymentMethod =
+                method;
+
+
+            booking.status =
+                "Paid";
+
+
+            sessionStorage.setItem(
+                "currentBooking",
+                JSON.stringify(
+                    booking
+                )
+            );
+
+
+            window.location.href =
+                "success.html";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SHOW MESSAGE
+===================================================== */
+
+function showMessage(
+    text,
+    type
+) {
+
+    const message =
+        document.getElementById(
+            "paymentMessage"
+        );
+
+
+    message.textContent =
+        text;
+
+
+    message.className =
+        "message " + type;
+
+
+    message.style.display =
+        "block";
+
+}
+
+</script>
+
+
+</body>
+
+</html>

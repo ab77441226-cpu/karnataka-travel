@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact Us - Karnataka Travel</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .contact-page {
+            min-height: 100vh;
+            background: #f4faf6;
+            padding: 50px 20px;
+        }
+
+        .contact-container {
+            max-width: 1000px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 30px;
+        }
+
+        .contact-info,
+        .contact-form-box {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+        }
+
+        .contact-info h1 {
+            color: #087f3d;
+            font-size: 40px;
+            margin-top: 0;
+        }
+
+        .contact-info p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .contact-item {
+            margin-top: 22px;
+        }
+
+        .contact-item strong {
+            display: block;
+            color: #087f3d;
+            margin-bottom: 5px;
+        }
+
+        .contact-form-box h2 {
+            color: #087f3d;
+            margin-top: 0;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #087f3d;
+        }
+
+        .form-group textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #087f3d;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #05652f;
+        }
+
+        .submit-btn:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+        .message {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 7px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .success {
+            background: #eaf7ee;
+            color: #087f3d;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        @media (max-width: 750px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        🏛️ Karnataka <span>Travel</span>
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="district.html">Districts</a>
+        <a href="index.html#vehicles">Vehicles</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+</header>
+
+
+<section class="contact-page">
+
+    <div class="contact-container">
+
+
+        <!-- CONTACT INFORMATION -->
+
+        <div class="contact-info">
+
+            <h1>
+                Contact Us
+            </h1>
+
+            <p>
+                Have questions about your Karnataka trip?
+                Send us a message and our team will help you.
+            </p>
+
+
+            <div class="contact-item">
+
+                <strong>
+                    📞 Phone
+                </strong>
+
+                <span>
+                    +91 98765 43210
+                </span>
+
+            </div>
+
+
+            <div class="contact-item">
+
+                <strong>
+                    📧 Email
+                </strong>
+
+                <span>
+                    karnatakatravel@gmail.com
+                </span>
+
+            </div>
+
+
+            <div class="contact-item">
+
+                <strong>
+                    📍 Address
+                </strong>
+
+                <span>
+                    Karnataka, India
+                </span>
+
+            </div>
+
+
+            <div class="contact-item">
+
+                <strong>
+                    🕒 Working Hours
+                </strong>
+
+                <span>
+                    Monday - Saturday<br>
+                    9:00 AM - 6:00 PM
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- CONTACT FORM -->
+
+        <div class="contact-form-box">
+
+            <h2>
+                ✉️ Send Us a Message
+            </h2>
+
+
+            <form id="contactForm">
+
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="mobile">
+                        Mobile Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="mobile"
+                        name="mobile"
+                        maxlength="10"
+                        placeholder="Enter 10 digit mobile number"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="message">
+                        Message
+                    </label>
+
+                    <textarea
+                        id="message"
+                        name="message"
+                        placeholder="Write your message..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    id="submitBtn"
+                    class="submit-btn"
+                >
+                    Send Message
+                </button>
+
+
+                <div
+                    id="formMessage"
+                    class="message"
+                ></div>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+
+const contactForm =
+    document.getElementById("contactForm");
+
+const submitBtn =
+    document.getElementById("submitBtn");
+
+const formMessage =
+    document.getElementById("formMessage");
+
+
+contactForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        const name =
+            document.getElementById("name")
+                .value.trim();
+
+        const email =
+            document.getElementById("email")
+                .value.trim();
+
+        const mobile =
+            document.getElementById("mobile")
+                .value.trim();
+
+        const message =
+            document.getElementById("message")
+                .value.trim();
+
+
+        /* MOBILE VALIDATION */
+
+        if (!/^[0-9]{10}$/.test(mobile)) {
+
+            showMessage(
+                "Please enter a valid 10 digit mobile number.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        submitBtn.disabled = true;
+
+        submitBtn.textContent =
+            "Sending...";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "http://localhost:5000/api/contact",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+
+                            name: name,
+
+                            email: email,
+
+                            mobile: mobile,
+
+                            message: message
+
+                        })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                throw new Error(
+                    data.message ||
+                    "Message could not be sent."
+                );
+
+            }
+
+
+            showMessage(
+                "✅ Your message has been sent successfully!",
+                "success"
+            );
+
+
+            contactForm.reset();
+
+
+        } catch (error) {
+
+            console.error(
+                "Contact error:",
+                error
+            );
+
+
+            showMessage(
+                error.message ||
+                "Unable to connect to server.",
+                "error"
+            );
+
+        }
+
+
+        submitBtn.disabled = false;
+
+        submitBtn.textContent =
+            "Send Message";
+
+    }
+);
+
+
+/* =====================================================
+   SHOW MESSAGE
+===================================================== */
+
+function showMessage(text, type) {
+
+    formMessage.textContent =
+        text;
+
+    formMessage.className =
+        "message " + type;
+
+    formMessage.style.display =
+        "block";
+
+}
+
+</script>
+
+
+</body>
+
+</html>

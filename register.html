@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Register - Karnataka Travel</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        .auth-page {
+            min-height: 100vh;
+            background: #f4faf6;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 40px 20px;
+        }
+
+        .auth-box {
+            width: 100%;
+            max-width: 450px;
+
+            background: white;
+
+            padding: 40px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 10px 40px rgba(0,0,0,0.12);
+        }
+
+        .auth-icon {
+            text-align: center;
+            font-size: 55px;
+            margin-bottom: 10px;
+        }
+
+        .auth-box h1 {
+            text-align: center;
+            color: #087f3d;
+            margin-bottom: 8px;
+        }
+
+        .auth-box > p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            box-sizing: border-box;
+
+            padding: 13px;
+
+            border: 1px solid #ccc;
+            border-radius: 7px;
+
+            font-size: 15px;
+
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #087f3d;
+        }
+
+        .register-btn {
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+            border-radius: 8px;
+
+            background: #087f3d;
+            color: white;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .register-btn:hover {
+            background: #05652f;
+        }
+
+        .register-btn:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+        .message {
+            display: none;
+
+            margin-top: 15px;
+
+            padding: 12px;
+
+            border-radius: 7px;
+
+            text-align: center;
+
+            font-weight: bold;
+        }
+
+        .success {
+            background: #eaf7ee;
+            color: #087f3d;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .auth-links {
+            text-align: center;
+            margin-top: 22px;
+        }
+
+        .auth-links a {
+            color: #087f3d;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .auth-links a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        🏛️ Karnataka <span>Travel</span>
+    </div>
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="district.html">
+            Districts
+        </a>
+
+        <a href="contact.html">
+            Contact
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<section class="auth-page">
+
+
+    <div class="auth-box">
+
+
+        <div class="auth-icon">
+            📝
+        </div>
+
+
+        <h1>
+            Create Account
+        </h1>
+
+
+        <p>
+            Register to plan and manage your Karnataka trips.
+        </p>
+
+
+
+        <form id="registerForm">
+
+
+            <!-- NAME -->
+
+            <div class="form-group">
+
+                <label for="name">
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your full name"
+                    autocomplete="name"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    autocomplete="email"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- MOBILE -->
+
+            <div class="form-group">
+
+                <label for="mobile">
+                    Mobile Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="mobile"
+                    name="mobile"
+                    placeholder="Enter 10 digit mobile number"
+                    maxlength="10"
+                    autocomplete="tel"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Create a password"
+                    autocomplete="new-password"
+                    minlength="6"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- CONFIRM PASSWORD -->
+
+            <div class="form-group">
+
+                <label for="confirmPassword">
+                    Confirm Password
+                </label>
+
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    placeholder="Confirm your password"
+                    autocomplete="new-password"
+                    minlength="6"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- REGISTER BUTTON -->
+
+            <button
+                type="submit"
+                id="registerBtn"
+                class="register-btn"
+            >
+                Create Account →
+            </button>
+
+
+
+            <!-- MESSAGE -->
+
+            <div
+                id="registerMessage"
+                class="message"
+            ></div>
+
+
+        </form>
+
+
+
+        <div class="auth-links">
+
+            Already have an account?
+
+            <a href="login.html">
+                Login
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<script>
+
+
+/* =====================================================
+   REGISTER FORM
+===================================================== */
+
+const registerForm =
+    document.getElementById(
+        "registerForm"
+    );
+
+
+const registerBtn =
+    document.getElementById(
+        "registerBtn"
+    );
+
+
+const registerMessage =
+    document.getElementById(
+        "registerMessage"
+    );
+
+
+
+registerForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        /* GET VALUES */
+
+        const name =
+            document.getElementById(
+                "name"
+            )
+            .value
+            .trim();
+
+
+        const email =
+            document.getElementById(
+                "email"
+            )
+            .value
+            .trim()
+            .toLowerCase();
+
+
+        const mobile =
+            document.getElementById(
+                "mobile"
+            )
+            .value
+            .trim();
+
+
+        const password =
+            document.getElementById(
+                "password"
+            )
+            .value;
+
+
+        const confirmPassword =
+            document.getElementById(
+                "confirmPassword"
+            )
+            .value;
+
+
+
+        /* =================================================
+           VALIDATION
+        ================================================= */
+
+
+        if (name.length < 2) {
+
+            showMessage(
+                "Please enter a valid name.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                .test(email)
+        ) {
+
+            showMessage(
+                "Please enter a valid email address.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (
+            !/^[0-9]{10}$/.test(mobile)
+        ) {
+
+            showMessage(
+                "Please enter a valid 10 digit mobile number.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (password.length < 6) {
+
+            showMessage(
+                "Password must contain at least 6 characters.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (
+            password !==
+            confirmPassword
+        ) {
+
+            showMessage(
+                "Passwords do not match.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+
+        /* =================================================
+           DISABLE BUTTON
+        ================================================= */
+
+        registerBtn.disabled =
+            true;
+
+        registerBtn.textContent =
+            "Creating Account...";
+
+        registerMessage.style.display =
+            "none";
+
+
+
+        try {
+
+
+            /* =================================================
+               SEND TO BACKEND
+            ================================================= */
+
+            const response =
+                await fetch(
+                    "http://localhost:5000/api/register",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                name:
+                                    name,
+
+                                email:
+                                    email,
+
+                                mobile:
+                                    mobile,
+
+                                password:
+                                    password
+
+                            })
+
+                    }
+                );
+
+
+
+            const data =
+                await response.json();
+
+
+
+            /* =================================================
+               ERROR
+            ================================================= */
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                throw new Error(
+                    data.message ||
+                    "Registration failed."
+                );
+
+            }
+
+
+
+            /* =================================================
+               SUCCESS
+            ================================================= */
+
+            showMessage(
+                "✅ Registration successful! Redirecting to login...",
+                "success"
+            );
+
+
+            registerForm.reset();
+
+
+
+            setTimeout(
+                function() {
+
+                    window.location.href =
+                        "login.html";
+
+                },
+                1000
+            );
+
+
+        } catch (error) {
+
+
+            console.error(
+                "Registration error:",
+                error
+            );
+
+
+            showMessage(
+                error.message ||
+                "Unable to connect to server.",
+                "error"
+            );
+
+
+            registerBtn.disabled =
+                false;
+
+            registerBtn.textContent =
+                "Create Account →";
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   SHOW MESSAGE
+===================================================== */
+
+function showMessage(
+    text,
+    type
+) {
+
+    registerMessage.textContent =
+        text;
+
+
+    registerMessage.className =
+        "message " + type;
+
+
+    registerMessage.style.display =
+        "block";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
