@@ -1495,7 +1495,7 @@ async function handleBookingSubmit(event) {
 
         const response =
             await fetch(
-                "http://localhost:5000/api/bookings",
+               "[https://karnataka-travel-4z5m.onrender.com/api/bookings]",
                 {
 
                     method: "POST",
@@ -1728,7 +1728,7 @@ async function handlePaymentSubmit(event) {
 
         const response =
             await fetch(
-                "http://localhost:5000/api/bookings/payment",
+               "[https://karnataka-travel-4z5m.onrender.com/api/bookings/payment]",
                 {
 
                     method: "PUT",
