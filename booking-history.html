@@ -493,7 +493,7 @@ async function loadBookingHistory() {
 
         const response =
             await fetch(
-               "http://192.168.1.103:5000/api/bookings/user/" +
+              "http://localhost:5000/api/bookings/user/" +
                 encodeURIComponent(
                     user.id
                 )
