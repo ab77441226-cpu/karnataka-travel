@@ -2,13 +2,16 @@
    KARNATAKA TRAVEL - COMPLETE SERVER.JS
    Register
    Login
-   My Profile
+   Profile
    Forgot Password + OTP
    Reset Password
-   Booking + From Location
+   Booking
    Payment
    Booking History
    Contact
+   Admin Login
+   Admin Bookings
+   Delete Booking
 ========================================================= */
 
 "use strict";
@@ -20,13 +23,17 @@ const bcrypt = require("bcryptjs");
 const path = require("path");
 
 const app = express();
+
 const PORT = 5000;
 
 /* =========================================================
    MIDDLEWARE
 ========================================================= */
 
-app.use(cors());
+app.use(cors({
+    origin: true,
+    credentials: true
+}));
 
 app.use(express.json());
 
@@ -34,15 +41,9 @@ app.use(express.urlencoded({
     extended: true
 }));
 
-/*
-   Your HTML files are one folder above backend.
-   Example:
-   karnataka travel/
-       login.html
-       booking.html
-       backend/
-           server.js
-*/
+/* =========================================================
+   FRONTEND FILES
+========================================================= */
 
 app.use(
     express.static(
@@ -51,7 +52,7 @@ app.use(
 );
 
 /* =========================================================
-   MYSQL CONNECTION
+   MYSQL
 ========================================================= */
 
 const db = mysql.createPool({
@@ -75,7 +76,7 @@ const db = mysql.createPool({
 });
 
 /* =========================================================
-   TEST MYSQL
+   DATABASE TEST
 ========================================================= */
 
 async function testDatabase() {
@@ -86,7 +87,15 @@ async function testDatabase() {
             await db.getConnection();
 
         console.log(
+            "========================================"
+        );
+
+        console.log(
             "✅ MySQL connected successfully"
+        );
+
+        console.log(
+            "========================================"
         );
 
         connection.release();
@@ -127,7 +136,7 @@ app.get("/", function (req, res) {
 });
 
 /* =========================================================
-   TEST DATABASE
+   TEST MYSQL
 ========================================================= */
 
 app.get(
@@ -153,6 +162,11 @@ app.get(
             });
 
         } catch (error) {
+
+            console.error(
+                "Test DB error:",
+                error.message
+            );
 
             res.status(500).json({
 
@@ -203,9 +217,18 @@ app.post(
 
             }
 
+            const cleanEmail =
+                String(email)
+                    .trim()
+                    .toLowerCase();
+
+            const cleanMobile =
+                String(mobile)
+                    .replace(/\D/g, "");
+
             if (
                 !/^[0-9]{10}$/.test(
-                    String(mobile)
+                    cleanMobile
                 )
             ) {
 
@@ -245,12 +268,8 @@ app.post(
                      LIMIT 1`,
 
                     [
-                        String(email)
-                            .trim()
-                            .toLowerCase(),
-
-                        String(mobile)
-                            .trim()
+                        cleanEmail,
+                        cleanMobile
                     ]
 
                 );
@@ -291,13 +310,11 @@ app.post(
                     [
                         String(name).trim(),
 
-                        String(email)
-                            .trim()
-                            .toLowerCase(),
+                        cleanEmail,
 
                         hashedPassword,
 
-                        String(mobile).trim()
+                        cleanMobile
 
                     ]
 
@@ -315,11 +332,14 @@ app.post(
                     id:
                         result.insertId,
 
-                    name,
+                    name:
+                        String(name).trim(),
 
-                    email,
+                    email:
+                        cleanEmail,
 
-                    mobile
+                    mobile:
+                        cleanMobile
 
                 }
 
@@ -328,7 +348,7 @@ app.post(
         } catch (error) {
 
             console.error(
-                "Register error:",
+                "❌ Register error:",
                 error.message
             );
 
@@ -438,10 +458,6 @@ app.post(
             let passwordMatch =
                 false;
 
-            /*
-               bcrypt password
-            */
-
             if (
                 String(user.password)
                     .startsWith("$2")
@@ -454,10 +470,6 @@ app.post(
                     );
 
             } else {
-
-                /*
-                   Old plain password support
-                */
 
                 passwordMatch =
                     String(password) ===
@@ -529,7 +541,7 @@ app.post(
         } catch (error) {
 
             console.error(
-                "Login error:",
+                "❌ Login error:",
                 error.message
             );
 
@@ -548,7 +560,7 @@ app.post(
 );
 
 /* =========================================================
-   MY PROFILE
+   PROFILE
 ========================================================= */
 
 app.get(
@@ -641,7 +653,7 @@ app.get(
 );
 
 /* =========================================================
-   FORGOT PASSWORD - SEND OTP
+   FORGOT PASSWORD
 ========================================================= */
 
 app.post(
@@ -1139,7 +1151,6 @@ app.post(
 
 /* =========================================================
    CREATE BOOKING
-   from_location INCLUDED
 ========================================================= */
 
 app.post(
@@ -1183,11 +1194,6 @@ app.post(
 
             } = req.body;
 
-
-            /* =================================================
-               VALIDATION
-            ================================================= */
-
             if (
                 !userId ||
                 !name ||
@@ -1211,20 +1217,10 @@ app.post(
 
             }
 
-
-            /* =================================================
-               BOOKING ID
-            ================================================= */
-
             const finalBookingId =
                 bookingId ||
                 "KT" +
                 Date.now();
-
-
-            /* =================================================
-               INSERT
-            ================================================= */
 
             const [result] =
                 await db.execute(
@@ -1245,22 +1241,7 @@ app.post(
                         payment_method,
                         status
                     )
-                    VALUES
-                    (
-                        ?,
-                        ?,
-                        ?,
-                        ?,
-                        ?,
-                        ?,
-                        ?,
-                        ?,
-                        ?,
-                        ?,
-                        ?,
-                        ?,
-                        ?
-                    )`,
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
 
                     [
 
@@ -1268,13 +1249,13 @@ app.post(
 
                         Number(userId),
 
-                        name,
+                        String(name).trim(),
 
-                        mobile,
+                        String(mobile).trim(),
 
-                        from_location,
+                        String(from_location).trim(),
 
-                        destination,
+                        String(destination).trim(),
 
                         travelDate,
 
@@ -1282,7 +1263,7 @@ app.post(
 
                         Number(travelers),
 
-                        vehicle,
+                        String(vehicle).trim(),
 
                         Number(total || 0),
 
@@ -1296,16 +1277,10 @@ app.post(
 
                 );
 
-
             console.log(
                 "✅ Booking saved:",
                 finalBookingId
             );
-
-
-            /* =================================================
-               RESPONSE
-            ================================================= */
 
             res.status(201).json({
 
@@ -1388,18 +1363,34 @@ app.post(
 
 /* =========================================================
    PAYMENT
+   Supports:
+   PUT /api/bookings/:bookingId/payment
+   PUT /api/bookings/payment
 ========================================================= */
 
 app.put(
-    "/api/bookings/payment",
+    "/api/bookings/:bookingId/payment",
     async function (req, res) {
 
         try {
 
+            const bookingId =
+                req.params.bookingId;
+
             const {
-                bookingId,
-                paymentMethod
+                payment_method,
+                paymentMethod,
+                status
             } = req.body;
+
+            const finalPaymentMethod =
+                payment_method ||
+                paymentMethod ||
+                "Cash";
+
+            const finalStatus =
+                status ||
+                "Paid";
 
             if (!bookingId) {
 
@@ -1419,13 +1410,13 @@ app.put(
 
                     `UPDATE bookings
                      SET payment_method = ?,
-                         status = 'Paid'
+                         status = ?
                      WHERE booking_id = ?`,
 
                     [
+                        finalPaymentMethod,
 
-                        paymentMethod ||
-                        "Cash",
+                        finalStatus,
 
                         bookingId
 
@@ -1458,8 +1449,111 @@ app.put(
                 bookingId,
 
                 paymentMethod:
-                    paymentMethod ||
-                    "Cash",
+                    finalPaymentMethod,
+
+                status:
+                    finalStatus
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "❌ Payment error:",
+                error.message
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    error.message
+
+            });
+
+        }
+
+    }
+);
+
+/* =========================================================
+   OLD PAYMENT API
+========================================================= */
+
+app.put(
+    "/api/bookings/payment",
+    async function (req, res) {
+
+        try {
+
+            const {
+                bookingId,
+                paymentMethod,
+                payment_method
+            } = req.body;
+
+            if (!bookingId) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Booking ID is required."
+
+                });
+
+            }
+
+            const finalMethod =
+                paymentMethod ||
+                payment_method ||
+                "Cash";
+
+            const [result] =
+                await db.execute(
+
+                    `UPDATE bookings
+                     SET payment_method = ?,
+                         status = 'Paid'
+                     WHERE booking_id = ?`,
+
+                    [
+                        finalMethod,
+
+                        bookingId
+
+                    ]
+
+                );
+
+            if (
+                result.affectedRows === 0
+            ) {
+
+                return res.status(404).json({
+
+                    success: false,
+
+                    message:
+                        "Booking not found."
+
+                });
+
+            }
+
+            res.json({
+
+                success: true,
+
+                message:
+                    "Payment updated successfully.",
+
+                bookingId,
+
+                paymentMethod:
+                    finalMethod,
 
                 status:
                     "Paid"
@@ -1488,7 +1582,7 @@ app.put(
 );
 
 /* =========================================================
-   BOOKING HISTORY
+   USER BOOKING HISTORY
 ========================================================= */
 
 app.get(
@@ -1502,7 +1596,10 @@ app.get(
                     req.params.userId
                 );
 
-            if (!userId) {
+            if (
+                !Number.isInteger(userId) ||
+                userId <= 0
+            ) {
 
                 return res.status(400).json({
 
@@ -1628,6 +1725,290 @@ app.get(
 );
 
 /* =========================================================
+   DELETE SINGLE BOOKING
+========================================================= */
+
+app.delete(
+    "/api/bookings/:bookingId",
+    async function (req, res) {
+
+        try {
+
+            const bookingId =
+                req.params.bookingId;
+
+            if (!bookingId) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Booking ID is required."
+
+                });
+
+            }
+
+            const [result] =
+                await db.execute(
+
+                    `DELETE FROM bookings
+                     WHERE booking_id = ?`,
+
+                    [bookingId]
+
+                );
+
+            if (
+                result.affectedRows === 0
+            ) {
+
+                return res.status(404).json({
+
+                    success: false,
+
+                    message:
+                        "Booking not found."
+
+                });
+
+            }
+
+            res.json({
+
+                success: true,
+
+                message:
+                    "Booking deleted successfully."
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "Delete booking error:",
+                error.message
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    error.message
+
+            });
+
+        }
+
+    }
+);
+
+/* =========================================================
+   DELETE ALL BOOKINGS
+========================================================= */
+
+app.delete(
+    "/api/bookings",
+    async function (req, res) {
+
+        try {
+
+            await db.execute(
+                "DELETE FROM bookings"
+            );
+
+            res.json({
+
+                success: true,
+
+                message:
+                    "All bookings deleted successfully."
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "Delete all bookings error:",
+                error.message
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    error.message
+
+            });
+
+        }
+
+    }
+);
+
+/* =========================================================
+   ADMIN LOGIN
+========================================================= */
+
+app.post(
+    "/api/admin/login",
+    async function (req, res) {
+
+        try {
+
+            const {
+                email,
+                password
+            } = req.body;
+
+            if (
+                !email ||
+                !password
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Email and password are required."
+
+                });
+
+            }
+
+            const cleanEmail =
+                String(email)
+                    .trim()
+                    .toLowerCase();
+
+            /*
+              Admin login using environment variables.
+
+              Default:
+              Email: admin@karnatakatravel.com
+              Password: admin123
+            */
+
+            const adminEmail =
+                process.env.ADMIN_EMAIL ||
+                "admin@karnatakatravel.com";
+
+            const adminPassword =
+                process.env.ADMIN_PASSWORD ||
+                "admin123";
+
+            if (
+                cleanEmail !==
+                adminEmail.toLowerCase() ||
+                String(password) !==
+                adminPassword
+            ) {
+
+                return res.status(401).json({
+
+                    success: false,
+
+                    message:
+                        "Invalid admin email or password."
+
+                });
+
+            }
+
+            res.json({
+
+                success: true,
+
+                message:
+                    "Admin login successful.",
+
+                admin: {
+
+                    email:
+                        adminEmail,
+
+                    name:
+                        "Administrator"
+
+                }
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "Admin login error:",
+                error.message
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    error.message
+
+            });
+
+        }
+
+    }
+);
+
+/* =========================================================
+   ADMIN - GET ALL BOOKINGS
+========================================================= */
+
+app.get(
+    "/api/admin/bookings",
+    async function (req, res) {
+
+        try {
+
+            const [rows] =
+                await db.execute(
+
+                    `SELECT *
+                     FROM bookings
+                     ORDER BY id DESC`
+
+                );
+
+            res.json({
+
+                success: true,
+
+                bookings:
+                    rows
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "Admin bookings error:",
+                error.message
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    error.message
+
+            });
+
+        }
+
+    }
+);
+
+/* =========================================================
    CONTACT
 ========================================================= */
 
@@ -1675,9 +2056,12 @@ app.post(
                 VALUES (?, ?, ?, ?, ?)`,
 
                 [
-                    name,
 
-                    email,
+                    String(name).trim(),
+
+                    String(email)
+                        .trim()
+                        .toLowerCase(),
 
                     mobile ||
                     null,
@@ -1685,7 +2069,7 @@ app.post(
                     subject ||
                     null,
 
-                    message
+                    String(message).trim()
 
                 ]
 
@@ -1742,7 +2126,7 @@ app.use(
 );
 
 /* =========================================================
-   START SERVER
+   SERVER START
 ========================================================= */
 
 app.listen(
@@ -1759,11 +2143,23 @@ app.listen(
         );
 
         console.log(
-            "🚀 Server running on http://localhost:5000"
+            "🚀 Server running"
         );
 
         console.log(
-            "📱 Phone access: http://192.168.1.103:5000"
+            "💻 Computer:"
+        );
+
+        console.log(
+            "http://localhost:5000"
+        );
+
+        console.log(
+            "📱 Phone:"
+        );
+
+        console.log(
+            "http://192.168.1.103:5000"
         );
 
         console.log(
