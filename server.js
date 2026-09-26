@@ -1750,9 +1750,10 @@ app.listen(
     "0.0.0.0",
     function () {
 
-        console.log("🚍 Karnataka Travel Server");
-        console.log("🚀 Server running on http://localhost:5000");
-        console.log("📱 Phone access: http://192.168.1.103:5000");
+        console.log(
+            "Karnataka Travel Server running on port " +
+            PORT
+        );
 
     }
 );
