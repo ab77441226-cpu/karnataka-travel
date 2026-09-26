@@ -1,8 +1,7 @@
 "use strict";
 
-
 /* =====================================================
-   KARNATAKA DISTRICTS + LOCATIONS
+   KARNATAKA DISTRICTS
 ===================================================== */
 
 const districts = [
@@ -254,7 +253,6 @@ const districts = [
         lng: 77.13,
         places: ["Yadgir Fort", "Sannati", "Shorapur"]
     }
-
 ];
 
 
@@ -264,78 +262,18 @@ const districts = [
 
 const startingLocations = [
 
-    {
-        name: "Bengaluru",
-        lat: 12.9716,
-        lng: 77.5946
-    },
-
-    {
-        name: "Mysuru",
-        lat: 12.2958,
-        lng: 76.6394
-    },
-
-    {
-        name: "Mangaluru",
-        lat: 12.9141,
-        lng: 74.8560
-    },
-
-    {
-        name: "Hubballi",
-        lat: 15.3647,
-        lng: 75.1240
-    },
-
-    {
-        name: "Belagavi",
-        lat: 15.8497,
-        lng: 74.4977
-    },
-
-    {
-        name: "Vijayapura",
-        lat: 16.8302,
-        lng: 75.7100
-    },
-
-    {
-        name: "Shivamogga",
-        lat: 13.9299,
-        lng: 75.5681
-    },
-
-    {
-        name: "Ballari",
-        lat: 15.1394,
-        lng: 76.9214
-    },
-
-    {
-        name: "Tumakuru",
-        lat: 13.3392,
-        lng: 77.1010
-    },
-
-    {
-        name: "Udupi",
-        lat: 13.3409,
-        lng: 74.7421
-    },
-
-    {
-        name: "Davanagere",
-        lat: 14.4644,
-        lng: 75.9218
-    },
-
-    {
-        name: "Hassan",
-        lat: 13.0068,
-        lng: 76.0996
-    }
-
+    { name: "Bengaluru", lat: 12.9716, lng: 77.5946 },
+    { name: "Mysuru", lat: 12.2958, lng: 76.6394 },
+    { name: "Mangaluru", lat: 12.9141, lng: 74.8560 },
+    { name: "Hubballi", lat: 15.3647, lng: 75.1240 },
+    { name: "Belagavi", lat: 15.8497, lng: 74.4977 },
+    { name: "Vijayapura", lat: 16.8302, lng: 75.7100 },
+    { name: "Shivamogga", lat: 13.9299, lng: 75.5681 },
+    { name: "Ballari", lat: 15.1394, lng: 76.9214 },
+    { name: "Tumakuru", lat: 13.3392, lng: 77.1010 },
+    { name: "Udupi", lat: 13.3409, lng: 74.7421 },
+    { name: "Davanagere", lat: 14.4644, lng: 75.9218 },
+    { name: "Hassan", lat: 13.0068, lng: 76.0996 }
 ];
 
 
@@ -347,8 +285,7 @@ function safeJSONParse(value, fallback = null) {
 
     try {
         return value ? JSON.parse(value) : fallback;
-    }
-    catch (error) {
+    } catch (error) {
         return fallback;
     }
 }
@@ -357,8 +294,7 @@ function safeJSONParse(value, fallback = null) {
 function formatCurrency(amount) {
 
     return "₹" +
-        Number(amount || 0)
-            .toLocaleString("en-IN");
+        Number(amount || 0).toLocaleString("en-IN");
 }
 
 
@@ -368,17 +304,15 @@ function formatCurrency(amount) {
 
 function loadDistricts() {
 
-    const container =
-        document.getElementById("districtCards");
+    const container = document.getElementById("districtCards");
 
     if (!container) return;
 
     container.innerHTML = "";
 
-    districts.forEach(function(district) {
+    districts.forEach(function (district) {
 
-        const card =
-            document.createElement("div");
+        const card = document.createElement("div");
 
         card.className = "card";
 
@@ -388,19 +322,15 @@ function loadDistricts() {
                 src="${district.image}"
                 alt="${district.name}"
                 class="district-image"
-                onerror="
-                    this.src='https://placehold.co/900x600?text=${encodeURIComponent(district.name)}'
-                "
+                onerror="this.src='https://placehold.co/900x600?text=${encodeURIComponent(district.name)}'"
             >
 
             <div class="card-content">
 
-                <h3>
-                    ${district.name}
-                </h3>
+                <h3>${district.name}</h3>
 
                 <p>
-                    ${district.places.slice(0,3).join(" • ")}
+                    ${district.places.slice(0, 3).join(" • ")}
                 </p>
 
                 <a
@@ -414,61 +344,43 @@ function loadDistricts() {
         `;
 
         container.appendChild(card);
-
     });
 }
 
 
 /* =====================================================
-   LOAD SEARCH DROPDOWNS
+   LOAD DESTINATION DROPDOWNS
 ===================================================== */
 
 function loadDestinationDropdown() {
 
-    const fromCity =
-        document.getElementById("fromCity");
-
-    const toCity =
-        document.getElementById("toCity");
-
+    const fromCity = document.getElementById("fromCity");
+    const toCity = document.getElementById("toCity");
 
     if (fromCity) {
 
-        startingLocations.forEach(function(location) {
+        startingLocations.forEach(function (location) {
 
-            const option =
-                document.createElement("option");
+            const option = document.createElement("option");
 
-            option.value =
-                location.name;
-
-            option.textContent =
-                location.name;
+            option.value = location.name;
+            option.textContent = location.name;
 
             fromCity.appendChild(option);
-
         });
-
     }
-
 
     if (toCity) {
 
-        districts.forEach(function(district) {
+        districts.forEach(function (district) {
 
-            const option =
-                document.createElement("option");
+            const option = document.createElement("option");
 
-            option.value =
-                district.name;
-
-            option.textContent =
-                district.name;
+            option.value = district.name;
+            option.textContent = district.name;
 
             toCity.appendChild(option);
-
         });
-
     }
 }
 
@@ -479,22 +391,20 @@ function loadDestinationDropdown() {
 
 function getLocationData(name) {
 
-    let location =
-        startingLocations.find(function(item) {
+    if (!name) return null;
 
-            return item.name.toLowerCase() ===
-                name.toLowerCase();
+    const startingLocation =
+        startingLocations.find(function (item) {
+
+            return item.name.toLowerCase() === name.toLowerCase();
 
         });
 
+    if (startingLocation) return startingLocation;
 
-    if (location) return location;
+    return districts.find(function (item) {
 
-
-    return districts.find(function(item) {
-
-        return item.name.toLowerCase() ===
-            name.toLowerCase();
+        return item.name.toLowerCase() === name.toLowerCase();
 
     }) || null;
 }
@@ -520,25 +430,16 @@ function searchTrip() {
 
 
     if (!from) {
-
         alert("Please select your starting location.");
-
         return;
     }
-
 
     if (!to) {
-
         alert("Please select your destination.");
-
         return;
     }
 
-
-    if (
-        from.toLowerCase() ===
-        to.toLowerCase()
-    ) {
+    if (from.toLowerCase() === to.toLowerCase()) {
 
         alert(
             "Starting location and destination cannot be same."
@@ -550,19 +451,14 @@ function searchTrip() {
 
     let url =
         "booking.html?" +
-        "from=" +
-        encodeURIComponent(from) +
-        "&destination=" +
-        encodeURIComponent(to) +
-        "&days=" +
-        encodeURIComponent(days);
+        "from=" + encodeURIComponent(from) +
+        "&destination=" + encodeURIComponent(to) +
+        "&days=" + encodeURIComponent(days);
 
 
     if (date) {
 
-        url +=
-            "&date=" +
-            encodeURIComponent(date);
+        url += "&date=" + encodeURIComponent(date);
     }
 
 
@@ -578,82 +474,62 @@ function useMyLocation() {
 
     if (!navigator.geolocation) {
 
-        alert(
-            "Your browser does not support location."
-        );
-
+        alert("Your browser does not support location.");
         return;
     }
 
 
     navigator.geolocation.getCurrentPosition(
 
-        function(position) {
+        function (position) {
 
-            const lat =
-                position.coords.latitude;
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
 
-            const lng =
-                position.coords.longitude;
-
-
-            let nearest =
-                null;
-
-            let smallest =
-                Infinity;
+            let nearest = null;
+            let smallest = Infinity;
 
 
-            startingLocations.forEach(function(location) {
+            startingLocations.forEach(function (location) {
 
                 const distance =
                     Math.sqrt(
-                        Math.pow(
-                            lat - location.lat,
-                            2
-                        ) +
-                        Math.pow(
-                            lng - location.lng,
-                            2
-                        )
+                        Math.pow(lat - location.lat, 2) +
+                        Math.pow(lng - location.lng, 2)
                     );
 
 
                 if (distance < smallest) {
 
                     smallest = distance;
-
                     nearest = location;
                 }
-
             });
 
 
             if (nearest) {
 
-                document.getElementById(
-                    "fromCity"
-                ).value =
-                    nearest.name;
+                const fromCity =
+                    document.getElementById("fromCity");
+
+                if (fromCity) {
+                    fromCity.value = nearest.name;
+                }
 
                 alert(
                     "Starting location selected: " +
                     nearest.name
                 );
-
             }
-
         },
 
-        function(error) {
+        function () {
 
             alert(
                 "Unable to get your location. " +
                 "Please select your starting location manually."
             );
-
         }
-
     );
 }
 
@@ -665,25 +541,20 @@ function useMyLocation() {
 function loadDistrictDetails() {
 
     const container =
-        document.getElementById(
-            "districtDetails"
-        );
+        document.getElementById("districtDetails");
 
     if (!container) return;
 
 
     const params =
-        new URLSearchParams(
-            window.location.search
-        );
-
+        new URLSearchParams(window.location.search);
 
     const name =
         params.get("district");
 
 
     const district =
-        districts.find(function(item) {
+        districts.find(function (item) {
 
             return item.name.toLowerCase() ===
                 (name || "").toLowerCase();
@@ -697,9 +568,7 @@ function loadDistrictDetails() {
 
             <div class="details-error">
 
-                <h2>
-                    District Not Found
-                </h2>
+                <h2>District Not Found</h2>
 
                 <a
                     href="index.html#destinations"
@@ -727,21 +596,17 @@ function loadDistrictDetails() {
 
             <div class="district-detail-content">
 
-                <h1>
-                    ${district.name}
-                </h1>
+                <h1>${district.name}</h1>
 
                 <p>
                     Tourist Places in ${district.name}
                 </p>
 
-                <h2>
-                    📍 Places to Visit
-                </h2>
+                <h2>📍 Places to Visit</h2>
 
                 <div class="places-grid">
 
-                    ${district.places.map(function(place) {
+                    ${district.places.map(function (place) {
 
                         return `
 
@@ -751,9 +616,7 @@ function loadDistrictDetails() {
                                     📍
                                 </div>
 
-                                <h3>
-                                    ${place}
-                                </h3>
+                                <h3>${place}</h3>
 
                                 <p>
                                     Explore ${place}
@@ -800,22 +663,13 @@ function loadDistrictDetails() {
 function setupBookingPage() {
 
     const params =
-        new URLSearchParams(
-            window.location.search
-        );
+        new URLSearchParams(window.location.search);
 
 
-    const from =
-        params.get("from");
-
-    const destination =
-        params.get("destination");
-
-    const date =
-        params.get("date");
-
-    const days =
-        params.get("days");
+    const from = params.get("from");
+    const destination = params.get("destination");
+    const date = params.get("date");
+    const days = params.get("days");
 
 
     const fromInput =
@@ -826,30 +680,21 @@ function setupBookingPage() {
 
 
     if (from && fromInput) {
-
-        fromInput.value =
-            from;
+        fromInput.value = from;
     }
 
-
     if (destination && destinationInput) {
-
-        destinationInput.value =
-            destination;
+        destinationInput.value = destination;
     }
 
 
     if (date) {
 
         const dateInput =
-            document.getElementById(
-                "travelDate"
-            );
+            document.getElementById("travelDate");
 
         if (dateInput) {
-
-            dateInput.value =
-                date;
+            dateInput.value = date;
         }
     }
 
@@ -860,9 +705,7 @@ function setupBookingPage() {
             document.getElementById("days");
 
         if (daysInput) {
-
-            daysInput.value =
-                days;
+            daysInput.value = days;
         }
     }
 
@@ -876,11 +719,8 @@ function setupBookingPage() {
 ===================================================== */
 
 let bookingMap = null;
-
 let fromMarker = null;
-
 let toMarker = null;
-
 let routeLine = null;
 
 
@@ -894,20 +734,16 @@ function setupBookingMap() {
 
     if (typeof L === "undefined") {
 
-        console.log(
-            "Leaflet not loaded."
-        );
-
+        console.log("Leaflet not loaded.");
         return;
     }
 
 
     bookingMap =
-        L.map("bookingMap")
-            .setView(
-                [15.3173, 75.7139],
-                7
-            );
+        L.map("bookingMap").setView(
+            [15.3173, 75.7139],
+            7
+        );
 
 
     L.tileLayer(
@@ -950,57 +786,32 @@ async function updateBookingMap() {
 
 
     const from =
-        document.getElementById(
-            "fromCity"
-        )?.value;
-
+        document.getElementById("fromCity")?.value;
 
     const to =
-        document.getElementById(
-            "destination"
-        )?.value;
+        document.getElementById("destination")?.value;
 
 
-    if (!from || !to) {
-
-        return;
-    }
+    if (!from || !to) return;
 
 
-    const fromData =
-        getLocationData(from);
-
-    const toData =
-        getLocationData(to);
+    const fromData = getLocationData(from);
+    const toData = getLocationData(to);
 
 
-    if (!fromData || !toData) {
-
-        return;
-    }
+    if (!fromData || !toData) return;
 
 
     if (fromMarker) {
-
-        bookingMap.removeLayer(
-            fromMarker
-        );
+        bookingMap.removeLayer(fromMarker);
     }
-
 
     if (toMarker) {
-
-        bookingMap.removeLayer(
-            toMarker
-        );
+        bookingMap.removeLayer(toMarker);
     }
 
-
     if (routeLine) {
-
-        bookingMap.removeLayer(
-            routeLine
-        );
+        bookingMap.removeLayer(routeLine);
     }
 
 
@@ -1044,37 +855,27 @@ async function updateBookingMap() {
         const response =
             await fetch(url);
 
-
         const data =
             await response.json();
 
 
-        if (
-            !data.routes ||
-            !data.routes.length
-        ) {
+        if (!data.routes || !data.routes.length) {
 
-            throw new Error(
-                "Route not found"
-            );
+            throw new Error("Route not found");
         }
 
 
-        const route =
-            data.routes[0];
+        const route = data.routes[0];
 
 
         const coordinates =
-            route.geometry.coordinates.map(
-                function(point) {
+            route.geometry.coordinates.map(function (point) {
 
-                    return [
-                        point[1],
-                        point[0]
-                    ];
-
-                }
-            );
+                return [
+                    point[1],
+                    point[0]
+                ];
+            });
 
 
         routeLine =
@@ -1088,38 +889,28 @@ async function updateBookingMap() {
 
 
         const distance =
-            (
-                route.distance /
-                1000
-            ).toFixed(1);
+            (route.distance / 1000).toFixed(1);
 
 
         const hours =
-            Math.floor(
-                route.duration / 3600
-            );
+            Math.floor(route.duration / 3600);
 
 
         const minutes =
             Math.round(
-                (route.duration % 3600) /
-                60
+                (route.duration % 3600) / 60
             );
 
 
         const routeInfo =
-            document.getElementById(
-                "routeInfo"
-            );
+            document.getElementById("routeInfo");
 
 
         if (routeInfo) {
 
             routeInfo.innerHTML = `
 
-                <strong>
-                    🚗 Route Information
-                </strong>
+                <strong>🚗 Route Information</strong>
 
                 <br>
 
@@ -1143,23 +934,17 @@ async function updateBookingMap() {
         bookingMap.fitBounds(
             routeLine.getBounds(),
             {
-                padding: [30,30]
+                padding: [30, 30]
             }
         );
 
+    } catch (error) {
 
-    }
-    catch (error) {
+        console.error("Route error:", error);
 
-        console.error(
-            "Route error:",
-            error
-        );
 
         const routeInfo =
-            document.getElementById(
-                "routeInfo"
-            );
+            document.getElementById("routeInfo");
 
 
         if (routeInfo) {
@@ -1172,6 +957,7 @@ async function updateBookingMap() {
                 <br>
 
                 Route could not be loaded.
+
             `;
         }
 
@@ -1182,7 +968,7 @@ async function updateBookingMap() {
                 [toData.lat, toData.lng]
             ],
             {
-                padding: [30,30]
+                padding: [30, 30]
             }
         );
     }
@@ -1196,36 +982,28 @@ async function updateBookingMap() {
 const vehiclePrices = {
 
     "Car": 2500,
-
     "SUV": 3500,
-
     "Tempo Traveller": 5000,
-
     "Mini Bus": 7000
+
 };
 
 
 function calculateBookingTotal() {
 
     const vehicle =
-        document.getElementById(
-            "vehicle"
-        )?.value || "";
+        document.getElementById("vehicle")?.value || "";
 
 
     const days =
         Number(
-            document.getElementById(
-                "days"
-            )?.value || 1
+            document.getElementById("days")?.value || 1
         );
 
 
     const travelers =
         Number(
-            document.getElementById(
-                "travelers"
-            )?.value || 1
+            document.getElementById("travelers")?.value || 1
         );
 
 
@@ -1238,48 +1016,32 @@ function calculateBookingTotal() {
 
 
     const rateElement =
-        document.getElementById(
-            "vehicleRate"
-        );
-
+        document.getElementById("vehicleRate");
 
     const daysElement =
-        document.getElementById(
-            "displayDays"
-        );
-
+        document.getElementById("displayDays");
 
     const travelersElement =
-        document.getElementById(
-            "displayTravelers"
-        );
-
+        document.getElementById("displayTravelers");
 
     const totalElement =
-        document.getElementById(
-            "totalAmount"
-        );
+        document.getElementById("totalAmount");
 
 
     if (rateElement) {
 
         rateElement.textContent =
-            formatCurrency(rate) +
-            " / day";
+            formatCurrency(rate) + " / day";
     }
 
 
     if (daysElement) {
-
-        daysElement.textContent =
-            days;
+        daysElement.textContent = days;
     }
 
 
     if (travelersElement) {
-
-        travelersElement.textContent =
-            travelers;
+        travelersElement.textContent = travelers;
     }
 
 
@@ -1301,15 +1063,9 @@ function calculateBookingTotal() {
 function getCurrentUser() {
 
     const value =
-        sessionStorage.getItem(
-            "currentUser"
-        );
+        sessionStorage.getItem("currentUser");
 
-
-    return safeJSONParse(
-        value,
-        null
-    );
+    return safeJSONParse(value, null);
 }
 
 
@@ -1322,79 +1078,58 @@ async function handleBookingSubmit(event) {
     event.preventDefault();
 
 
-    const user =
-        getCurrentUser();
+    const user = getCurrentUser();
 
 
     if (!user || !user.id) {
 
-        alert(
-            "Please login before booking."
-        );
+        alert("Please login before booking.");
 
-        window.location.href =
-            "login.html";
+        window.location.href = "login.html";
 
         return;
     }
 
 
     const name =
-        document.getElementById(
-            "name"
-        )?.value.trim() || "";
+        document.getElementById("name")?.value.trim() || "";
 
 
     const mobile =
-        document.getElementById(
-            "mobile"
-        )?.value.trim() || "";
+        document.getElementById("mobile")?.value.trim() || "";
 
 
     const from =
-        document.getElementById(
-            "fromCity"
-        )?.value || "";
+        document.getElementById("fromCity")?.value || "";
 
 
     const destination =
-        document.getElementById(
-            "destination"
-        )?.value || "";
+        document.getElementById("destination")?.value || "";
 
 
     const travelDate =
-        document.getElementById(
-            "travelDate"
-        )?.value || "";
+        document.getElementById("travelDate")?.value || "";
 
 
     const days =
         Number(
-            document.getElementById(
-                "days"
-            )?.value || 1
+            document.getElementById("days")?.value || 1
         );
 
 
     const travelers =
         Number(
-            document.getElementById(
-                "travelers"
-            )?.value || 1
+            document.getElementById("travelers")?.value || 1
         );
 
 
     const vehicle =
-        document.getElementById(
-            "vehicle"
-        )?.value || "";
+        document.getElementById("vehicle")?.value || "";
 
 
     if (!name) {
 
         alert("Please enter your name.");
-
         return;
     }
 
@@ -1411,40 +1146,28 @@ async function handleBookingSubmit(event) {
 
     if (!from) {
 
-        alert(
-            "Please select starting location."
-        );
-
+        alert("Please select starting location.");
         return;
     }
 
 
     if (!destination) {
 
-        alert(
-            "Please select destination."
-        );
-
+        alert("Please select destination.");
         return;
     }
 
 
     if (!travelDate) {
 
-        alert(
-            "Please select travel date."
-        );
-
+        alert("Please select travel date.");
         return;
     }
 
 
     if (!vehicle) {
 
-        alert(
-            "Please select vehicle."
-        );
-
+        alert("Please select vehicle.");
         return;
     }
 
@@ -1454,61 +1177,56 @@ async function handleBookingSubmit(event) {
 
 
     const bookingId =
-        "KT" +
-        Date.now();
+        "KT" + Date.now();
 
 
     const bookingData = {
 
-        bookingId,
+        bookingId: bookingId,
 
-        userId:
-            user.id,
+        userId: user.id,
 
-        name,
+        name: name,
 
-        mobile,
+        mobile: mobile,
 
-        from,
+        from: from,
 
-        destination,
+        destination: destination,
 
-        travelDate,
+        travelDate: travelDate,
 
-        days,
+        days: days,
 
-        travelers,
+        travelers: travelers,
 
-        vehicle,
+        vehicle: vehicle,
 
-        total,
+        total: total,
 
-        paymentMethod:
-            "Pending",
+        paymentMethod: "Pending",
 
-        status:
-            "Pending Payment"
+        status: "Pending Payment"
     };
 
 
     try {
 
+        /* =================================================
+           SEND BOOKING TO BACKEND
+        ================================================= */
+
         const response =
             await fetch(
-               "[https://karnataka-travel-4z5m.onrender.com/api/bookings]",
+                "https://karnataka-travel-4z5m.onrender.com/api/bookings",
                 {
-
                     method: "POST",
 
                     headers: {
-                        "Content-Type":
-                            "application/json"
+                        "Content-Type": "application/json"
                     },
 
-                    body:
-                        JSON.stringify(
-                            bookingData
-                        )
+                    body: JSON.stringify(bookingData)
                 }
             );
 
@@ -1526,49 +1244,55 @@ async function handleBookingSubmit(event) {
         }
 
 
+        /* =================================================
+           SAVE CURRENT BOOKING
+        ================================================= */
+
         sessionStorage.setItem(
             "currentBooking",
-            JSON.stringify(
-                bookingData
-            )
+            JSON.stringify(bookingData)
         );
 
 
+        /* =================================================
+           LOCAL BOOKING HISTORY
+        ================================================= */
+
         let bookings =
             safeJSONParse(
-                localStorage.getItem(
-                    "bookings"
-                ),
+                localStorage.getItem("bookings"),
                 []
             );
 
 
         if (!Array.isArray(bookings)) {
-
             bookings = [];
         }
 
 
-        bookings.push(
-            bookingData
-        );
+        bookings.push(bookingData);
 
 
         localStorage.setItem(
             "bookings",
-            JSON.stringify(
-                bookings
-            )
+            JSON.stringify(bookings)
         );
 
+
+        /* =================================================
+           PAYMENT PAGE
+        ================================================= */
 
         window.location.href =
             "payment.html";
 
-    }
-    catch (error) {
+    } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Booking error:",
+            error
+        );
+
 
         alert(
             "Booking failed: " +
@@ -1585,9 +1309,7 @@ async function handleBookingSubmit(event) {
 function setupBookingEvents() {
 
     const form =
-        document.getElementById(
-            "bookingForm"
-        );
+        document.getElementById("bookingForm");
 
 
     if (form) {
@@ -1628,16 +1350,14 @@ function setupBookingEvents() {
 
 
 /* =====================================================
-   PAYMENT
+   PAYMENT PAGE
 ===================================================== */
 
 function loadPaymentPage() {
 
     const booking =
         safeJSONParse(
-            sessionStorage.getItem(
-                "currentBooking"
-            ),
+            sessionStorage.getItem("currentBooking"),
             null
         );
 
@@ -1646,36 +1366,24 @@ function loadPaymentPage() {
 
 
     const id =
-        document.getElementById(
-            "paymentBookingId"
-        );
-
+        document.getElementById("paymentBookingId");
 
     const amount =
-        document.getElementById(
-            "paymentAmount"
-        );
-
+        document.getElementById("paymentAmount");
 
     const destination =
-        document.getElementById(
-            "paymentDestination"
-        );
+        document.getElementById("paymentDestination");
 
 
     if (id) {
-
-        id.textContent =
-            booking.bookingId;
+        id.textContent = booking.bookingId;
     }
 
 
     if (amount) {
 
         amount.textContent =
-            formatCurrency(
-                booking.total
-            );
+            formatCurrency(booking.total);
     }
 
 
@@ -1700,9 +1408,7 @@ async function handlePaymentSubmit(event) {
 
     const booking =
         safeJSONParse(
-            sessionStorage.getItem(
-                "currentBooking"
-            ),
+            sessionStorage.getItem("currentBooking"),
             null
         );
 
@@ -1718,37 +1424,37 @@ async function handlePaymentSubmit(event) {
 
 
     const paymentMethod =
-        document.getElementById(
-            "paymentMethod"
-        )?.value ||
+        document.getElementById("paymentMethod")?.value ||
         "Cash";
 
 
     try {
 
+        /* =================================================
+           UPDATE PAYMENT IN BACKEND
+        ================================================= */
+
         const response =
             await fetch(
-               "[https://karnataka-travel-4z5m.onrender.com/api/bookings/payment]",
+                "https://karnataka-travel-4z5m.onrender.com/api/bookings/payment",
                 {
-
                     method: "PUT",
 
                     headers: {
-                        "Content-Type":
-                            "application/json"
+                        "Content-Type": "application/json"
                     },
 
-                    body:
-                        JSON.stringify({
+                    body: JSON.stringify({
 
-                            bookingId:
-                                booking.bookingId,
+                        bookingId:
+                            booking.bookingId,
 
+                        paymentMethod:
                             paymentMethod,
 
-                            status:
-                                "Paid"
-                        })
+                        status:
+                            "Paid"
+                    })
                 }
             );
 
@@ -1766,6 +1472,10 @@ async function handlePaymentSubmit(event) {
         }
 
 
+        /* =================================================
+           UPDATE BOOKING
+        ================================================= */
+
         booking.paymentMethod =
             paymentMethod;
 
@@ -1775,57 +1485,69 @@ async function handlePaymentSubmit(event) {
 
         sessionStorage.setItem(
             "currentBooking",
-            JSON.stringify(
-                booking
-            )
+            JSON.stringify(booking)
         );
 
 
+        /* =================================================
+           UPDATE LOCAL HISTORY
+        ================================================= */
+
         let bookings =
             safeJSONParse(
-                localStorage.getItem(
-                    "bookings"
-                ),
+                localStorage.getItem("bookings"),
                 []
             );
 
 
+        if (!Array.isArray(bookings)) {
+            bookings = [];
+        }
+
+
         const index =
-            bookings.findIndex(
-                function(item) {
+            bookings.findIndex(function (item) {
 
-                    return (
-                        item.bookingId ===
-                        booking.bookingId
-                    );
-
-                }
-            );
+                return item.bookingId ===
+                    booking.bookingId;
+            });
 
 
         if (index !== -1) {
 
             bookings[index] = {
+
                 ...bookings[index],
-                paymentMethod,
-                status: "Paid"
+
+                paymentMethod:
+                    paymentMethod,
+
+                status:
+                    "Paid"
             };
 
 
             localStorage.setItem(
                 "bookings",
-                JSON.stringify(
-                    bookings
-                )
+                JSON.stringify(bookings)
             );
         }
 
 
+        /* =================================================
+           SUCCESS PAGE
+        ================================================= */
+
         window.location.href =
             "success.html";
 
-    }
-    catch (error) {
+    } catch (error) {
+
+        console.error(
+            "Payment error:",
+            error
+        );
+
 
         alert(
             "Payment failed: " +
@@ -1842,9 +1564,7 @@ async function handlePaymentSubmit(event) {
 function loadBookingHistory() {
 
     const container =
-        document.getElementById(
-            "bookingHistory"
-        );
+        document.getElementById("bookingHistory");
 
 
     if (!container) return;
@@ -1852,9 +1572,7 @@ function loadBookingHistory() {
 
     const bookings =
         safeJSONParse(
-            localStorage.getItem(
-                "bookings"
-            ),
+            localStorage.getItem("bookings"),
             []
         );
 
@@ -1889,12 +1607,10 @@ function loadBookingHistory() {
     bookings
         .slice()
         .reverse()
-        .forEach(function(booking) {
+        .forEach(function (booking) {
 
             const card =
-                document.createElement(
-                    "div"
-                );
+                document.createElement("div");
 
 
             card.className =
@@ -1908,11 +1624,11 @@ function loadBookingHistory() {
                     <h2>
                         📍 ${booking.from || "Starting Location"}
                         →
-                        🎯 ${booking.destination}
+                        🎯 ${booking.destination || ""}
                     </h2>
 
                     <span>
-                        🎫 ${booking.bookingId}
+                        🎫 ${booking.bookingId || ""}
                     </span>
 
                 </div>
@@ -1975,19 +1691,15 @@ function loadBookingHistory() {
 
                         💰 <strong>Total:</strong>
 
-                        ${formatCurrency(
-                            booking.total
-                        )}
+                        ${formatCurrency(booking.total)}
 
                     </p>
 
                 </div>
-
             `;
 
 
             container.appendChild(card);
-
         });
 }
 
@@ -1998,13 +1710,9 @@ function loadBookingHistory() {
 
 function logout() {
 
-    sessionStorage.removeItem(
-        "currentUser"
-    );
+    sessionStorage.removeItem("currentUser");
 
-    sessionStorage.removeItem(
-        "currentBooking"
-    );
+    sessionStorage.removeItem("currentBooking");
 
     window.location.href =
         "login.html";
@@ -2024,6 +1732,8 @@ function detectPage() {
             .toLowerCase();
 
 
+    /* HOME */
+
     if (
         page === "" ||
         page === "index.html"
@@ -2037,6 +1747,8 @@ function detectPage() {
     }
 
 
+    /* DISTRICT */
+
     if (page === "district.html") {
 
         loadDistrictDetails();
@@ -2045,16 +1757,17 @@ function detectPage() {
     }
 
 
+    /* BOOKING */
+
     if (page === "booking.html") {
 
         setupBookingPage();
 
         setupBookingEvents();
 
+
         const dateInput =
-            document.getElementById(
-                "travelDate"
-            );
+            document.getElementById("travelDate");
 
 
         if (dateInput) {
@@ -2069,14 +1782,15 @@ function detectPage() {
     }
 
 
+    /* PAYMENT */
+
     if (page === "payment.html") {
 
         loadPaymentPage();
 
+
         const form =
-            document.getElementById(
-                "paymentForm"
-            );
+            document.getElementById("paymentForm");
 
 
         if (form) {
@@ -2090,6 +1804,8 @@ function detectPage() {
         return;
     }
 
+
+    /* BOOKING HISTORY */
 
     if (page === "booking-history.html") {
 
@@ -2106,7 +1822,7 @@ function detectPage() {
 
 document.addEventListener(
     "DOMContentLoaded",
-    function() {
+    function () {
 
         detectPage();
 
@@ -2115,7 +1831,7 @@ document.addEventListener(
 
 
 /* =====================================================
-   GLOBAL
+   GLOBAL FUNCTIONS
 ===================================================== */
 
 window.searchTrip =
