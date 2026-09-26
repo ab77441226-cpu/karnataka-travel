@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="style.css">
 
-    <!-- LEAFLET CSS -->
+    <!-- LEAFLET -->
     <link
         rel="stylesheet"
         href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -20,18 +20,53 @@
 
     <style>
 
-        /* =====================================================
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4faf6;
+        }
+
+        header {
+            background: white;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .logo span {
+            color: #087f3d;
+        }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #087f3d;
+        }
+
+        /* =========================
            BOOKING PAGE
-        ===================================================== */
+        ========================= */
 
         .booking-page {
             min-height: 100vh;
-            background: #f4faf6;
             padding: 45px 20px;
         }
 
         .booking-container {
-            max-width: 900px;
+            max-width: 950px;
             margin: auto;
         }
 
@@ -55,9 +90,9 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.10);
         }
 
-        /* =====================================================
+        /* =========================
            FORM
-        ===================================================== */
+        ========================= */
 
         .form-grid {
             display: grid;
@@ -69,14 +104,10 @@
             margin-bottom: 5px;
         }
 
-        .full-width {
-            grid-column: 1 / -1;
-        }
-
         .form-group label {
             display: block;
-            margin-bottom: 7px;
             font-weight: bold;
+            margin-bottom: 7px;
             color: #333;
         }
 
@@ -84,12 +115,9 @@
         .form-group select {
             width: 100%;
             box-sizing: border-box;
-
             padding: 13px;
-
             border: 1px solid #ccc;
             border-radius: 7px;
-
             font-size: 15px;
             outline: none;
         }
@@ -99,9 +127,14 @@
             border-color: #087f3d;
         }
 
-        /* =====================================================
-           FROM / TO
-        ===================================================== */
+        .form-group input:disabled {
+            background: #f2f2f2;
+            cursor: not-allowed;
+        }
+
+        /* =========================
+           LOCATION
+        ========================= */
 
         .location-box {
             background: #f8fbf9;
@@ -111,42 +144,14 @@
         }
 
         .location-title {
-            font-weight: bold;
             color: #087f3d;
+            font-weight: bold;
             margin-bottom: 8px;
         }
 
-        /* =====================================================
-           PRICE
-        ===================================================== */
-
-        .price-box {
-            margin-top: 25px;
-            padding: 20px;
-            background: #f4faf6;
-            border-radius: 10px;
-        }
-
-        .price-row {
-            display: flex;
-            justify-content: space-between;
-            margin: 8px 0;
-            color: #555;
-        }
-
-        .total-row {
-            border-top: 1px solid #ccc;
-            margin-top: 12px;
-            padding-top: 12px;
-
-            font-size: 20px;
-            font-weight: bold;
-            color: #087f3d;
-        }
-
-        /* =====================================================
-           MAP BUTTON
-        ===================================================== */
+        /* =========================
+           MAP
+        ========================= */
 
         .route-map-section {
             margin-top: 25px;
@@ -154,18 +159,13 @@
 
         .open-map-btn {
             width: 100%;
-
             padding: 14px;
-
             border: none;
             border-radius: 8px;
-
             background: #087f3d;
             color: white;
-
             font-size: 16px;
             font-weight: bold;
-
             cursor: pointer;
         }
 
@@ -173,22 +173,13 @@
             background: #05652f;
         }
 
-        /* =====================================================
-           ROUTE INFORMATION
-        ===================================================== */
-
         .route-info {
             display: none;
-
             margin-top: 12px;
-
             padding: 14px;
-
             background: #f4faf6;
-
-            border-radius: 8px;
-
             border-left: 4px solid #087f3d;
+            border-radius: 8px;
         }
 
         .route-info.show {
@@ -200,61 +191,70 @@
         }
 
         .route-text {
-            color: #333;
             font-weight: bold;
+            color: #333;
         }
 
         .distance-text {
             color: #087f3d;
             font-weight: bold;
-            font-size: 17px;
         }
-
-        /* =====================================================
-           ONE AND ONLY MAP
-        ===================================================== */
 
         #karnatakaMap {
             display: none;
-
             width: 100%;
             height: 430px;
-
             margin-top: 12px;
-
             border-radius: 12px;
-
-            overflow: hidden;
-
             border: 1px solid #ccc;
-
-            box-shadow: 0 4px 15px rgba(0,0,0,0.10);
+            overflow: hidden;
         }
 
         #karnatakaMap.show {
             display: block;
         }
 
-        /* =====================================================
+        /* =========================
+           PRICE
+        ========================= */
+
+        .price-box {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f4faf6;
+            border-radius: 10px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 9px 0;
+            color: #555;
+        }
+
+        .total-row {
+            border-top: 1px solid #ccc;
+            margin-top: 12px;
+            padding-top: 12px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #087f3d;
+        }
+
+        /* =========================
            SUBMIT
-        ===================================================== */
+        ========================= */
 
         .submit-btn {
             width: 100%;
-
             margin-top: 25px;
-
             padding: 15px;
-
             border: none;
             border-radius: 8px;
-
             background: #087f3d;
             color: white;
-
             font-size: 17px;
             font-weight: bold;
-
             cursor: pointer;
         }
 
@@ -267,52 +267,54 @@
             cursor: not-allowed;
         }
 
-        /* =====================================================
+        /* =========================
            MESSAGE
-        ===================================================== */
+        ========================= */
 
         .message {
             display: none;
-
             margin-top: 15px;
-
             padding: 12px;
-
             border-radius: 7px;
-
             text-align: center;
-
             font-weight: bold;
         }
 
         .message.error {
             display: block;
-
             background: #ffebee;
-
             color: #c62828;
         }
 
         .message.success {
             display: block;
-
             background: #e8f5e9;
-
             color: #087f3d;
         }
 
-        /* =====================================================
+        /* =========================
            MOBILE
-        ===================================================== */
+        ========================= */
 
-        @media (max-width: 650px) {
+        @media (max-width: 700px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 18px;
+            }
+
+            nav {
+                text-align: center;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 5px;
+            }
 
             .form-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .full-width {
-                grid-column: auto;
             }
 
             .booking-box {
@@ -326,7 +328,6 @@
             #karnatakaMap {
                 height: 350px;
             }
-
         }
 
     </style>
@@ -337,9 +338,9 @@
 <body>
 
 
-<!-- =====================================================
+<!-- =========================
      HEADER
-===================================================== -->
+========================= -->
 
 <header>
 
@@ -370,19 +371,17 @@
 </header>
 
 
-<!-- =====================================================
-     BOOKING
-===================================================== -->
+<!-- =========================
+     BOOKING PAGE
+========================= -->
 
 <section class="booking-page">
 
     <div class="booking-container">
 
-
         <h1 class="booking-title">
             🚌 Book Your Karnataka Trip
         </h1>
-
 
         <p class="booking-subtitle">
             Enter your travel details and choose your vehicle.
@@ -391,16 +390,13 @@
 
         <div class="booking-box">
 
-
             <form id="bookingForm">
 
 
                 <div class="form-grid">
 
 
-                    <!-- =================================================
-                         NAME
-                    ================================================= -->
+                    <!-- NAME -->
 
                     <div class="form-group">
 
@@ -418,9 +414,7 @@
                     </div>
 
 
-                    <!-- =================================================
-                         MOBILE
-                    ================================================= -->
+                    <!-- MOBILE -->
 
                     <div class="form-group">
 
@@ -439,9 +433,7 @@
                     </div>
 
 
-                    <!-- =================================================
-                         FROM
-                    ================================================= -->
+                    <!-- FROM -->
 
                     <div class="form-group">
 
@@ -467,9 +459,7 @@
                     </div>
 
 
-                    <!-- =================================================
-                         TO
-                    ================================================= -->
+                    <!-- TO -->
 
                     <div class="form-group">
 
@@ -495,9 +485,7 @@
                     </div>
 
 
-                    <!-- =================================================
-                         DATE
-                    ================================================= -->
+                    <!-- DATE -->
 
                     <div class="form-group">
 
@@ -514,9 +502,7 @@
                     </div>
 
 
-                    <!-- =================================================
-                         DAYS
-                    ================================================= -->
+                    <!-- DAYS -->
 
                     <div class="form-group">
 
@@ -536,9 +522,7 @@
                     </div>
 
 
-                    <!-- =================================================
-                         TRAVELERS
-                    ================================================= -->
+                    <!-- TRAVELERS -->
 
                     <div class="form-group">
 
@@ -558,9 +542,7 @@
                     </div>
 
 
-                    <!-- =================================================
-                         VEHICLE
-                    ================================================= -->
+                    <!-- VEHICLE -->
 
                     <div class="form-group">
 
@@ -601,12 +583,11 @@
                 </div>
 
 
-                <!-- =====================================================
-                     ROUTE MAP
-                ===================================================== -->
+                <!-- =========================
+                     MAP
+                ========================= -->
 
                 <div class="route-map-section">
-
 
                     <button
                         type="button"
@@ -629,7 +610,6 @@
                             Select From and To
                         </span>
 
-
                         <span
                             id="distanceText"
                             class="distance-text"
@@ -640,20 +620,16 @@
                     </div>
 
 
-                    <!-- ONLY ONE MAP -->
-
                     <div id="karnatakaMap"></div>
-
 
                 </div>
 
 
-                <!-- =====================================================
+                <!-- =========================
                      PRICE
-                ===================================================== -->
+                ========================= -->
 
                 <div class="price-box">
-
 
                     <div class="price-row">
 
@@ -706,13 +682,10 @@
 
                     </div>
 
-
                 </div>
 
 
-                <!-- =====================================================
-                     SUBMIT
-                ===================================================== -->
+                <!-- SUBMIT -->
 
                 <button
                     type="submit"
@@ -731,7 +704,6 @@
 
             </form>
 
-
         </div>
 
     </div>
@@ -739,9 +711,7 @@
 </section>
 
 
-<!-- =====================================================
-     LEAFLET JS
-===================================================== -->
+<!-- LEAFLET JS -->
 
 <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
@@ -750,29 +720,36 @@
 
 <script>
 
+"use strict";
+
+
 /* =====================================================
-   LOGIN
+   CHECK LOGIN
 ===================================================== */
 
-const currentUserString =
+const savedUser =
     sessionStorage.getItem("currentUser");
 
 let currentUser = null;
 
-if (currentUserString) {
+
+if (savedUser) {
 
     try {
 
         currentUser =
-            JSON.parse(currentUserString);
+            JSON.parse(savedUser);
 
     } catch (error) {
+
+        console.error(error);
 
         currentUser = null;
 
     }
 
 }
+
 
 if (
     !currentUser ||
@@ -783,8 +760,9 @@ if (
         "Please login before booking a trip."
     );
 
-    window.location.href =
-        "login.html";
+    window.location.replace(
+        "login.html"
+    );
 
 }
 
@@ -795,15 +773,15 @@ if (
 
 const locations = {
 
-    "Bengaluru Urban": [12.9716, 77.5946],
-
-    "Bengaluru Rural": [13.2257, 77.5750],
-
     "Bagalkot": [16.1691, 75.6615],
 
     "Ballari": [15.1394, 76.9214],
 
     "Belagavi": [15.8497, 74.4977],
+
+    "Bengaluru Rural": [13.2257, 77.5750],
+
+    "Bengaluru Urban": [12.9716, 77.5946],
 
     "Bidar": [17.9133, 77.5301],
 
@@ -864,6 +842,12 @@ const locations = {
    ELEMENTS
 ===================================================== */
 
+const nameInput =
+    document.getElementById("name");
+
+const mobileInput =
+    document.getElementById("mobile");
+
 const fromCity =
     document.getElementById("fromCity");
 
@@ -920,39 +904,59 @@ const mapContainer =
 
 
 /* =====================================================
-   LOAD FROM / TO OPTIONS
+   USER DETAILS
+===================================================== */
+
+if (currentUser) {
+
+    nameInput.value =
+        currentUser.name || "";
+
+    mobileInput.value =
+        currentUser.mobile || "";
+
+}
+
+
+/* =====================================================
+   LOAD LOCATIONS
 ===================================================== */
 
 function loadLocations() {
 
-    Object.keys(locations)
-        .sort()
-        .forEach(function(name) {
+    const names =
+        Object.keys(locations).sort();
 
-            const fromOption =
-                document.createElement("option");
+    names.forEach(function(name) {
 
-            fromOption.value = name;
+        const fromOption =
+            document.createElement("option");
 
-            fromOption.textContent = name;
+        fromOption.value =
+            name;
 
-            fromCity.appendChild(
-                fromOption
-            );
+        fromOption.textContent =
+            name;
+
+        fromCity.appendChild(
+            fromOption
+        );
 
 
-            const toOption =
-                document.createElement("option");
+        const toOption =
+            document.createElement("option");
 
-            toOption.value = name;
+        toOption.value =
+            name;
 
-            toOption.textContent = name;
+        toOption.textContent =
+            name;
 
-            destination.appendChild(
-                toOption
-            );
+        destination.appendChild(
+            toOption
+        );
 
-        });
+    });
 
 }
 
@@ -960,13 +964,14 @@ loadLocations();
 
 
 /* =====================================================
-   URL DESTINATION
+   URL PARAMETERS
 ===================================================== */
 
 const urlParams =
     new URLSearchParams(
         window.location.search
     );
+
 
 const urlDestination =
     urlParams.get("destination");
@@ -985,22 +990,22 @@ if (urlDestination) {
             urlDestination
         ).trim();
 
-    const option =
+    const found =
         Array.from(
             destination.options
-        ).find(function(item) {
+        ).find(function(option) {
 
             return (
-                item.value.toLowerCase() ===
+                option.value.toLowerCase() ===
                 decoded.toLowerCase()
             );
 
         });
 
-    if (option) {
+    if (found) {
 
         destination.value =
-            option.value;
+            found.value;
 
     }
 
@@ -1024,42 +1029,27 @@ if (urlDays) {
 
 
 /* =====================================================
-   USER DETAILS
-===================================================== */
-
-if (currentUser) {
-
-    document.getElementById("name").value =
-        currentUser.name || "";
-
-    document.getElementById("mobile").value =
-        currentUser.mobile || "";
-
-}
-
-
-/* =====================================================
-   DATE
+   MIN DATE = TODAY
 ===================================================== */
 
 const today =
     new Date();
 
-const yyyy =
+const year =
     today.getFullYear();
 
-const mm =
+const month =
     String(
         today.getMonth() + 1
     ).padStart(2, "0");
 
-const dd =
+const day =
     String(
         today.getDate()
     ).padStart(2, "0");
 
 travelDate.min =
-    `${yyyy}-${mm}-${dd}`;
+    `${year}-${month}-${day}`;
 
 
 /* =====================================================
@@ -1090,17 +1080,27 @@ function calculateTotal() {
             vehicle.value
         ] || 0;
 
+
     const numberOfDays =
         Math.max(
             Number(days.value) || 1,
             1
         );
 
+
     const numberOfTravelers =
         Math.max(
             Number(travelers.value) || 1,
             1
         );
+
+
+    /*
+       Vehicle price × number of days
+
+       Travelers are displayed but
+       not multiplied into vehicle price.
+    */
 
     const total =
         rate *
@@ -1136,15 +1136,18 @@ vehicle.addEventListener(
     calculateTotal
 );
 
+
 days.addEventListener(
     "input",
     calculateTotal
 );
 
+
 travelers.addEventListener(
     "input",
     calculateTotal
 );
+
 
 calculateTotal();
 
@@ -1160,6 +1163,8 @@ let routeLayer = null;
 let fromMarker = null;
 
 let toMarker = null;
+
+window.currentRouteDistance = 0;
 
 
 /* =====================================================
@@ -1198,13 +1203,28 @@ openMapBtn.addEventListener(
         }
 
 
-        mapContainer.classList.add("show");
+        if (
+            fromCity.value ===
+            destination.value
+        ) {
 
-        routeInfo.classList.add("show");
+            showMessage(
+                "From and To locations cannot be the same.",
+                "error"
+            );
+
+            return;
+
+        }
 
 
-        openMapBtn.textContent =
-            "🗺️ Karnataka Route Map";
+        mapContainer.classList.add(
+            "show"
+        );
+
+        routeInfo.classList.add(
+            "show"
+        );
 
 
         if (!map) {
@@ -1238,15 +1258,8 @@ openMapBtn.addEventListener(
 
                 map.invalidateSize(true);
 
-                if (routeLayer) {
-                    map.fitBounds(
-                        routeLayer.getBounds(),
-                        { padding: [30, 30] }
-                    );
-                }
-
             },
-            500
+            300
         );
 
 
@@ -1257,12 +1270,14 @@ openMapBtn.addEventListener(
 
 
 /* =====================================================
-   FROM / TO CHANGE
+   FROM CHANGE
 ===================================================== */
 
 fromCity.addEventListener(
     "change",
     function() {
+
+        window.currentRouteDistance = 0;
 
         if (
             map &&
@@ -1277,9 +1292,15 @@ fromCity.addEventListener(
 );
 
 
+/* =====================================================
+   TO CHANGE
+===================================================== */
+
 destination.addEventListener(
     "change",
     function() {
+
+        window.currentRouteDistance = 0;
 
         if (
             map &&
@@ -1312,7 +1333,9 @@ async function drawRoute() {
 
 
     if (!from || !to) {
+
         return;
+
     }
 
 
@@ -1328,17 +1351,19 @@ async function drawRoute() {
 
     try {
 
-        /*
-         OSRM ROAD ROUTING
-         This gives road route,
-         NOT a straight line.
-        */
-
         const url =
             "https://router.project-osrm.org/route/v1/driving/" +
-            from[1] + "," + from[0] +
+
+            from[1] +
+            "," +
+            from[0] +
+
             ";" +
-            to[1] + "," + to[0] +
+
+            to[1] +
+            "," +
+            to[0] +
+
             "?overview=full&geometries=geojson";
 
 
@@ -1349,7 +1374,7 @@ async function drawRoute() {
         if (!response.ok) {
 
             throw new Error(
-                "Route service unavailable"
+                "Route service unavailable."
             );
 
         }
@@ -1361,11 +1386,11 @@ async function drawRoute() {
 
         if (
             !data.routes ||
-            !data.routes.length
+            data.routes.length === 0
         ) {
 
             throw new Error(
-                "Road route not found"
+                "Road route not found."
             );
 
         }
@@ -1410,9 +1435,7 @@ async function drawRoute() {
         }
 
 
-        /* =================================================
-           ROAD ROUTE LINE
-        ================================================= */
+        /* ROUTE */
 
         routeLayer =
             L.geoJSON(
@@ -1433,9 +1456,7 @@ async function drawRoute() {
             ).addTo(map);
 
 
-        /* =================================================
-           FROM MARKER
-        ================================================= */
+        /* FROM MARKER */
 
         fromMarker =
             L.marker(from)
@@ -1446,9 +1467,7 @@ async function drawRoute() {
                 );
 
 
-        /* =================================================
-           TO MARKER
-        ================================================= */
+        /* TO MARKER */
 
         toMarker =
             L.marker(to)
@@ -1459,37 +1478,23 @@ async function drawRoute() {
                 );
 
 
-        /* =================================================
-           FIT ROUTE
-        ================================================= */
+        /* FIT MAP */
 
         map.fitBounds(
             routeLayer.getBounds(),
             {
-
-                padding: [
-                    30,
-                    30
-                ]
-
+                padding: [30, 30]
             }
         );
 
 
-        /* =================================================
-           SHOW DISTANCE
-        ================================================= */
+        /* DISTANCE */
 
         distanceText.textContent =
             "📏 " +
             distanceKm +
             " KM";
 
-
-        /*
-         Save route distance temporarily.
-        It will also be sent with booking.
-        */
 
         window.currentRouteDistance =
             Number(distanceKm);
@@ -1549,15 +1554,11 @@ bookingForm.addEventListener(
 
 
         const name =
-            document.getElementById(
-                "name"
-            ).value.trim();
+            nameInput.value.trim();
 
 
         const mobile =
-            document.getElementById(
-                "mobile"
-            ).value.trim();
+            mobileInput.value.trim();
 
 
         const selectedFrom =
@@ -1588,9 +1589,9 @@ bookingForm.addEventListener(
             calculateTotal();
 
 
-        /* =================================================
+        /* =========================
            VALIDATION
-        ================================================= */
+        ========================= */
 
         if (!name) {
 
@@ -1714,15 +1715,16 @@ bookingForm.addEventListener(
 
 
         /*
-         Make sure route has been calculated
-         */
+           Map route must be checked
+        */
 
         if (
-            !window.currentRouteDistance
+            !window.currentRouteDistance ||
+            window.currentRouteDistance <= 0
         ) {
 
             showMessage(
-                "Please open the Karnataka Route Map and check the route before booking.",
+                "Please open the route map and calculate the route before booking.",
                 "error"
             );
 
@@ -1730,6 +1732,10 @@ bookingForm.addEventListener(
 
         }
 
+
+        /* =========================
+           DISABLE BUTTON
+        ========================= */
 
         submitBtn.disabled =
             true;
@@ -1745,106 +1751,79 @@ bookingForm.addEventListener(
                 Date.now();
 
 
-            /* =================================================
+            /* =========================
                BOOKING DATA
-            ================================================= */
+            ========================= */
 
             const bookingData = {
 
                 bookingId:
-
                     bookingId,
 
-
                 userId:
-
                     Number(
                         currentUser.id
                     ),
 
-
                 name:
-
                     name,
 
-
                 mobile:
-
                     mobile,
 
-
                 from_location:
-
                     selectedFrom,
-
 
                 from:
-
                     selectedFrom,
-
 
                 fromCity:
-
                     selectedFrom,
 
-
                 destination:
-
                     selectedDestination,
-
 
                 toCity:
-
                     selectedDestination,
 
-
                 travelDate:
-
                     selectedDate,
 
-
                 days:
-
                     numberOfDays,
 
-
                 travelers:
-
                     numberOfTravelers,
 
-
                 vehicle:
-
                     selectedVehicle,
 
-
                 total:
-
                     Number(total),
 
-
                 distanceKm:
-
                     Number(
                         window.currentRouteDistance
                     ),
 
-
                 paymentMethod:
-
                     "Pending",
 
-
                 status:
-
                     "Pending Payment"
 
             };
 
 
-            /* =================================================
-               SEND TO BACKEND
-            ================================================= */
+            console.log(
+                "Sending booking:",
+                bookingData
+            );
+
+
+            /* =========================
+               SEND TO SERVER
+            ========================= */
 
             const response =
                 await fetch(
@@ -1873,6 +1852,12 @@ bookingForm.addEventListener(
                 await response.json();
 
 
+            console.log(
+                "Server response:",
+                data
+            );
+
+
             if (
                 !response.ok ||
                 !data.success
@@ -1886,18 +1871,24 @@ bookingForm.addEventListener(
             }
 
 
-            /* =================================================
-               SAVE CURRENT BOOKING
-            ================================================= */
+            /* =========================
+               SAVE BOOKING
+            ========================= */
 
             const booking =
-                data.booking || bookingData;
+                data.booking ||
+                bookingData;
 
 
-            /*
-             Make sure these fields exist
-             even if backend returns old fields.
-            */
+            booking.bookingId =
+                booking.bookingId ||
+                bookingId;
+
+
+            booking.from_location =
+                booking.from_location ||
+                selectedFrom;
+
 
             booking.from =
                 booking.from ||
@@ -1919,12 +1910,28 @@ bookingForm.addEventListener(
                 selectedDestination;
 
 
+            booking.travelDate =
+                booking.travelDate ||
+                selectedDate;
+
+
             booking.distanceKm =
                 booking.distanceKm ||
                 Number(
                     window.currentRouteDistance
                 );
 
+
+            booking.total =
+                Number(
+                    booking.total ||
+                    total
+                );
+
+
+            /* =========================
+               SESSION STORAGE
+            ========================= */
 
             sessionStorage.setItem(
                 "currentBooking",
@@ -1934,12 +1941,29 @@ bookingForm.addEventListener(
             );
 
 
-            /* =================================================
-               PAYMENT
-            ================================================= */
+            /* =========================
+               SUCCESS
+            ========================= */
 
-            window.location.href =
-                "payment.html";
+            showMessage(
+                "Booking created successfully. Redirecting to payment...",
+                "success"
+            );
+
+
+            /* =========================
+               PAYMENT PAGE
+            ========================= */
+
+            setTimeout(
+                function() {
+
+                    window.location.href =
+                        "payment.html";
+
+                },
+                700
+            );
 
 
         } catch (error) {
@@ -1970,7 +1994,6 @@ bookingForm.addEventListener(
 );
 
 </script>
-
 
 </body>
 
