@@ -1747,23 +1747,12 @@ app.use(
 
 app.listen(
     PORT,
+    "0.0.0.0",
     function () {
 
-        console.log(
-            "========================================"
-        );
-
-        console.log(
-            "🚍 Karnataka Travel Server"
-        );
-
-        console.log(
-            "🚀 Server running on http://localhost:5000"
-        );
-
-        console.log(
-            "========================================"
-        );
+        console.log("🚍 Karnataka Travel Server");
+        console.log("🚀 Server running on http://localhost:5000");
+        console.log("📱 Phone access: http://192.168.1.103:5000");
 
     }
 );
