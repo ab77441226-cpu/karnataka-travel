@@ -10,6 +10,8 @@
 
     <title>Booking History - Karnataka Travel</title>
 
+    <link rel="stylesheet" href="style.css">
+
     <style>
 
         * {
@@ -20,279 +22,273 @@
             margin: 0;
             font-family: Arial, sans-serif;
             background: #f4faf6;
-            color: #333;
         }
 
-        /* ================= HEADER ================= */
-
         header {
-            background: #087f3d;
-            color: white;
-            padding: 15px 30px;
-
+            background: white;
+            padding: 18px 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
         }
 
         .logo {
-            font-size: 23px;
+            font-size: 24px;
             font-weight: bold;
+            color: #087f3d;
         }
 
         .logo span {
-            color: #d7ffd9;
+            color: #222;
         }
 
         nav {
             display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
         }
 
-        nav a,
-        nav button {
+        nav a {
             text-decoration: none;
-            border: none;
-
-            background: white;
-            color: #087f3d;
-
-            padding: 9px 14px;
-
-            border-radius: 7px;
-
+            color: #333;
             font-weight: bold;
-            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: #087f3d;
         }
 
         .logout-btn {
-            background: #c62828 !important;
-            color: white !important;
+            border: none;
+            background: #c62828;
+            color: white;
+            padding: 9px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
         }
 
         .logout-btn:hover {
-            background: #a91f1f !important;
+            background: #a91f1f;
         }
 
+        .history-page {
+            min-height: 100vh;
+            padding: 45px 20px;
+        }
 
-        /* ================= MAIN ================= */
-
-        .container {
+        .history-container {
             max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 20px;
+            margin: auto;
         }
 
-        .heading {
+        .history-heading {
             text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .heading h1 {
             color: #087f3d;
-            font-size: 34px;
+            font-size: 36px;
             margin-bottom: 8px;
         }
 
-        .heading p {
-            color: #777;
+        .history-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
         }
 
+        .user-box {
+            background: white;
+            padding: 18px 22px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
 
-        /* ================= HISTORY ================= */
+        .user-box strong {
+            color: #087f3d;
+        }
 
-        #bookingHistory {
+        .booking-list {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
             gap: 20px;
         }
 
         .history-card {
             background: white;
-            padding: 22px;
-
+            padding: 25px;
             border-radius: 14px;
-
-            box-shadow:
-                0 5px 20px rgba(0,0,0,0.10);
-
-            border-top: 4px solid #087f3d;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.10);
         }
 
-        .history-card h2 {
-            margin-top: 0;
-            color: #087f3d;
-        }
-
-        .booking-id {
-            display: inline-block;
-
-            background: #e8f5e9;
-            color: #087f3d;
-
-            padding: 6px 10px;
-
-            border-radius: 6px;
-
-            font-size: 13px;
-            font-weight: bold;
-
-            margin-bottom: 15px;
-        }
-
-        .detail {
+        .booking-header {
             display: flex;
             justify-content: space-between;
-
-            padding: 9px 0;
-
-            border-bottom: 1px solid #eee;
-
+            align-items: center;
             gap: 15px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
         }
 
-        .detail strong {
-            color: #444;
+        .booking-header h2 {
+            margin: 0;
+            color: #087f3d;
+            font-size: 22px;
         }
-
-        .detail span {
-            text-align: right;
-            color: #555;
-        }
-
-
-        /* ================= STATUS ================= */
 
         .status {
-            display: inline-block;
-
-            padding: 5px 10px;
-
+            padding: 7px 12px;
             border-radius: 20px;
-
-            font-size: 12px;
+            font-size: 13px;
             font-weight: bold;
         }
 
         .status-paid {
             background: #e8f5e9;
-            color: #087f3d;
+            color: #2e7d32;
         }
 
         .status-pending {
-            background: #fff3cd;
-            color: #856404;
+            background: #fff3e0;
+            color: #ef6c00;
         }
 
-        .status-cancelled {
-            background: #ffebee;
-            color: #c62828;
+        .booking-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 13px 25px;
         }
 
+        .detail {
+            padding: 10px;
+            background: #f8fbf9;
+            border-radius: 7px;
+        }
 
-        /* ================= LOADING ================= */
+        .detail-label {
+            color: #777;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .detail-value {
+            color: #222;
+            font-weight: bold;
+        }
+
+        .total-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f4faf6;
+            border-radius: 10px;
+
+            display: flex;
+            justify-content: space-between;
+
+            color: #087f3d;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .booking-actions {
+            margin-top: 18px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            border: none;
+            padding: 11px 17px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .pay-btn {
+            background: #087f3d;
+            color: white;
+        }
+
+        .pay-btn:hover {
+            background: #05652f;
+        }
+
+        .delete-btn {
+            background: #c62828;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #a91f1f;
+        }
 
         .loading {
-            grid-column: 1 / -1;
-
-            background: white;
-
+            text-align: center;
             padding: 40px;
-
-            text-align: center;
-
-            border-radius: 14px;
-
-            color: #087f3d;
-
-            font-weight: bold;
+            color: #666;
+            font-size: 18px;
         }
 
-
-        /* ================= EMPTY ================= */
-
-        .empty-history {
-            grid-column: 1 / -1;
-
+        .empty-box {
             background: white;
-
+            padding: 45px 20px;
             text-align: center;
-
-            padding: 50px 20px;
-
             border-radius: 14px;
-
-            box-shadow:
-                0 5px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.10);
         }
 
-        .empty-history h2 {
+        .empty-box h2 {
             color: #087f3d;
         }
 
-        .book-btn {
-            display: inline-block;
-
-            background: #087f3d;
-
-            color: white;
-
-            text-decoration: none;
-
-            padding: 12px 20px;
-
-            border-radius: 7px;
-
-            font-weight: bold;
+        .empty-box p {
+            color: #666;
         }
 
-
-        /* ================= ERROR ================= */
+        .book-now-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 20px;
+            background: #087f3d;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+            font-weight: bold;
+        }
 
         .error-box {
-            grid-column: 1 / -1;
-
             background: #ffebee;
-
             color: #c62828;
-
-            padding: 20px;
-
+            padding: 15px;
+            border-radius: 8px;
             text-align: center;
-
-            border-radius: 10px;
+            margin-bottom: 20px;
         }
 
-
-        /* ================= MOBILE ================= */
-
-        @media (max-width: 800px) {
-
-            #bookingHistory {
-                grid-template-columns: 1fr;
-            }
+        @media (max-width: 700px) {
 
             header {
                 flex-direction: column;
                 gap: 15px;
             }
 
-        }
-
-
-        @media (max-width: 500px) {
-
-            .heading h1 {
-                font-size: 27px;
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
             }
 
-            .detail {
+            .history-heading {
+                font-size: 29px;
+            }
+
+            .booking-details {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-header {
                 flex-direction: column;
-            }
-
-            .detail span {
-                text-align: left;
+                align-items: flex-start;
             }
 
         }
@@ -305,32 +301,34 @@
 <body>
 
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
 <header>
 
     <div class="logo">
-
-        🏛️ Karnataka
-        <span>Travel</span>
-
+        🏛️ Karnataka <span>Travel</span>
     </div>
-
 
     <nav>
 
         <a href="index.html">
-            🏠 Home
+            Home
+        </a>
+
+        <a href="district.html">
+            Districts
+        </a>
+
+        <a href="booking.html">
+            Book Trip
+        </a>
+
+        <a href="contact.html">
+            Contact
         </a>
 
         <button
             class="logout-btn"
-            onclick="logout()">
-
-            🚪 Logout
-
+            id="logoutBtn">
+            Logout
         </button>
 
     </nav>
@@ -339,40 +337,49 @@
 
 
 
-<!-- =====================================================
-     MAIN
-===================================================== -->
+<section class="history-page">
 
-<div class="container">
+    <div class="history-container">
 
 
-    <div class="heading">
-
-        <h1>
+        <h1 class="history-heading">
             📋 Booking History
         </h1>
 
-        <p>
-            Your previous bookings
+
+        <p class="history-subtitle">
+            View all your Karnataka Travel bookings
         </p>
 
-    </div>
 
 
-    <!-- ONLY BOOKING HISTORY -->
+        <div
+            class="user-box"
+            id="userBox">
+        </div>
 
-    <div id="bookingHistory">
 
-        <div class="loading">
 
-            ⏳ Loading booking history...
+        <div
+            id="messageArea">
+        </div>
+
+
+
+        <div
+            id="bookingList"
+            class="booking-list">
+
+            <div class="loading">
+                Loading your bookings...
+            </div>
 
         </div>
 
+
     </div>
 
-
-</div>
+</section>
 
 
 
@@ -382,118 +389,165 @@
 
 
 /* =====================================================
-   GET CURRENT USER
-
-   IMPORTANT:
-   Login page saves user in:
-
-   sessionStorage -> currentUser
-
-   So here also use currentUser.
+   BACKEND URL
 ===================================================== */
 
-function getCurrentUser() {
+/*
+   Computer:
+   http://localhost:5000
 
-    const savedUser =
-        sessionStorage.getItem(
-            "currentUser"
-        );
+   Phone:
+   http://COMPUTER-IP:5000
+
+   This automatically uses the current page host.
+*/
+
+const API_BASE =
+    window.location.protocol === "file:"
+        ? "http://localhost:5000"
+        : (
+            window.location.hostname === "localhost" ||
+            window.location.hostname === "127.0.0.1"
+        )
+            ? "http://localhost:5000"
+            : window.location.protocol +
+              "//" +
+              window.location.hostname +
+              ":5000";
 
 
-    if (!savedUser) {
+/* =====================================================
+   GET LOGGED-IN USER
+===================================================== */
 
-        return null;
+const savedUser =
+    sessionStorage.getItem(
+        "currentUser"
+    );
 
-    }
 
+if (!savedUser) {
 
-    try {
+    alert(
+        "Please login first."
+    );
 
-        return JSON.parse(
-            savedUser
-        );
-
-    }
-    catch (error) {
-
-        console.error(
-            "User data error:",
-            error
-        );
-
-        sessionStorage.removeItem(
-            "currentUser"
-        );
-
-        return null;
-
-    }
+    window.location.replace(
+        "login.html"
+    );
 
 }
 
 
 /* =====================================================
-   PAGE LOAD
+   PARSE USER
 ===================================================== */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
+let user = null;
 
-        loadBookingHistory();
 
-    }
-);
+try {
 
+    user =
+        JSON.parse(
+            savedUser
+        );
+
+} catch (error) {
+
+    console.error(
+        error
+    );
+
+    sessionStorage.removeItem(
+        "currentUser"
+    );
+
+    window.location.replace(
+        "login.html"
+    );
+
+}
 
 
 /* =====================================================
-   LOAD USER BOOKING HISTORY
+   CHECK USER ID
 ===================================================== */
 
-async function loadBookingHistory() {
+if (
+    !user ||
+    !user.id
+) {
 
-
-    /* ---------------------------------------------
-       GET LOGGED-IN USER
-    --------------------------------------------- */
-
-    const user =
-        getCurrentUser();
-
-
-    /* ---------------------------------------------
-       USER NOT LOGGED IN
-    --------------------------------------------- */
-
-    if (
-        !user ||
-        !user.id
-    ) {
-
-        window.location.href =
-            "login.html";
-
-        return;
-
-    }
-
-
-    console.log(
-        "Logged in user:",
-        user
+    alert(
+        "User information not found. Please login again."
     );
 
+    sessionStorage.removeItem(
+        "currentUser"
+    );
 
-    /* ---------------------------------------------
-       LOAD BOOKINGS FROM DATABASE
-    --------------------------------------------- */
+    window.location.replace(
+        "login.html"
+    );
+
+}
+
+
+/* =====================================================
+   USER INFORMATION
+===================================================== */
+
+document.getElementById(
+    "userBox"
+).innerHTML =
+
+    `
+        👤 Logged in as:
+        <strong>${escapeHTML(
+            user.name || "User"
+        )}</strong>
+
+        &nbsp; | &nbsp;
+
+        📧 ${escapeHTML(
+            user.email || "-"
+        )}
+
+        &nbsp; | &nbsp;
+
+        📱 ${escapeHTML(
+            user.mobile || "-"
+        )}
+    `;
+
+
+/* =====================================================
+   LOAD BOOKINGS
+===================================================== */
+
+async function loadBookings() {
+
+    const bookingList =
+        document.getElementById(
+            "bookingList"
+        );
+
+
+    bookingList.innerHTML =
+        `
+            <div class="loading">
+                ⏳ Loading bookings...
+            </div>
+        `;
+
 
     try {
 
         const response =
             await fetch(
-              "http://localhost:5000/api/bookings/user/" +
+                API_BASE +
+                "/api/bookings/user/" +
                 encodeURIComponent(
                     user.id
                 )
@@ -504,34 +558,75 @@ async function loadBookingHistory() {
             await response.json();
 
 
-        console.log(
-            "Booking history:",
-            data
-        );
-
-
         if (
             !response.ok ||
             !data.success
         ) {
 
-            showError(
+            throw new Error(
                 data.message ||
-                "Unable to load booking history."
+                "Unable to load bookings."
             );
+
+        }
+
+
+        const bookings =
+            Array.isArray(
+                data.bookings
+            )
+                ? data.bookings
+                : [];
+
+
+        if (
+            bookings.length === 0
+        ) {
+
+            bookingList.innerHTML =
+                `
+                    <div class="empty-box">
+
+                        <h2>
+                            📭 No Bookings Found
+                        </h2>
+
+                        <p>
+                            You have not created any bookings yet.
+                        </p>
+
+                        <a
+                            href="booking.html"
+                            class="book-now-btn">
+                            🚌 Book Your Trip
+                        </a>
+
+                    </div>
+                `;
 
             return;
 
         }
 
 
-        displayBookings(
-            data.bookings || []
+        bookingList.innerHTML =
+            "";
+
+
+        bookings.forEach(
+            function(booking) {
+
+                bookingList.appendChild(
+                    createBookingCard(
+                        booking
+                    )
+                );
+
+            }
         );
 
 
-    }
-    catch (error) {
+    } catch (error) {
 
         console.error(
             "Booking history error:",
@@ -539,83 +634,29 @@ async function loadBookingHistory() {
         );
 
 
-        showError(
-            "Server connection failed. Please start your backend server."
-        );
+        bookingList.innerHTML =
+            `
+                <div class="error-box">
+
+                    ❌ ${escapeHTML(
+                        error.message ||
+                        "Failed to fetch bookings."
+                    )}
+
+                    <br><br>
+
+                    <button
+                        class="action-btn pay-btn"
+                        onclick="loadBookings()">
+                        🔄 Try Again
+                    </button>
+
+                </div>
+            `;
 
     }
 
 }
-
-
-
-/* =====================================================
-   DISPLAY BOOKINGS
-===================================================== */
-
-function displayBookings(
-    bookings
-) {
-
-    const container =
-        document.getElementById(
-            "bookingHistory"
-        );
-
-
-    /* ---------------------------------------------
-       NO BOOKINGS
-    --------------------------------------------- */
-
-    if (
-        !Array.isArray(bookings) ||
-        bookings.length === 0
-    ) {
-
-        container.innerHTML = `
-
-            <div class="empty-history">
-
-                <h2>
-                    📋 No Booking History
-                </h2>
-
-                <p>
-                    You have not booked any trip yet.
-                </p>
-
-                <a
-                    href="index.html"
-                    class="book-btn">
-
-                    🚌 Book Your Trip
-
-                </a>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    /* ---------------------------------------------
-       SHOW BOOKINGS
-    --------------------------------------------- */
-
-    container.innerHTML =
-        bookings
-        .slice()
-        .reverse()
-        .map(
-            createBookingCard
-        )
-        .join("");
-
-}
-
 
 
 /* =====================================================
@@ -626,84 +667,64 @@ function createBookingCard(
     booking
 ) {
 
-
-    const status =
-        booking.status ||
-        "Pending";
-
-
-    const statusText =
-        String(status)
-        .toLowerCase();
+    const card =
+        document.createElement(
+            "div"
+        );
 
 
-    let statusClass =
-        "status-pending";
+    card.className =
+        "history-card";
 
 
-    if (
-        statusText.includes(
-            "paid"
-        )
-    ) {
-
-        statusClass =
-            "status-paid";
-
-    }
-
-
-    if (
-        statusText.includes(
-            "cancel"
-        )
-    ) {
-
-        statusClass =
-            "status-cancelled";
-
-    }
-
-
-    /* ---------------------------------------------
-       DATE
-    --------------------------------------------- */
-
-    let travelDate =
-        booking.travel_date ||
-        booking.travelDate ||
+    const bookingId =
+        booking.booking_id ||
+        booking.bookingId ||
         "-";
 
 
-    if (
-        travelDate !== "-"
-    ) {
-
-        const date =
-            new Date(
-                travelDate
-            );
+    const name =
+        booking.name ||
+        "-";
 
 
-        if (
-            !isNaN(
-                date.getTime()
-            )
-        ) {
-
-            travelDate =
-                date.toLocaleDateString(
-                    "en-IN"
-                );
-
-        }
-
-    }
+    const mobile =
+        booking.mobile ||
+        "-";
 
 
-    /* ---------------------------------------------
-       TOTAL
-    --------------------------------------------- */
+    const fromLocation =
+        booking.from_location ||
+        booking.fromLocation ||
+        "-";
+
+
+    const destination =
+        booking.destination ||
+        "-";
+
+
+    const travelDate =
+        booking.travel_date ||
+        booking.travelDate ||
+        booking.date ||
+        "-";
+
+
+    const days =
+        booking.days ||
+        "-";
+
+
+    const travelers =
+        booking.travelers ||
+        "-";
+
+
+    const vehicle =
+        booking.vehicle ||
+        "-";
+
 
     const total =
         Number(
@@ -711,259 +732,385 @@ function createBookingCard(
         );
 
 
-    return `
+    const paymentMethod =
+        booking.payment_method ||
+        booking.paymentMethod ||
+        "Pending";
 
-        <div class="history-card">
 
+    const status =
+        booking.status ||
+        "Pending Payment";
 
-            <h2>
 
-                🚌
-                ${escapeHTML(
-                    booking.destination ||
-                    "Karnataka Trip"
-                )}
-
-            </h2>
-
-
-            <div class="booking-id">
-
-                🎫 Booking ID:
-                ${escapeHTML(
-                    booking.booking_id ||
-                    booking.bookingId ||
-                    "-"
-                )}
-
-            </div>
-
-
-            <!-- FROM -->
-
-            <div class="detail">
-
-                <strong>
-                    📍 From
-                </strong>
-
-                <span>
-
-                    ${escapeHTML(
-                        booking.from_location ||
-                        booking.from ||
-                        "-"
-                    )}
-
-                </span>
-
-            </div>
-
-
-            <!-- DESTINATION -->
-
-            <div class="detail">
-
-                <strong>
-                    🎯 Destination
-                </strong>
-
-                <span>
-
-                    ${escapeHTML(
-                        booking.destination ||
-                        "-"
-                    )}
-
-                </span>
-
-            </div>
-
-
-            <!-- DATE -->
-
-            <div class="detail">
-
-                <strong>
-                    📅 Travel Date
-                </strong>
-
-                <span>
-
-                    ${escapeHTML(
-                        travelDate
-                    )}
-
-                </span>
-
-            </div>
-
-
-            <!-- DAYS -->
-
-            <div class="detail">
-
-                <strong>
-                    🗓️ Days
-                </strong>
-
-                <span>
-
-                    ${escapeHTML(
-                        booking.days ||
-                        "-"
-                    )}
-
-                </span>
-
-            </div>
-
-
-            <!-- TRAVELERS -->
-
-            <div class="detail">
-
-                <strong>
-                    👥 Travelers
-                </strong>
-
-                <span>
-
-                    ${escapeHTML(
-                        booking.travelers ||
-                        "-"
-                    )}
-
-                </span>
-
-            </div>
-
-
-            <!-- VEHICLE -->
-
-            <div class="detail">
-
-                <strong>
-                    🚐 Vehicle
-                </strong>
-
-                <span>
-
-                    ${escapeHTML(
-                        booking.vehicle ||
-                        "-"
-                    )}
-
-                </span>
-
-            </div>
-
-
-            <!-- TOTAL -->
-
-            <div class="detail">
-
-                <strong>
-                    💰 Total
-                </strong>
-
-                <span>
-
-                    ₹${total.toLocaleString(
-                        "en-IN"
-                    )}
-
-                </span>
-
-            </div>
-
-
-            <!-- PAYMENT -->
-
-            <div class="detail">
-
-                <strong>
-                    💳 Payment
-                </strong>
-
-                <span>
-
-                    ${escapeHTML(
-                        booking.payment_method ||
-                        booking.paymentMethod ||
-                        "Pending"
-                    )}
-
-                </span>
-
-            </div>
-
-
-            <!-- STATUS -->
-
-            <div class="detail">
-
-                <strong>
-                    📌 Status
-                </strong>
-
-                <span>
-
-                    <span
-                        class="status ${statusClass}">
-
-                        ${escapeHTML(
-                            status
-                        )}
-
-                    </span>
-
-                </span>
-
-            </div>
-
-
-        </div>
-
-    `;
-
-}
-
-
-
-/* =====================================================
-   ERROR
-===================================================== */
-
-function showError(
-    message
-) {
-
-    const container =
-        document.getElementById(
-            "bookingHistory"
+    const statusText =
+        String(
+            status
         );
 
 
-    container.innerHTML = `
+    const isPaid =
+        statusText
+            .toLowerCase()
+            .includes(
+                "paid"
+            );
 
-        <div class="error-box">
 
-            ❌
-            ${escapeHTML(
-                message
-            )}
+    const statusClass =
+        isPaid
+            ? "status-paid"
+            : "status-pending";
 
-        </div>
 
-    `;
+    card.innerHTML =
+
+        `
+            <div class="booking-header">
+
+                <h2>
+                    🚌 Booking #${escapeHTML(
+                        bookingId
+                    )}
+                </h2>
+
+                <span
+                    class="status ${statusClass}">
+                    ${escapeHTML(
+                        statusText
+                    )}
+                </span>
+
+            </div>
+
+
+            <div class="booking-details">
+
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        👤 Name
+                    </div>
+
+                    <div class="detail-value">
+                        ${escapeHTML(
+                            name
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        📱 Mobile
+                    </div>
+
+                    <div class="detail-value">
+                        ${escapeHTML(
+                            mobile
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        📍 From Location
+                    </div>
+
+                    <div class="detail-value">
+                        ${escapeHTML(
+                            fromLocation
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        📍 Destination
+                    </div>
+
+                    <div class="detail-value">
+                        ${escapeHTML(
+                            destination
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        📅 Travel Date
+                    </div>
+
+                    <div class="detail-value">
+                        ${escapeHTML(
+                            travelDate
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        📆 Days
+                    </div>
+
+                    <div class="detail-value">
+                        ${escapeHTML(
+                            days
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        👨‍👩‍👧 Travelers
+                    </div>
+
+                    <div class="detail-value">
+                        ${escapeHTML(
+                            travelers
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        🚗 Vehicle
+                    </div>
+
+                    <div class="detail-value">
+                        ${escapeHTML(
+                            vehicle
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        💳 Payment Method
+                    </div>
+
+                    <div class="detail-value">
+                        ${escapeHTML(
+                            paymentMethod
+                        )}
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="total-box">
+
+                <span>
+                    Total Amount
+                </span>
+
+                <span>
+                    ₹${total.toLocaleString(
+                        "en-IN"
+                    )}
+                </span>
+
+            </div>
+
+
+            <div class="booking-actions">
+
+                ${
+                    !isPaid
+                    ?
+                    `
+                        <button
+                            class="action-btn pay-btn"
+                            onclick="goToPayment('${escapeJS(
+                                bookingId
+                            )}')">
+                            💳 Pay Now
+                        </button>
+                    `
+                    :
+                    ""
+                }
+
+
+                <button
+                    class="action-btn delete-btn"
+                    onclick="deleteBooking('${escapeJS(
+                        bookingId
+                    )}')">
+                    🗑️ Delete
+                </button>
+
+            </div>
+        `;
+
+
+    return card;
 
 }
 
 
+/* =====================================================
+   PAYMENT
+===================================================== */
+
+async function goToPayment(
+    bookingId
+) {
+
+    try {
+
+        const response =
+            await fetch(
+                API_BASE +
+                "/api/bookings/" +
+                encodeURIComponent(
+                    bookingId
+                )
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Booking not found."
+            );
+
+        }
+
+
+        sessionStorage.setItem(
+            "currentBooking",
+            JSON.stringify(
+                data.booking
+            )
+        );
+
+
+        window.location.href =
+            "payment.html";
+
+
+    } catch (error) {
+
+        alert(
+            error.message ||
+            "Unable to open payment page."
+        );
+
+    }
+
+}
+
 
 /* =====================================================
-   SECURITY
+   DELETE BOOKING
+===================================================== */
+
+async function deleteBooking(
+    bookingId
+) {
+
+    const confirmDelete =
+        confirm(
+            "Are you sure you want to delete this booking?"
+        );
+
+
+    if (!confirmDelete) {
+
+        return;
+
+    }
+
+
+    try {
+
+        /*
+           Your current server.js does NOT contain
+           DELETE /api/bookings/:bookingId.
+
+           Therefore this function shows a message
+           instead of pretending deletion succeeded.
+        */
+
+        alert(
+            "Delete API is not added in server.js yet."
+        );
+
+    } catch (error) {
+
+        console.error(
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+document.getElementById(
+    "logoutBtn"
+).addEventListener(
+    "click",
+    function() {
+
+        sessionStorage.removeItem(
+            "currentUser"
+        );
+
+        sessionStorage.removeItem(
+            "currentBooking"
+        );
+
+        window.location.replace(
+            "login.html"
+        );
+
+    }
+);
+
+
+/* =====================================================
+   HTML SECURITY
 ===================================================== */
 
 function escapeHTML(
@@ -973,27 +1120,22 @@ function escapeHTML(
     return String(
         value ?? ""
     )
-
     .replace(
         /&/g,
         "&amp;"
     )
-
     .replace(
         /</g,
         "&lt;"
     )
-
     .replace(
         />/g,
         "&gt;"
     )
-
     .replace(
         /"/g,
         "&quot;"
     )
-
     .replace(
         /'/g,
         "&#039;"
@@ -1002,26 +1144,38 @@ function escapeHTML(
 }
 
 
-
 /* =====================================================
-   LOGOUT
+   JAVASCRIPT STRING SECURITY
 ===================================================== */
 
-function logout() {
+function escapeJS(
+    value
+) {
 
-    sessionStorage.removeItem(
-        "currentUser"
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /\\/g,
+        "\\\\"
+    )
+    .replace(
+        /'/g,
+        "\\'"
+    )
+    .replace(
+        /"/g,
+        '\\"'
     );
-
-    sessionStorage.removeItem(
-        "currentBooking"
-    );
-
-
-    window.location.href =
-        "login.html";
 
 }
+
+
+/* =====================================================
+   START
+===================================================== */
+
+loadBookings();
 
 </script>
 
