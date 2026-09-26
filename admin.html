@@ -2,206 +2,608 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Admin Dashboard - Karnataka Travel</title>
 
     <link rel="stylesheet" href="style.css">
 
     <style>
-        .admin-page {
-            min-height: 100vh;
-            background: #f4faf6;
-            padding: 40px 20px;
+
+        * {
+            box-sizing: border-box;
         }
 
-        .admin-container {
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        .admin-heading {
-            text-align: center;
-            color: #087f3d;
-            margin-bottom: 5px;
-        }
-
-        .admin-subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 30px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 22px;
-            border-radius: 14px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.10);
-            text-align: center;
-        }
-
-        .stat-icon {
-            font-size: 32px;
-        }
-
-        .stat-card h2 {
-            color: #087f3d;
-            margin: 8px 0;
-        }
-
-        .stat-card p {
-            color: #666;
+        body {
             margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4faf6;
         }
 
-        .admin-card {
-            background: white;
-            padding: 25px;
-            border-radius: 14px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.10);
-            margin-bottom: 25px;
-        }
+        /* =========================================
+           HEADER
+        ========================================= */
 
-        .toolbar {
+        .admin-header {
+
+            background: #087f3d;
+
+            color: white;
+
+            padding: 18px 30px;
+
             display: flex;
-            gap: 12px;
+
             justify-content: space-between;
+
             align-items: center;
+
+            gap: 20px;
+        }
+
+        .admin-logo {
+
+            font-size: 24px;
+
+            font-weight: bold;
+        }
+
+        .admin-logo span {
+
+            color: #d9f5e4;
+        }
+
+        .admin-nav {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
             flex-wrap: wrap;
         }
 
-        .search-box {
-            flex: 1;
-            min-width: 250px;
-        }
+        .admin-nav a {
 
-        .search-box input {
-            width: 100%;
-            box-sizing: border-box;
-            padding: 13px;
-            border: 1px solid #ccc;
-            border-radius: 7px;
-            font-size: 15px;
-        }
-
-        .clear-btn,
-        .logout-btn {
-            padding: 12px 18px;
-            border: none;
-            border-radius: 7px;
             color: white;
-            font-weight: bold;
-            cursor: pointer;
+
+            text-decoration: none;
+
+            padding: 9px 13px;
+
+            border-radius: 6px;
         }
 
-        .clear-btn {
-            background: #c62828;
-        }
+        .admin-nav a:hover {
 
-        .clear-btn:hover {
-            background: #a51f1f;
+            background: rgba(255,255,255,0.15);
         }
 
         .logout-btn {
+
+            border: none;
+
             background: #c62828;
+
+            color: white;
+
+            padding: 10px 16px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-weight: bold;
         }
 
         .logout-btn:hover {
-            background: #a51f1f;
+
+            background: #a91f1f;
         }
 
-        .table-wrapper {
-            overflow-x: auto;
+        /* =========================================
+           PAGE
+        ========================================= */
+
+        .admin-page {
+
+            padding: 35px 20px;
+
+            max-width: 1250px;
+
+            margin: auto;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 1000px;
+        .page-title {
+
+            color: #087f3d;
+
+            margin-bottom: 5px;
         }
 
-        th,
-        td {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
-            text-align: left;
+        .page-subtitle {
+
+            color: #666;
+
+            margin-top: 0;
+
+            margin-bottom: 25px;
         }
 
-        th {
-            background: #087f3d;
-            color: white;
-        }
+        /* =========================================
+           MESSAGE
+        ========================================= */
 
-        tr:hover {
-            background: #f8faf9;
-        }
+        .message {
 
-        .status {
-            display: inline-block;
-            padding: 5px 9px;
-            border-radius: 15px;
-            font-size: 12px;
+            display: none;
+
+            padding: 13px;
+
+            margin-bottom: 20px;
+
+            border-radius: 8px;
+
+            text-align: center;
+
             font-weight: bold;
         }
 
-        .paid {
-            background: #eaf7ee;
+        .success {
+
+            display: block;
+
+            background: #e8f5e9;
+
             color: #087f3d;
         }
 
-        .pending {
-            background: #fff3cd;
-            color: #856404;
+        .error {
+
+            display: block;
+
+            background: #ffebee;
+
+            color: #c62828;
         }
 
-        .delete-btn {
-            background: #c62828;
-            color: white;
+        /* =========================================
+           STATISTICS
+        ========================================= */
+
+        .stats-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+
+            background: white;
+
+            padding: 22px;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0,0,0,0.10);
+        }
+
+        .stat-icon {
+
+            font-size: 30px;
+
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+
+            color: #777;
+
+            font-size: 14px;
+
+            margin-bottom: 6px;
+        }
+
+        .stat-value {
+
+            color: #087f3d;
+
+            font-size: 27px;
+
+            font-weight: bold;
+        }
+
+        /* =========================================
+           BOOKINGS SECTION
+        ========================================= */
+
+        .bookings-box {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0,0,0,0.10);
+        }
+
+        .bookings-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+        .bookings-header h2 {
+
+            margin: 0;
+
+            color: #087f3d;
+        }
+
+        .refresh-btn {
+
             border: none;
-            padding: 7px 11px;
-            border-radius: 5px;
+
+            background: #087f3d;
+
+            color: white;
+
+            padding: 10px 15px;
+
+            border-radius: 7px;
+
             cursor: pointer;
+
+            font-weight: bold;
         }
 
-        .delete-btn:hover {
-            background: #a51f1f;
+        .refresh-btn:hover {
+
+            background: #05652f;
         }
 
-        .no-data {
-            text-align: center;
-            padding: 35px;
-            color: #666;
+        /* =========================================
+           SEARCH
+        ========================================= */
+
+        .search-row {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-bottom: 25px;
         }
 
-        .admin-user {
-            text-align: right;
-            color: #666;
+        #searchBooking {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            outline: none;
+        }
+
+        #searchBooking:focus {
+
+            border-color: #087f3d;
+        }
+
+        /* =========================================
+           BOOKING CARD
+        ========================================= */
+
+        .booking-card {
+
+            border: 1px solid #e0e0e0;
+
+            border-radius: 12px;
+
+            padding: 20px;
+
+            margin-bottom: 18px;
+
+            background: #fff;
+        }
+
+        .booking-top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            border-bottom: 1px solid #eee;
+
+            padding-bottom: 13px;
+
             margin-bottom: 15px;
         }
 
+        .booking-id {
+
+            color: #087f3d;
+
+            font-size: 18px;
+
+            font-weight: bold;
+        }
+
+        .status {
+
+            padding: 6px 11px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+        .status.paid {
+
+            background: #e8f5e9;
+
+            color: #087f3d;
+        }
+
+        .status.pending {
+
+            background: #fff3e0;
+
+            color: #ef6c00;
+        }
+
+        .booking-details {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 10px 25px;
+        }
+
+        .detail {
+
+            padding: 5px 0;
+
+            color: #555;
+        }
+
+        .detail strong {
+
+            color: #222;
+        }
+
+        .booking-bottom {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-top: 18px;
+
+            padding-top: 15px;
+
+            border-top: 1px solid #eee;
+        }
+
+        .booking-total {
+
+            color: #087f3d;
+
+            font-size: 20px;
+
+            font-weight: bold;
+        }
+
+        .delete-btn {
+
+            border: none;
+
+            background: #c62828;
+
+            color: white;
+
+            padding: 9px 14px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+        .delete-btn:hover {
+
+            background: #a91f1f;
+        }
+
+        /* =========================================
+           CLEAR ALL
+        ========================================= */
+
+        .clear-section {
+
+            margin-top: 25px;
+
+            text-align: right;
+        }
+
+        .clear-btn {
+
+            border: none;
+
+            background: #c62828;
+
+            color: white;
+
+            padding: 12px 18px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+        .clear-btn:hover {
+
+            background: #a91f1f;
+        }
+
+        /* =========================================
+           EMPTY
+        ========================================= */
+
+        .empty {
+
+            text-align: center;
+
+            padding: 45px 20px;
+
+            color: #777;
+        }
+
+        .empty-icon {
+
+            font-size: 50px;
+
+            margin-bottom: 10px;
+        }
+
+        /* =========================================
+           LOADING
+        ========================================= */
+
+        .loading {
+
+            text-align: center;
+
+            padding: 35px;
+
+            color: #666;
+
+            font-weight: bold;
+        }
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
         @media (max-width: 900px) {
+
             .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+
+                grid-template-columns:
+                    repeat(2, 1fr);
             }
+
         }
 
         @media (max-width: 600px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
+
+            .admin-header {
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+                text-align: center;
+
+                padding: 15px;
+            }
+
+            .admin-nav {
+
+                justify-content: center;
             }
 
             .admin-page {
+
                 padding: 25px 12px;
             }
+
+            .stats-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+            .bookings-header {
+
+                flex-direction: column;
+
+                align-items: stretch;
+            }
+
+            .booking-details {
+
+                grid-template-columns: 1fr;
+            }
+
+            .booking-top {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+            .booking-bottom {
+
+                flex-direction: column;
+
+                align-items: stretch;
+            }
+
+            .delete-btn {
+
+                width: 100%;
+            }
+
+            .clear-btn {
+
+                width: 100%;
+            }
+
         }
+
     </style>
 
 </head>
@@ -210,249 +612,304 @@
 <body>
 
 
-<header>
+<!-- =========================================
+     HEADER
+========================================= -->
 
-    <div class="logo">
-        🏛️ Karnataka <span>Travel Admin</span>
+<header class="admin-header">
+
+
+    <div class="admin-logo">
+
+        🏛️ Karnataka
+        <span>Travel Admin</span>
+
     </div>
 
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="district.html">Districts</a>
-        <button id="logoutBtn" class="logout-btn">
+
+    <div class="admin-nav">
+
+        <a href="index.html">
+
+            🏠 Home
+
+        </a>
+
+
+        <a href="district.html">
+
+            📍 Districts
+
+        </a>
+
+
+        <button
+            id="logoutBtn"
+            class="logout-btn"
+        >
+
             Logout
+
         </button>
-    </nav>
+
+    </div>
+
 
 </header>
 
 
-<section class="admin-page">
 
-    <div class="admin-container">
+<!-- =========================================
+     MAIN
+========================================= -->
 
-
-        <h1 class="admin-heading">
-            📊 Admin Dashboard
-        </h1>
-
-        <p class="admin-subtitle">
-            Manage Karnataka Travel bookings
-        </p>
+<main class="admin-page">
 
 
-        <div
-            id="adminUser"
-            class="admin-user"
-        ></div>
+    <h1 class="page-title">
+
+        📊 Admin Dashboard
+
+    </h1>
 
 
-        <!-- STATISTICS -->
+    <p class="page-subtitle">
 
-        <div class="stats-grid">
+        Manage Karnataka Travel bookings
 
-
-            <div class="stat-card">
-
-                <div class="stat-icon">
-                    📋
-                </div>
-
-                <h2 id="totalBookings">
-                    0
-                </h2>
-
-                <p>
-                    Total Bookings
-                </p>
-
-            </div>
+    </p>
 
 
-            <div class="stat-card">
+    <div
+        id="adminMessage"
+        class="message"
+    ></div>
 
-                <div class="stat-icon">
-                    💰
-                </div>
 
-                <h2 id="totalRevenue">
-                    ₹0
-                </h2>
+    <!-- =========================================
+         STATISTICS
+    ========================================== -->
 
-                <p>
-                    Total Revenue
-                </p>
+    <div class="stats-grid">
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+
+                📋
 
             </div>
 
+            <div class="stat-label">
 
-            <div class="stat-card">
-
-                <div class="stat-icon">
-                    🚌
-                </div>
-
-                <h2 id="vehicleBookings">
-                    0
-                </h2>
-
-                <p>
-                    Vehicle Bookings
-                </p>
+                Total Bookings
 
             </div>
-
-
-            <div class="stat-card">
-
-                <div class="stat-icon">
-                    📍
-                </div>
-
-                <h2 id="destinationCount">
-                    0
-                </h2>
-
-                <p>
-                    Destinations
-                </p>
-
-            </div>
-
-
-        </div>
-
-
-        <!-- SEARCH / ACTIONS -->
-
-        <div class="admin-card">
-
-            <div class="toolbar">
-
-                <div class="search-box">
-
-                    <input
-                        type="text"
-                        id="searchBooking"
-                        placeholder="Search by name, mobile, destination or booking ID..."
-                    >
-
-                </div>
-
-
-                <button
-                    id="clearAllBtn"
-                    class="clear-btn"
-                >
-                    🗑️ Clear All
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- BOOKINGS -->
-
-        <div class="admin-card">
-
-            <h2>
-                📋 All Bookings
-            </h2>
-
-
-            <div class="table-wrapper">
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-
-                            <th>
-                                Booking ID
-                            </th>
-
-                            <th>
-                                Name
-                            </th>
-
-                            <th>
-                                Mobile
-                            </th>
-
-                            <th>
-                                Destination
-                            </th>
-
-                            <th>
-                                Date
-                            </th>
-
-                            <th>
-                                Days
-                            </th>
-
-                            <th>
-                                Travelers
-                            </th>
-
-                            <th>
-                                Vehicle
-                            </th>
-
-                            <th>
-                                Payment
-                            </th>
-
-                            <th>
-                                Status
-                            </th>
-
-                            <th>
-                                Total
-                            </th>
-
-                            <th>
-                                Action
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-
-                    <tbody id="bookingTableBody">
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
 
             <div
-                id="noData"
-                class="no-data"
-                style="display:none;"
+                id="totalBookings"
+                class="stat-value"
             >
-                No bookings found.
+
+                0
+
             </div>
 
+        </div>
+
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+
+                💰
+
+            </div>
+
+            <div class="stat-label">
+
+                Total Revenue
+
+            </div>
+
+            <div
+                id="totalRevenue"
+                class="stat-value"
+            >
+
+                ₹0
+
+            </div>
+
+        </div>
+
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+
+                🚌
+
+            </div>
+
+            <div class="stat-label">
+
+                Vehicle Bookings
+
+            </div>
+
+            <div
+                id="vehicleBookings"
+                class="stat-value"
+            >
+
+                0
+
+            </div>
+
+        </div>
+
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+
+                📍
+
+            </div>
+
+            <div class="stat-label">
+
+                Destinations
+
+            </div>
+
+            <div
+                id="destinationCount"
+                class="stat-value"
+            >
+
+                0
+
+            </div>
 
         </div>
 
 
     </div>
 
-</section>
+
+
+    <!-- =========================================
+         BOOKINGS
+    ========================================== -->
+
+    <section class="bookings-box">
+
+
+        <div class="bookings-header">
+
+
+            <h2>
+
+                📋 All Bookings
+
+            </h2>
+
+
+            <button
+                id="refreshBtn"
+                class="refresh-btn"
+            >
+
+                🔄 Refresh
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- SEARCH -->
+
+        <div class="search-row">
+
+            <input
+                type="text"
+                id="searchBooking"
+                placeholder="Search by name, mobile, destination or booking ID..."
+            >
+
+        </div>
+
+
+
+        <!-- BOOKING LIST -->
+
+        <div id="bookingList">
+
+            <div class="loading">
+
+                Loading bookings...
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CLEAR -->
+
+        <div class="clear-section">
+
+            <button
+                id="clearAllBtn"
+                class="clear-btn"
+            >
+
+                🗑️ Delete All Bookings
+
+            </button>
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
 
 
 <script>
 
+"use strict";
+
 
 /* =====================================================
-   ADMIN LOGIN CHECK
+   API BASE URL
+
+   Works with:
+   Computer:
+   http://localhost:5000
+
+   Phone:
+   http://192.168.1.103:5000
+===================================================== */
+
+const API_BASE =
+    window.location.protocol === "file:"
+        ? "http://192.168.1.103:5000"
+        : `${window.location.protocol}//${window.location.hostname}:5000`;
+
+
+/* =====================================================
+   LOGIN CHECK
 ===================================================== */
 
 if (
@@ -461,8 +918,9 @@ if (
     ) !== "true"
 ) {
 
-    window.location.href =
-        "admin-login.html";
+    window.location.replace(
+        "admin-login.html"
+    );
 
 }
 
@@ -471,7 +929,8 @@ if (
    VARIABLES
 ===================================================== */
 
-let allBookings = [];
+let bookings = [];
+
 
 
 /* =====================================================
@@ -480,11 +939,34 @@ let allBookings = [];
 
 async function loadBookings() {
 
+    const bookingList =
+        document.getElementById(
+            "bookingList"
+        );
+
+
+    bookingList.innerHTML = `
+
+        <div class="loading">
+
+            Loading bookings...
+
+        </div>
+
+    `;
+
+
     try {
+
+
+        /*
+           Admin booking API
+        */
 
         const response =
             await fetch(
-                "http://localhost:5000/api/bookings"
+                API_BASE +
+                "/api/admin/bookings"
             );
 
 
@@ -498,19 +980,28 @@ async function loadBookings() {
         ) {
 
             throw new Error(
+
                 data.message ||
-                "Unable to load bookings"
+                "Unable to load bookings."
+
             );
 
         }
 
 
-        allBookings =
-            data.bookings || [];
+        bookings =
+            Array.isArray(
+                data.bookings
+            )
+                ? data.bookings
+                : [];
+
+
+        updateStatistics();
 
 
         displayBookings(
-            allBookings
+            bookings
         );
 
 
@@ -522,259 +1013,42 @@ async function loadBookings() {
         );
 
 
-        /* Fallback to localStorage */
+        bookingList.innerHTML = `
 
-        const savedBookings =
-            localStorage.getItem(
-                "bookings"
-            );
+            <div class="empty">
 
+                <div class="empty-icon">
 
-        if (savedBookings) {
+                    ⚠️
 
-            try {
+                </div>
 
-                allBookings =
-                    JSON.parse(
-                        savedBookings
-                    );
+                <h3>
+                    Unable to load bookings
+                </h3>
 
-            } catch (e) {
+                <p>
+                    ${escapeHTML(
+                        error.message
+                    )}
+                </p>
 
-                allBookings = [];
+            </div>
 
-            }
-
-        } else {
-
-            allBookings = [];
-
-        }
-
-
-        displayBookings(
-            allBookings
-        );
+        `;
 
     }
 
 }
 
 
-/* =====================================================
-   DISPLAY BOOKINGS
-===================================================== */
-
-function displayBookings(bookings) {
-
-    const tableBody =
-        document.getElementById(
-            "bookingTableBody"
-        );
-
-
-    const noData =
-        document.getElementById(
-            "noData"
-        );
-
-
-    tableBody.innerHTML = "";
-
-
-    if (
-        !bookings ||
-        bookings.length === 0
-    ) {
-
-        noData.style.display =
-            "block";
-
-        updateStats([]);
-
-        return;
-
-    }
-
-
-    noData.style.display =
-        "none";
-
-
-    bookings.forEach(
-        function(booking) {
-
-            const row =
-                document.createElement(
-                    "tr"
-                );
-
-
-            const bookingId =
-                booking.booking_id ||
-                booking.bookingId ||
-                "KT-DEMO";
-
-
-            const name =
-                booking.name || "-";
-
-
-            const mobile =
-                booking.mobile || "-";
-
-
-            const destination =
-                booking.destination || "-";
-
-
-            const date =
-                booking.travel_date ||
-                booking.date ||
-                "-";
-
-
-            const days =
-                booking.days || "-";
-
-
-            const travelers =
-                booking.travelers || "-";
-
-
-            const vehicle =
-                booking.vehicle || "-";
-
-
-            const paymentMethod =
-                booking.payment_method ||
-                booking.paymentMethod ||
-                "Pending";
-
-
-            const status =
-                booking.status ||
-                "Pending";
-
-
-            const total =
-                Number(
-                    booking.total || 0
-                );
-
-
-            const statusClass =
-                String(status)
-                    .toLowerCase()
-                    .includes("paid")
-                    ? "paid"
-                    : "pending";
-
-
-            row.innerHTML = `
-
-                <td>
-                    ${escapeHTML(
-                        bookingId
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        name
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        mobile
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        destination
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        date
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        days
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        travelers
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        vehicle
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        paymentMethod
-                    )}
-                </td>
-
-                <td>
-                    <span class="status ${statusClass}">
-                        ${escapeHTML(
-                            status
-                        )}
-                    </span>
-                </td>
-
-                <td>
-                    ₹${total.toLocaleString(
-                        "en-IN"
-                    )}
-                </td>
-
-                <td>
-
-                    <button
-                        class="delete-btn"
-                        onclick="deleteBooking('${escapeJS(
-                            bookingId
-                        )}')"
-                    >
-                        Delete
-                    </button>
-
-                </td>
-
-            `;
-
-
-            tableBody.appendChild(
-                row
-            );
-
-        }
-    );
-
-
-    updateStats(bookings);
-
-}
-
 
 /* =====================================================
-   UPDATE STATISTICS
+   STATISTICS
 ===================================================== */
 
-function updateStats(bookings) {
+function updateStatistics() {
+
 
     document.getElementById(
         "totalBookings"
@@ -806,7 +1080,9 @@ function updateStats(bookings) {
         );
 
 
-    const vehicleBookings =
+    document.getElementById(
+        "vehicleBookings"
+    ).textContent =
         bookings.filter(
             function(booking) {
 
@@ -814,12 +1090,6 @@ function updateStats(bookings) {
 
             }
         ).length;
-
-
-    document.getElementById(
-        "vehicleBookings"
-    ).textContent =
-        vehicleBookings;
 
 
     const destinations =
@@ -834,7 +1104,9 @@ function updateStats(bookings) {
             ) {
 
                 destinations.add(
-                    booking.destination
+                    String(
+                        booking.destination
+                    ).trim().toLowerCase()
                 );
 
             }
@@ -849,6 +1121,318 @@ function updateStats(bookings) {
         destinations.size;
 
 }
+
+
+
+/* =====================================================
+   DISPLAY BOOKINGS
+===================================================== */
+
+function displayBookings(
+    list
+) {
+
+    const bookingList =
+        document.getElementById(
+            "bookingList"
+        );
+
+
+    if (
+        !Array.isArray(list) ||
+        list.length === 0
+    ) {
+
+        bookingList.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+
+                    📭
+
+                </div>
+
+                <h3>
+                    No bookings found
+                </h3>
+
+                <p>
+                    There are no bookings available.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    bookingList.innerHTML =
+        list.map(
+            function(booking) {
+
+                return createBookingCard(
+                    booking
+                );
+
+            }
+        ).join("");
+
+}
+
+
+
+/* =====================================================
+   BOOKING CARD
+===================================================== */
+
+function createBookingCard(
+    booking
+) {
+
+
+    const bookingId =
+        booking.booking_id ||
+        booking.bookingId ||
+        "KT-DEMO";
+
+
+    const name =
+        booking.name ||
+        "Customer";
+
+
+    const mobile =
+        booking.mobile ||
+        "-";
+
+
+    const fromLocation =
+        booking.from_location ||
+        booking.fromLocation ||
+        "-";
+
+
+    const destination =
+        booking.destination ||
+        "-";
+
+
+    const date =
+        booking.travel_date ||
+        booking.travelDate ||
+        booking.date ||
+        "-";
+
+
+    const days =
+        booking.days ||
+        "-";
+
+
+    const travelers =
+        booking.travelers ||
+        "-";
+
+
+    const vehicle =
+        booking.vehicle ||
+        "-";
+
+
+    const paymentMethod =
+        booking.payment_method ||
+        booking.paymentMethod ||
+        "Pending";
+
+
+    const status =
+        booking.status ||
+        "Pending";
+
+
+    const total =
+        Number(
+            booking.total || 0
+        );
+
+
+    const statusClass =
+        String(status)
+            .toLowerCase()
+            .includes("paid")
+                ? "paid"
+                : "pending";
+
+
+    return `
+
+        <div class="booking-card">
+
+            <div class="booking-top">
+
+                <div class="booking-id">
+
+                    🎫
+                    ${escapeHTML(
+                        bookingId
+                    )}
+
+                </div>
+
+                <div class="status ${statusClass}">
+
+                    ${escapeHTML(
+                        status
+                    )}
+
+                </div>
+
+            </div>
+
+
+            <div class="booking-details">
+
+
+                <div class="detail">
+
+                    👤
+                    <strong>Name:</strong>
+                    ${escapeHTML(
+                        name
+                    )}
+
+                </div>
+
+
+                <div class="detail">
+
+                    📱
+                    <strong>Mobile:</strong>
+                    ${escapeHTML(
+                        mobile
+                    )}
+
+                </div>
+
+
+                <div class="detail">
+
+                    📍
+                    <strong>From:</strong>
+                    ${escapeHTML(
+                        fromLocation
+                    )}
+
+                </div>
+
+
+                <div class="detail">
+
+                    🏞️
+                    <strong>Destination:</strong>
+                    ${escapeHTML(
+                        destination
+                    )}
+
+                </div>
+
+
+                <div class="detail">
+
+                    📅
+                    <strong>Travel Date:</strong>
+                    ${escapeHTML(
+                        date
+                    )}
+
+                </div>
+
+
+                <div class="detail">
+
+                    🗓️
+                    <strong>Days:</strong>
+                    ${escapeHTML(
+                        days
+                    )}
+
+                </div>
+
+
+                <div class="detail">
+
+                    👥
+                    <strong>Travelers:</strong>
+                    ${escapeHTML(
+                        travelers
+                    )}
+
+                </div>
+
+
+                <div class="detail">
+
+                    🚌
+                    <strong>Vehicle:</strong>
+                    ${escapeHTML(
+                        vehicle
+                    )}
+
+                </div>
+
+
+                <div class="detail">
+
+                    💳
+                    <strong>Payment:</strong>
+                    ${escapeHTML(
+                        paymentMethod
+                    )}
+
+                </div>
+
+
+            </div>
+
+
+            <div class="booking-bottom">
+
+
+                <div class="booking-total">
+
+                    Total:
+                    ₹${total.toLocaleString(
+                        "en-IN"
+                    )}
+
+                </div>
+
+
+                <button
+                    class="delete-btn"
+                    onclick="deleteBooking('${escapeAttribute(
+                        bookingId
+                    )}')"
+                >
+
+                    🗑️ Delete
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+    `;
+
+}
+
 
 
 /* =====================================================
@@ -870,7 +1454,7 @@ document.getElementById(
         if (!search) {
 
             displayBookings(
-                allBookings
+                bookings
             );
 
             return;
@@ -879,10 +1463,11 @@ document.getElementById(
 
 
         const filtered =
-            allBookings.filter(
+            bookings.filter(
                 function(booking) {
 
-                    const text = [
+
+                    const values = [
 
                         booking.name,
 
@@ -894,16 +1479,27 @@ document.getElementById(
 
                         booking.bookingId,
 
-                        booking.vehicle
+                        booking.from_location,
 
-                    ]
-                    .filter(Boolean)
-                    .join(" ")
-                    .toLowerCase();
+                        booking.vehicle,
+
+                        booking.status
+
+                    ];
 
 
-                    return text.includes(
-                        search
+                    return values.some(
+                        function(value) {
+
+                            return String(
+                                value || ""
+                            )
+                            .toLowerCase()
+                            .includes(
+                                search
+                            );
+
+                        }
                     );
 
                 }
@@ -918,42 +1514,41 @@ document.getElementById(
 );
 
 
+
 /* =====================================================
-   DELETE BOOKING
+   DELETE SINGLE BOOKING
 ===================================================== */
 
 async function deleteBooking(
     bookingId
 ) {
 
-    if (!bookingId) {
+
+    if (
+        !confirm(
+            "Are you sure you want to delete this booking?"
+        )
+    ) {
+
         return;
-    }
 
-
-    const confirmDelete =
-        confirm(
-            "Are you sure you want to delete booking " +
-            bookingId +
-            "?"
-        );
-
-
-    if (!confirmDelete) {
-        return;
     }
 
 
     try {
 
+
         const response =
             await fetch(
-                "http://localhost:5000/api/bookings/" +
+                API_BASE +
+                "/api/bookings/" +
                 encodeURIComponent(
                     bookingId
                 ),
                 {
+
                     method: "DELETE"
+
                 }
             );
 
@@ -968,55 +1563,36 @@ async function deleteBooking(
         ) {
 
             throw new Error(
+
                 data.message ||
-                "Delete failed"
+                "Delete failed."
+
             );
 
         }
 
 
-        alert(
-            "Booking deleted successfully."
+        showMessage(
+            "Booking deleted successfully.",
+            "success"
         );
 
 
-        loadBookings();
+        await loadBookings();
 
 
     } catch (error) {
 
         console.error(
-            "Delete error:",
+            "Delete booking error:",
             error
         );
 
 
-        /* Local fallback */
-
-        allBookings =
-            allBookings.filter(
-                function(booking) {
-
-                    const id =
-                        booking.booking_id ||
-                        booking.bookingId;
-
-                    return id !== bookingId;
-
-                }
-            );
-
-
-        localStorage.setItem(
-            "bookings",
-            JSON.stringify(
-                allBookings
-            )
-        );
-
-
-        displayBookings(
-            allBookings
+        showMessage(
+            error.message ||
+            "Unable to delete booking.",
+            "error"
         );
 
     }
@@ -1024,8 +1600,9 @@ async function deleteBooking(
 }
 
 
+
 /* =====================================================
-   CLEAR ALL BOOKINGS
+   DELETE ALL
 ===================================================== */
 
 document.getElementById(
@@ -1034,12 +1611,14 @@ document.getElementById(
     "click",
     async function() {
 
+
         if (
-            allBookings.length === 0
+            bookings.length === 0
         ) {
 
-            alert(
-                "There are no bookings to clear."
+            showMessage(
+                "There are no bookings to delete.",
+                "error"
             );
 
             return;
@@ -1047,35 +1626,28 @@ document.getElementById(
         }
 
 
-        const confirmed =
-            confirm(
-                "Are you sure you want to delete ALL bookings?"
-            );
+        if (
+            !confirm(
+                "Delete ALL bookings? This cannot be undone."
+            )
+        ) {
 
-
-        if (!confirmed) {
             return;
-        }
 
-
-        const secondConfirm =
-            confirm(
-                "This action cannot be undone. Continue?"
-            );
-
-
-        if (!secondConfirm) {
-            return;
         }
 
 
         try {
 
+
             const response =
                 await fetch(
-                 "http://localhost:5000/api/bookings",
+                    API_BASE +
+                    "/api/bookings",
                     {
+
                         method: "DELETE"
+
                     }
                 );
 
@@ -1090,68 +1662,60 @@ document.getElementById(
             ) {
 
                 throw new Error(
+
                     data.message ||
-                    "Unable to clear bookings"
+                    "Unable to delete bookings."
+
                 );
 
             }
 
 
-            allBookings = [];
-
-
-            localStorage.removeItem(
-                "bookings"
-            );
-
-            localStorage.removeItem(
-                "booking"
+            showMessage(
+                "All bookings deleted successfully.",
+                "success"
             );
 
 
-            displayBookings(
-                allBookings
-            );
-
-
-            alert(
-                "All bookings have been deleted."
-            );
+            await loadBookings();
 
 
         } catch (error) {
 
             console.error(
-                "Clear all error:",
+                "Clear bookings error:",
                 error
             );
 
 
-            allBookings = [];
-
-
-            localStorage.removeItem(
-                "bookings"
-            );
-
-            localStorage.removeItem(
-                "booking"
-            );
-
-
-            displayBookings(
-                allBookings
-            );
-
-
-            alert(
-                "Bookings cleared from local storage."
+            showMessage(
+                error.message ||
+                "Unable to delete all bookings.",
+                "error"
             );
 
         }
 
     }
 );
+
+
+
+/* =====================================================
+   REFRESH
+===================================================== */
+
+document.getElementById(
+    "refreshBtn"
+).addEventListener(
+    "click",
+    function() {
+
+        loadBookings();
+
+    }
+);
+
 
 
 /* =====================================================
@@ -1164,97 +1728,131 @@ document.getElementById(
     "click",
     function() {
 
+
+        if (
+            !confirm(
+                "Are you sure you want to logout?"
+            )
+        ) {
+
+            return;
+
+        }
+
+
         sessionStorage.removeItem(
             "adminLoggedIn"
         );
+
 
         sessionStorage.removeItem(
             "adminUser"
         );
 
 
-        window.location.href =
-            "admin-login.html";
+        window.location.replace(
+            "admin-login.html"
+        );
 
     }
 );
 
 
+
 /* =====================================================
-   ESCAPE HTML
+   MESSAGE
 ===================================================== */
 
-function escapeHTML(value) {
+function showMessage(
+    text,
+    type
+) {
 
-    const div =
-        document.createElement(
-            "div"
+    const message =
+        document.getElementById(
+            "adminMessage"
         );
 
-    div.textContent =
-        String(value ?? "");
+
+    message.textContent =
+        text;
 
 
-    return div.innerHTML;
-
-}
-
-
-/* =====================================================
-   ESCAPE JAVASCRIPT
-===================================================== */
-
-function escapeJS(value) {
-
-    return String(value ?? "")
-        .replace(/\\/g, "\\\\")
-        .replace(/'/g, "\\'")
-        .replace(/"/g, '\\"')
-        .replace(/\n/g, "\\n")
-        .replace(/\r/g, "\\r");
-
-}
+    message.className =
+        "message " + type;
 
 
-/* =====================================================
-   SHOW ADMIN USER
-===================================================== */
+    message.style.display =
+        "block";
 
-const adminUserString =
-    sessionStorage.getItem(
-        "adminUser"
+
+    setTimeout(
+        function() {
+
+            message.style.display =
+                "none";
+
+        },
+        3000
     );
 
-
-if (adminUserString) {
-
-    try {
-
-        const adminUser =
-            JSON.parse(
-                adminUserString
-            );
+}
 
 
-        document.getElementById(
-            "adminUser"
-        ).textContent =
-            "Logged in as: " +
-            (
-                adminUser.name ||
-                adminUser.email ||
-                "Administrator"
-            );
 
-    } catch (error) {
+/* =====================================================
+   SECURITY HELPERS
+===================================================== */
 
-        console.error(
-            error
-        );
+function escapeHTML(
+    value
+) {
 
-    }
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
+
+
+function escapeAttribute(
+    value
+) {
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /\\/g,
+        "\\\\"
+    )
+    .replace(
+        /'/g,
+        "\\'"
+    );
+
+}
+
 
 
 /* =====================================================
