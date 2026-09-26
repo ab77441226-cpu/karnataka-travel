@@ -4,7 +4,9 @@
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Admin Login - Karnataka Travel</title>
 
@@ -12,110 +14,156 @@
 
     <style>
 
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4faf6;
+        }
+
         .admin-login-page {
             min-height: 100vh;
-            padding: 50px 20px;
-            background: #f4faf6;
 
             display: flex;
             justify-content: center;
             align-items: center;
+
+            padding: 20px;
         }
 
         .admin-login-box {
+
             width: 100%;
-            max-width: 450px;
+            max-width: 430px;
 
             background: white;
-            padding: 40px;
+
+            padding: 35px;
 
             border-radius: 18px;
 
             box-shadow:
-                0 10px 40px rgba(0,0,0,0.12);
+                0 10px 40px
+                rgba(0,0,0,0.12);
         }
 
         .admin-icon {
-            text-align: center;
-            font-size: 50px;
-            margin-bottom: 10px;
+
+            width: 75px;
+            height: 75px;
+
+            margin: 0 auto 20px;
+
+            border-radius: 50%;
+
+            background: #e8f5ed;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 38px;
         }
 
-        .admin-login-box h1 {
+        .admin-title {
+
             text-align: center;
+
             color: #087f3d;
-            margin-bottom: 8px;
+
+            margin: 0 0 8px;
+
+            font-size: 30px;
         }
 
-        .admin-login-box > p {
+        .admin-subtitle {
+
             text-align: center;
-            color: #666;
-            margin-bottom: 25px;
+
+            color: #777;
+
+            margin-bottom: 28px;
         }
 
         .form-group {
+
             margin-bottom: 18px;
         }
 
         .form-group label {
+
             display: block;
-            margin-bottom: 7px;
+
             font-weight: bold;
+
+            margin-bottom: 7px;
         }
 
         .form-group input {
-            width: 100%;
-            box-sizing: border-box;
 
-            padding: 14px;
+            width: 100%;
+
+            padding: 13px;
 
             border: 1px solid #ccc;
-            border-radius: 7px;
 
-            font-size: 16px;
+            border-radius: 8px;
+
+            font-size: 15px;
+
             outline: none;
         }
 
         .form-group input:focus {
+
             border-color: #087f3d;
         }
 
         .login-btn {
-            width: 100%;
 
-            margin-top: 8px;
+            width: 100%;
 
             padding: 14px;
 
             border: none;
+
             border-radius: 8px;
 
             background: #087f3d;
+
             color: white;
 
-            font-size: 16px;
+            font-size: 17px;
+
             font-weight: bold;
 
             cursor: pointer;
         }
 
         .login-btn:hover {
+
             background: #05652f;
         }
 
         .login-btn:disabled {
+
             background: #999;
+
             cursor: not-allowed;
         }
 
         .message {
+
             display: none;
 
-            margin-top: 15px;
+            margin-top: 18px;
 
             padding: 12px;
 
-            border-radius: 7px;
+            border-radius: 8px;
 
             text-align: center;
 
@@ -123,36 +171,58 @@
         }
 
         .error {
+
+            display: block;
+
             background: #ffebee;
+
             color: #c62828;
         }
 
         .success {
-            background: #eaf7ee;
+
+            display: block;
+
+            background: #e8f5e9;
+
             color: #087f3d;
         }
 
         .back-link {
+
             text-align: center;
-            margin-top: 20px;
+
+            margin-top: 22px;
         }
 
         .back-link a {
+
             color: #087f3d;
-            font-weight: bold;
+
             text-decoration: none;
+
+            font-weight: bold;
+        }
+
+        .back-link a:hover {
+
+            text-decoration: underline;
         }
 
         .admin-note {
+
             margin-top: 20px;
+
             padding: 12px;
 
             background: #fff8e1;
+
             color: #795548;
 
-            border-radius: 7px;
+            border-radius: 8px;
 
             font-size: 13px;
+
             text-align: center;
         }
 
@@ -164,46 +234,30 @@
 <body>
 
 
-<header>
-
-    <div class="logo">
-        🏛️ Karnataka <span>Travel Admin</span>
-    </div>
-
-    <nav>
-
-        <a href="index.html">
-            Home
-        </a>
-
-        <a href="district.html">
-            Districts
-        </a>
-
-    </nav>
-
-</header>
-
-
-
-<section class="admin-login-page">
+<div class="admin-login-page">
 
 
     <div class="admin-login-box">
 
 
         <div class="admin-icon">
+
             🔐
+
         </div>
 
 
-        <h1>
-            Admin Login
+        <h1 class="admin-title">
+
+            Karnataka Travel
+
         </h1>
 
 
-        <p>
-            Login to manage Karnataka Travel bookings.
+        <p class="admin-subtitle">
+
+            Admin Login
+
         </p>
 
 
@@ -213,7 +267,9 @@
             <div class="form-group">
 
                 <label for="email">
-                    Admin Email
+
+                    📧 Admin Email
+
                 </label>
 
                 <input
@@ -229,7 +285,9 @@
             <div class="form-group">
 
                 <label for="password">
-                    Password
+
+                    🔒 Password
+
                 </label>
 
                 <input
@@ -244,54 +302,98 @@
 
             <button
                 type="submit"
-                id="loginBtn"
                 class="login-btn"
+                id="loginBtn"
             >
-                Admin Login →
+
+                Admin Login
+
             </button>
-
-
-            <div
-                id="loginMessage"
-                class="message"
-            ></div>
 
 
         </form>
 
 
-        <div class="admin-note">
-
-            ⚠️ This page is only for administrators.
-
-        </div>
+        <div
+            id="loginMessage"
+            class="message"
+        ></div>
 
 
         <div class="back-link">
 
-            <a href="login.html">
-                ← Back to User Login
+            <a href="index.html">
+
+                ← Back to Home
+
             </a>
+
+        </div>
+
+
+        <div class="admin-note">
+
+            🔒 This page is only for Karnataka Travel administrators.
 
         </div>
 
 
     </div>
 
-</section>
+
+</div>
 
 
 
 <script>
 
+"use strict";
+
 
 /* =====================================================
-   ADMIN LOGIN
+   API URL
+
+   Computer:
+   http://localhost:5000
+
+   Phone:
+   http://192.168.1.103:5000
+
+   Current page hostname is used automatically.
 ===================================================== */
 
-document.getElementById(
-    "adminLoginForm"
-).addEventListener(
+const API_BASE =
+    window.location.protocol === "file:"
+        ? "http://192.168.1.103:5000"
+        : `${window.location.protocol}//${window.location.hostname}:5000`;
+
+
+/* =====================================================
+   ALREADY LOGGED IN
+===================================================== */
+
+if (
+    sessionStorage.getItem("adminLoggedIn") === "true"
+) {
+
+    window.location.replace(
+        "admin.html"
+    );
+
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+const adminLoginForm =
+    document.getElementById(
+        "adminLoginForm"
+    );
+
+
+adminLoginForm.addEventListener(
     "submit",
     async function(event) {
 
@@ -301,7 +403,7 @@ document.getElementById(
         const email =
             document.getElementById(
                 "email"
-            ).value.trim().toLowerCase();
+            ).value.trim();
 
 
         const password =
@@ -310,41 +412,53 @@ document.getElementById(
             ).value;
 
 
-        const button =
+        const loginBtn =
             document.getElementById(
                 "loginBtn"
             );
 
 
-        const message =
-            document.getElementById(
-                "loginMessage"
+        if (
+            !email ||
+            !password
+        ) {
+
+            showMessage(
+                "Please enter email and password.",
+                "error"
             );
 
+            return;
 
-        message.style.display =
-            "none";
+        }
 
 
-        button.disabled =
-            true;
+        loginBtn.disabled = true;
 
-        button.textContent =
-            "Checking...";
+        loginBtn.textContent =
+            "Logging in...";
 
 
         try {
 
+
+            /* =========================================
+               ADMIN LOGIN API
+            ========================================= */
+
             const response =
                 await fetch(
-                "http://localhost:5000/api/admin/login",
+                    API_BASE +
+                    "/api/admin/login",
                     {
 
                         method: "POST",
 
                         headers: {
+
                             "Content-Type":
                                 "application/json"
+
                         },
 
                         body:
@@ -372,16 +486,18 @@ document.getElementById(
             ) {
 
                 throw new Error(
+
                     data.message ||
-                    "Invalid admin login."
+                    "Invalid admin email or password."
+
                 );
 
             }
 
 
-            /* ==============================
+            /* =========================================
                SAVE ADMIN LOGIN
-            ============================== */
+            ========================================= */
 
             sessionStorage.setItem(
                 "adminLoggedIn",
@@ -401,24 +517,25 @@ document.getElementById(
             }
 
 
-            message.textContent =
-                "Admin login successful! Redirecting...";
+            showMessage(
+                "Admin login successful. Opening dashboard...",
+                "success"
+            );
 
-            message.className =
-                "message success";
 
-            message.style.display =
-                "block";
-
+            /* =========================================
+               OPEN ADMIN DASHBOARD
+            ========================================= */
 
             setTimeout(
                 function() {
 
-                    window.location.href =
-                        "admin.html";
+                    window.location.replace(
+                        "admin.html"
+                    );
 
                 },
-                800
+                500
             );
 
 
@@ -430,27 +547,68 @@ document.getElementById(
             );
 
 
-            message.textContent =
+            let message =
                 error.message ||
-                "Cannot connect to server.";
-
-            message.className =
-                "message error";
-
-            message.style.display =
-                "block";
+                "Admin login failed.";
 
 
-            button.disabled =
+            if (
+                error instanceof
+                TypeError
+            ) {
+
+                message =
+                    "Cannot connect to server. Please start Node.js server and check Wi-Fi.";
+
+            }
+
+
+            showMessage(
+                message,
+                "error"
+            );
+
+
+            loginBtn.disabled =
                 false;
 
-            button.textContent =
-                "Admin Login →";
+
+            loginBtn.textContent =
+                "Admin Login";
 
         }
 
     }
 );
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showMessage(
+    text,
+    type
+) {
+
+    const message =
+        document.getElementById(
+            "loginMessage"
+        );
+
+
+    message.textContent =
+        text;
+
+
+    message.className =
+        "message " + type;
+
+
+    message.style.display =
+        "block";
+
+}
 
 </script>
 
