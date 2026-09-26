@@ -20,7 +20,7 @@ const bcrypt = require("bcryptjs");
 const path = require("path");
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
 /* =========================================================
    MIDDLEWARE
@@ -1751,8 +1751,23 @@ app.listen(
     function () {
 
         console.log(
-            "Karnataka Travel Server running on port " +
-            PORT
+            "========================================"
+        );
+
+        console.log(
+            "🚍 Karnataka Travel Server"
+        );
+
+        console.log(
+            "🚀 Server running on http://localhost:5000"
+        );
+
+        console.log(
+            "📱 Phone access: http://192.168.1.103:5000"
+        );
+
+        console.log(
+            "========================================"
         );
 
     }
