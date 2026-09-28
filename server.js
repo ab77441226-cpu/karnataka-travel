@@ -7,41 +7,65 @@ const bcrypt = require("bcryptjs");
 
 const app = express();
 
-const PORT = 5000;
+/* =====================================================
+   PORT
+===================================================== */
+
+const PORT = process.env.PORT || 5000;
+
+/* =====================================================
+   CORS
+===================================================== */
+
+app.use(cors({
+    origin: true,
+    credentials: true
+}));
 
 /* =====================================================
    MIDDLEWARE
 ===================================================== */
 
-app.use(
-    cors({
-        origin: true,
-        credentials: true
-    })
-);
-
 app.use(express.json());
 
-app.use(
-    express.urlencoded({
-        extended: true
-    })
-);
+app.use(express.urlencoded({
+    extended: true
+}));
 
 /* =====================================================
    MYSQL DATABASE
 ===================================================== */
 
 const db = mysql.createPool({
-    host: "localhost",
-    port: 3307,
-    user: "root",
-    password: "karnataka@123",
-    database: "karnataka_travel",
+
+    host:
+        process.env.DB_HOST ||
+        "localhost",
+
+    port:
+        Number(
+            process.env.DB_PORT ||
+            3307
+        ),
+
+    user:
+        process.env.DB_USER ||
+        "root",
+
+    password:
+        process.env.DB_PASSWORD ||
+        "karnataka@123",
+
+    database:
+        process.env.DB_NAME ||
+        "karnataka_travel",
 
     waitForConnections: true,
+
     connectionLimit: 10,
+
     queueLimit: 0
+
 });
 
 /* =====================================================
@@ -49,18 +73,46 @@ const db = mysql.createPool({
 ===================================================== */
 
 async function testDatabase() {
-    try {
-        const connection = await db.getConnection();
 
-        console.log("========================================");
-        console.log("✅ MySQL connected successfully");
-        console.log("========================================");
+    try {
+
+        const connection =
+            await db.getConnection();
+
+        console.log(
+            "========================================"
+        );
+
+        console.log(
+            "✅ MySQL connected successfully"
+        );
+
+        console.log(
+            "========================================"
+        );
 
         connection.release();
+
     } catch (error) {
-        console.error("❌ MySQL connection failed");
-        console.error(error.message);
+
+        console.error(
+            "========================================"
+        );
+
+        console.error(
+            "❌ MySQL connection failed"
+        );
+
+        console.error(
+            error.message
+        );
+
+        console.error(
+            "========================================"
+        );
+
     }
+
 }
 
 testDatabase();
@@ -70,255 +122,438 @@ testDatabase();
 ===================================================== */
 
 app.get("/", (req, res) => {
+
     res.json({
+
         success: true,
-        message: "Karnataka Travel Server is running",
-        port: PORT
+
+        message:
+            "Karnataka Travel Server is running",
+
+        port:
+            PORT
+
     });
+
 });
 
 /* =====================================================
    TEST DATABASE
 ===================================================== */
 
-app.get("/api/test-db", async (req, res) => {
-    try {
-        const [rows] = await db.execute(
-            "SELECT 1 AS test"
-        );
+app.get(
+    "/api/test-db",
+    async (req, res) => {
 
-        res.json({
-            success: true,
-            message: "MySQL connection working",
-            data: rows
-        });
-    } catch (error) {
-        console.error("Database test error:", error.message);
+        try {
 
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
+            const [rows] =
+                await db.execute(
+                    "SELECT 1 AS test"
+                );
+
+            res.json({
+
+                success: true,
+
+                message:
+                    "MySQL connection working",
+
+                data:
+                    rows
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "Database test error:",
+                error.message
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    error.message
+
+            });
+
+        }
+
     }
-});
+);
 
 /* =====================================================
    REGISTER
 ===================================================== */
 
-app.post("/api/register", async (req, res) => {
-    try {
-        const {
-            name,
-            email,
-            mobile,
-            password
-        } = req.body;
+app.post(
+    "/api/register",
+    async (req, res) => {
 
-        if (!name || !email || !mobile || !password) {
-            return res.status(400).json({
-                success: false,
-                message: "All fields are required."
-            });
-        }
+        try {
 
-        const cleanName = String(name).trim();
+            const {
+                name,
+                email,
+                mobile,
+                password
+            } = req.body;
 
-        const cleanEmail = String(email)
-            .trim()
-            .toLowerCase();
+            if (
+                !name ||
+                !email ||
+                !mobile ||
+                !password
+            ) {
 
-        const cleanMobile = String(mobile)
-            .replace(/\D/g, "");
+                return res.status(400).json({
 
-        if (cleanName.length < 2) {
-            return res.status(400).json({
-                success: false,
-                message: "Enter a valid name."
-            });
-        }
+                    success: false,
 
-        if (
-            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
-                cleanEmail
-            )
-        ) {
-            return res.status(400).json({
-                success: false,
-                message: "Enter a valid email."
-            });
-        }
+                    message:
+                        "All fields are required."
 
-        if (!/^[0-9]{10}$/.test(cleanMobile)) {
-            return res.status(400).json({
-                success: false,
+                });
+
+            }
+
+            const cleanName =
+                String(name).trim();
+
+            const cleanEmail =
+                String(email)
+                    .trim()
+                    .toLowerCase();
+
+            const cleanMobile =
+                String(mobile)
+                    .replace(/\D/g, "");
+
+            if (
+                cleanName.length < 2
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Enter a valid name."
+
+                });
+
+            }
+
+            if (
+                !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                    .test(cleanEmail)
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Enter a valid email."
+
+                });
+
+            }
+
+            if (
+                !/^[0-9]{10}$/
+                    .test(cleanMobile)
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Mobile number must contain 10 digits."
+
+                });
+
+            }
+
+            if (
+                String(password).length < 6
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Password must contain at least 6 characters."
+
+                });
+
+            }
+
+            const [existing] =
+                await db.execute(
+
+                    `SELECT id
+                     FROM users
+                     WHERE email = ?
+                     OR mobile = ?
+                     LIMIT 1`,
+
+                    [
+                        cleanEmail,
+                        cleanMobile
+                    ]
+
+                );
+
+            if (
+                existing.length > 0
+            ) {
+
+                return res.status(409).json({
+
+                    success: false,
+
+                    message:
+                        "Email or mobile already registered."
+
+                });
+
+            }
+
+            const hashedPassword =
+                await bcrypt.hash(
+                    String(password),
+                    10
+                );
+
+            const [result] =
+                await db.execute(
+
+                    `INSERT INTO users
+                    (
+                        name,
+                        email,
+                        password,
+                        mobile
+                    )
+                    VALUES (?, ?, ?, ?)`,
+
+                    [
+                        cleanName,
+                        cleanEmail,
+                        hashedPassword,
+                        cleanMobile
+                    ]
+
+                );
+
+            res.status(201).json({
+
+                success: true,
+
                 message:
-                    "Mobile number must contain 10 digits."
+                    "Registration successful.",
+
+                user: {
+
+                    id:
+                        result.insertId,
+
+                    name:
+                        cleanName,
+
+                    email:
+                        cleanEmail,
+
+                    mobile:
+                        cleanMobile
+
+                }
+
             });
-        }
 
-        if (String(password).length < 6) {
-            return res.status(400).json({
-                success: false,
-                message:
-                    "Password must contain at least 6 characters."
-            });
-        }
+        } catch (error) {
 
-        const [existing] = await db.execute(
-            `SELECT id
-             FROM users
-             WHERE email = ?
-             OR mobile = ?
-             LIMIT 1`,
-            [
-                cleanEmail,
-                cleanMobile
-            ]
-        );
-
-        if (existing.length > 0) {
-            return res.status(409).json({
-                success: false,
-                message:
-                    "Email or mobile already registered."
-            });
-        }
-
-        const hashedPassword =
-            await bcrypt.hash(
-                String(password),
-                10
+            console.error(
+                "Register error:",
+                error.message
             );
 
-        const [result] = await db.execute(
-            `INSERT INTO users
-            (name, email, password, mobile)
-            VALUES (?, ?, ?, ?)`,
-            [
-                cleanName,
-                cleanEmail,
-                hashedPassword,
-                cleanMobile
-            ]
-        );
+            res.status(500).json({
 
-        res.status(201).json({
-            success: true,
-            message:
-                "Registration successful.",
-            user: {
-                id: result.insertId,
-                name: cleanName,
-                email: cleanEmail,
-                mobile: cleanMobile
-            }
-        });
-    } catch (error) {
-        console.error(
-            "Register error:",
-            error.message
-        );
+                success: false,
 
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
+                message:
+                    error.message
+
+            });
+
+        }
+
     }
-});
+);
 
 /* =====================================================
    LOGIN
 ===================================================== */
 
-app.post("/api/login", async (req, res) => {
-    try {
-        const {
-            email,
-            mobile,
-            password
-        } = req.body;
+app.post(
+    "/api/login",
+    async (req, res) => {
 
-        if ((!email && !mobile) || !password) {
-            return res.status(400).json({
-                success: false,
-                message:
-                    "Enter email/mobile and password."
-            });
-        }
+        try {
 
-        let rows;
+            const {
+                email,
+                mobile,
+                password
+            } = req.body;
 
-        if (email) {
-            [rows] = await db.execute(
-                `SELECT *
-                 FROM users
-                 WHERE email = ?
-                 LIMIT 1`,
-                [
-                    String(email)
-                        .trim()
-                        .toLowerCase()
-                ]
-            );
-        } else {
-            [rows] = await db.execute(
-                `SELECT *
-                 FROM users
-                 WHERE mobile = ?
-                 LIMIT 1`,
-                [
-                    String(mobile)
-                        .replace(/\D/g, "")
-                ]
-            );
-        }
+            if (
+                (!email && !mobile) ||
+                !password
+            ) {
 
-        if (rows.length === 0) {
-            return res.status(401).json({
-                success: false,
-                message: "User not found."
-            });
-        }
+                return res.status(400).json({
 
-        const user = rows[0];
+                    success: false,
 
-        const passwordMatch =
-            await bcrypt.compare(
-                String(password),
-                String(user.password)
-            );
+                    message:
+                        "Enter email/mobile and password."
 
-        if (!passwordMatch) {
-            return res.status(401).json({
-                success: false,
-                message:
-                    "Incorrect password."
-            });
-        }
+                });
 
-        res.json({
-            success: true,
-            message: "Login successful.",
-            user: {
-                id: user.id,
-                name: user.name,
-                email: user.email,
-                mobile: user.mobile
             }
-        });
-    } catch (error) {
-        console.error(
-            "Login error:",
-            error.message
-        );
 
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
+            let rows;
+
+            if (email) {
+
+                [rows] =
+                    await db.execute(
+
+                        `SELECT *
+                         FROM users
+                         WHERE email = ?
+                         LIMIT 1`,
+
+                        [
+                            String(email)
+                                .trim()
+                                .toLowerCase()
+                        ]
+
+                    );
+
+            } else {
+
+                [rows] =
+                    await db.execute(
+
+                        `SELECT *
+                         FROM users
+                         WHERE mobile = ?
+                         LIMIT 1`,
+
+                        [
+                            String(mobile)
+                                .replace(/\D/g, "")
+                        ]
+
+                    );
+
+            }
+
+            if (
+                rows.length === 0
+            ) {
+
+                return res.status(401).json({
+
+                    success: false,
+
+                    message:
+                        "User not found."
+
+                });
+
+            }
+
+            const user =
+                rows[0];
+
+            const passwordMatch =
+                await bcrypt.compare(
+
+                    String(password),
+
+                    String(user.password)
+
+                );
+
+            if (!passwordMatch) {
+
+                return res.status(401).json({
+
+                    success: false,
+
+                    message:
+                        "Incorrect password."
+
+                });
+
+            }
+
+            res.json({
+
+                success: true,
+
+                message:
+                    "Login successful.",
+
+                user: {
+
+                    id:
+                        user.id,
+
+                    name:
+                        user.name,
+
+                    email:
+                        user.email,
+
+                    mobile:
+                        user.mobile
+
+                }
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "Login error:",
+                error.message
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    error.message
+
+            });
+
+        }
+
     }
-});
+);
 
 /* =====================================================
    PROFILE
@@ -327,54 +562,82 @@ app.post("/api/login", async (req, res) => {
 app.get(
     "/api/profile/:id",
     async (req, res) => {
+
         try {
+
             const id =
                 Number(req.params.id);
 
-            if (!Number.isInteger(id) || id <= 0) {
+            if (
+                !Number.isInteger(id) ||
+                id <= 0
+            ) {
+
                 return res.status(400).json({
+
                     success: false,
+
                     message:
                         "Invalid user ID."
+
                 });
+
             }
 
-            const [rows] = await db.execute(
-                `SELECT
-                    id,
-                    name,
-                    email,
-                    mobile,
-                    created_at
-                 FROM users
-                 WHERE id = ?
-                 LIMIT 1`,
-                [id]
-            );
+            const [rows] =
+                await db.execute(
 
-            if (rows.length === 0) {
+                    `SELECT
+                        id,
+                        name,
+                        email,
+                        mobile,
+                        created_at
+                     FROM users
+                     WHERE id = ?
+                     LIMIT 1`,
+
+                    [id]
+
+                );
+
+            if (
+                rows.length === 0
+            ) {
+
                 return res.status(404).json({
+
                     success: false,
+
                     message:
                         "User not found."
+
                 });
+
             }
 
             res.json({
+
                 success: true,
-                user: rows[0]
+
+                user:
+                    rows[0]
+
             });
+
         } catch (error) {
-            console.error(
-                "Profile error:",
-                error.message
-            );
 
             res.status(500).json({
+
                 success: false,
-                message: error.message
+
+                message:
+                    error.message
+
             });
+
         }
+
     }
 );
 
@@ -385,56 +648,86 @@ app.get(
 app.post(
     "/api/forgot-password",
     async (req, res) => {
+
         try {
+
             const {
                 email,
                 mobile
             } = req.body;
 
-            if (!email && !mobile) {
+            if (
+                !email &&
+                !mobile
+            ) {
+
                 return res.status(400).json({
+
                     success: false,
+
                     message:
                         "Enter email or mobile number."
+
                 });
+
             }
 
             let rows;
 
             if (email) {
-                [rows] = await db.execute(
-                    `SELECT *
-                     FROM users
-                     WHERE email = ?
-                     LIMIT 1`,
-                    [
-                        String(email)
-                            .trim()
-                            .toLowerCase()
-                    ]
-                );
+
+                [rows] =
+                    await db.execute(
+
+                        `SELECT *
+                         FROM users
+                         WHERE email = ?
+                         LIMIT 1`,
+
+                        [
+                            String(email)
+                                .trim()
+                                .toLowerCase()
+                        ]
+
+                    );
+
             } else {
-                [rows] = await db.execute(
-                    `SELECT *
-                     FROM users
-                     WHERE mobile = ?
-                     LIMIT 1`,
-                    [
-                        String(mobile)
-                            .replace(/\D/g, "")
-                    ]
-                );
+
+                [rows] =
+                    await db.execute(
+
+                        `SELECT *
+                         FROM users
+                         WHERE mobile = ?
+                         LIMIT 1`,
+
+                        [
+                            String(mobile)
+                                .replace(/\D/g, "")
+                        ]
+
+                    );
+
             }
 
-            if (rows.length === 0) {
+            if (
+                rows.length === 0
+            ) {
+
                 return res.status(404).json({
+
                     success: false,
+
                     message:
                         "No account found."
+
                 });
+
             }
 
-            const user = rows[0];
+            const user =
+                rows[0];
 
             const otp =
                 Math.floor(
@@ -442,46 +735,72 @@ app.post(
                     Math.random() * 900000
                 ).toString();
 
-            const expiry = new Date(
-                Date.now() +
-                10 * 60 * 1000
-            );
+            const expiry =
+                new Date(
+                    Date.now() +
+                    10 * 60 * 1000
+                );
 
             await db.execute(
+
                 `UPDATE users
                  SET otp = ?,
                      otp_expiry = ?
                  WHERE id = ?`,
+
                 [
                     otp,
                     expiry,
                     user.id
                 ]
+
             );
 
-            console.log("================================");
-            console.log("KARNATAKA TRAVEL OTP");
-            console.log("OTP:", otp);
-            console.log("================================");
+            console.log(
+                "========================================"
+            );
+
+            console.log(
+                "KARNATAKA TRAVEL OTP"
+            );
+
+            console.log(
+                "OTP:",
+                otp
+            );
+
+            console.log(
+                "========================================"
+            );
 
             res.json({
+
                 success: true,
+
                 message:
                     "OTP generated successfully.",
-                userId: user.id,
-                developmentOTP: otp
+
+                userId:
+                    user.id,
+
+                developmentOTP:
+                    otp
+
             });
+
         } catch (error) {
-            console.error(
-                "Forgot password error:",
-                error.message
-            );
 
             res.status(500).json({
+
                 success: false,
-                message: error.message
+
+                message:
+                    error.message
+
             });
+
         }
+
     }
 );
 
@@ -492,99 +811,146 @@ app.post(
 app.post(
     "/api/verify-otp",
     async (req, res) => {
+
         try {
+
             const {
                 email,
                 mobile,
                 otp
             } = req.body;
 
-            if ((!email && !mobile) || !otp) {
+            if (
+                (!email && !mobile) ||
+                !otp
+            ) {
+
                 return res.status(400).json({
+
                     success: false,
+
                     message:
                         "Email/mobile and OTP are required."
+
                 });
+
             }
 
             let rows;
 
             if (email) {
-                [rows] = await db.execute(
-                    `SELECT *
-                     FROM users
-                     WHERE email = ?
-                     LIMIT 1`,
-                    [
-                        String(email)
-                            .trim()
-                            .toLowerCase()
-                    ]
-                );
+
+                [rows] =
+                    await db.execute(
+
+                        `SELECT *
+                         FROM users
+                         WHERE email = ?
+                         LIMIT 1`,
+
+                        [
+                            String(email)
+                                .trim()
+                                .toLowerCase()
+                        ]
+
+                    );
+
             } else {
-                [rows] = await db.execute(
-                    `SELECT *
-                     FROM users
-                     WHERE mobile = ?
-                     LIMIT 1`,
-                    [
-                        String(mobile)
-                            .replace(/\D/g, "")
-                    ]
-                );
+
+                [rows] =
+                    await db.execute(
+
+                        `SELECT *
+                         FROM users
+                         WHERE mobile = ?
+                         LIMIT 1`,
+
+                        [
+                            String(mobile)
+                                .replace(/\D/g, "")
+                        ]
+
+                    );
+
             }
 
-            if (rows.length === 0) {
+            if (
+                rows.length === 0
+            ) {
+
                 return res.status(404).json({
+
                     success: false,
+
                     message:
                         "User not found."
+
                 });
+
             }
 
-            const user = rows[0];
+            const user =
+                rows[0];
 
             if (
                 String(user.otp) !==
                 String(otp)
             ) {
+
                 return res.status(400).json({
+
                     success: false,
+
                     message:
                         "Invalid OTP."
+
                 });
+
             }
 
             if (
                 !user.otp_expiry ||
-                new Date(
-                    user.otp_expiry
-                ).getTime() < Date.now()
+                new Date(user.otp_expiry)
+                    .getTime() < Date.now()
             ) {
+
                 return res.status(400).json({
+
                     success: false,
+
                     message:
                         "OTP expired."
+
                 });
+
             }
 
             res.json({
+
                 success: true,
+
                 message:
                     "OTP verified successfully.",
-                userId: user.id
+
+                userId:
+                    user.id
+
             });
+
         } catch (error) {
-            console.error(
-                "OTP verification error:",
-                error.message
-            );
 
             res.status(500).json({
+
                 success: false,
-                message: error.message
+
+                message:
+                    error.message
+
             });
+
         }
+
     }
 );
 
@@ -595,7 +961,9 @@ app.post(
 app.post(
     "/api/reset-password",
     async (req, res) => {
+
         try {
+
             const {
                 userId,
                 otp,
@@ -607,63 +975,96 @@ app.post(
                 !otp ||
                 !newPassword
             ) {
+
                 return res.status(400).json({
+
                     success: false,
+
                     message:
                         "All fields are required."
+
                 });
+
             }
 
             if (
                 String(newPassword).length < 6
             ) {
+
                 return res.status(400).json({
+
                     success: false,
+
                     message:
                         "Password must contain at least 6 characters."
+
                 });
+
             }
 
-            const [rows] = await db.execute(
-                `SELECT *
-                 FROM users
-                 WHERE id = ?
-                 LIMIT 1`,
-                [Number(userId)]
-            );
+            const [rows] =
+                await db.execute(
 
-            if (rows.length === 0) {
+                    `SELECT *
+                     FROM users
+                     WHERE id = ?
+                     LIMIT 1`,
+
+                    [
+                        Number(userId)
+                    ]
+
+                );
+
+            if (
+                rows.length === 0
+            ) {
+
                 return res.status(404).json({
+
                     success: false,
+
                     message:
                         "User not found."
+
                 });
+
             }
 
-            const user = rows[0];
+            const user =
+                rows[0];
 
             if (
                 String(user.otp) !==
                 String(otp)
             ) {
+
                 return res.status(400).json({
+
                     success: false,
+
                     message:
                         "Invalid OTP."
+
                 });
+
             }
 
             if (
                 !user.otp_expiry ||
-                new Date(
-                    user.otp_expiry
-                ).getTime() < Date.now()
+                new Date(user.otp_expiry)
+                    .getTime() < Date.now()
             ) {
+
                 return res.status(400).json({
+
                     success: false,
+
                     message:
                         "OTP expired."
+
                 });
+
             }
 
             const hash =
@@ -673,33 +1074,42 @@ app.post(
                 );
 
             await db.execute(
+
                 `UPDATE users
                  SET password = ?,
                      otp = NULL,
                      otp_expiry = NULL
                  WHERE id = ?`,
+
                 [
                     hash,
                     Number(userId)
                 ]
+
             );
 
             res.json({
+
                 success: true,
+
                 message:
                     "Password changed successfully."
+
             });
+
         } catch (error) {
-            console.error(
-                "Reset password error:",
-                error.message
-            );
 
             res.status(500).json({
+
                 success: false,
-                message: error.message
+
+                message:
+                    error.message
+
             });
+
         }
+
     }
 );
 
@@ -710,8 +1120,11 @@ app.post(
 app.post(
     "/api/bookings",
     async (req, res) => {
+
         try {
+
             const {
+
                 bookingId,
                 userId,
                 name,
@@ -725,6 +1138,7 @@ app.post(
                 total,
                 paymentMethod,
                 status
+
             } = req.body;
 
             if (
@@ -738,73 +1152,111 @@ app.post(
                 !travelers ||
                 !vehicle
             ) {
+
                 return res.status(400).json({
+
                     success: false,
+
                     message:
                         "All booking fields are required."
+
                 });
+
             }
 
             const finalBookingId =
                 bookingId ||
                 "KT" + Date.now();
 
-            const [result] = await db.execute(
-                `INSERT INTO bookings
-                (
-                    booking_id,
-                    user_id,
-                    name,
-                    mobile,
-                    from_location,
-                    destination,
-                    travel_date,
-                    days,
-                    travelers,
-                    vehicle,
-                    total,
-                    payment_method,
-                    status
-                )
-                VALUES
-                (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-                [
-                    finalBookingId,
-                    Number(userId),
-                    String(name).trim(),
-                    String(mobile).trim(),
-                    String(from_location).trim(),
-                    String(destination).trim(),
-                    travelDate,
-                    Number(days),
-                    Number(travelers),
-                    String(vehicle).trim(),
-                    Number(total || 0),
-                    paymentMethod || "Pending",
-                    status || "Pending Payment"
-                ]
-            );
+            const [result] =
+                await db.execute(
+
+                    `INSERT INTO bookings
+                    (
+                        booking_id,
+                        user_id,
+                        name,
+                        mobile,
+                        from_location,
+                        destination,
+                        travel_date,
+                        days,
+                        travelers,
+                        vehicle,
+                        total,
+                        payment_method,
+                        status
+                    )
+                    VALUES
+                    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+
+                    [
+
+                        finalBookingId,
+
+                        Number(userId),
+
+                        String(name).trim(),
+
+                        String(mobile).trim(),
+
+                        String(from_location).trim(),
+
+                        String(destination).trim(),
+
+                        travelDate,
+
+                        Number(days),
+
+                        Number(travelers),
+
+                        String(vehicle).trim(),
+
+                        Number(total || 0),
+
+                        paymentMethod ||
+                        "Pending",
+
+                        status ||
+                        "Pending Payment"
+
+                    ]
+
+                );
 
             res.status(201).json({
+
                 success: true,
+
                 message:
                     "Booking created successfully.",
+
                 booking_id:
                     finalBookingId,
+
                 insertId:
                     result.insertId
+
             });
+
         } catch (error) {
+
             console.error(
                 "Booking error:",
                 error.message
             );
 
             res.status(500).json({
+
                 success: false,
-                message: error.message
+
+                message:
+                    error.message
+
             });
+
         }
+
     }
 );
 
@@ -815,7 +1267,9 @@ app.post(
 app.put(
     "/api/bookings/:bookingId/payment",
     async (req, res) => {
+
         try {
+
             const bookingId =
                 req.params.bookingId;
 
@@ -829,44 +1283,72 @@ app.put(
                 payment_method ||
                 "Cash";
 
-            const [result] = await db.execute(
-                `UPDATE bookings
-                 SET payment_method = ?,
-                     status = 'Paid'
-                 WHERE booking_id = ?`,
-                [
-                    method,
-                    bookingId
-                ]
-            );
+            const [result] =
+                await db.execute(
 
-            if (result.affectedRows === 0) {
+                    `UPDATE bookings
+                     SET payment_method = ?,
+                         status = 'Paid'
+                     WHERE booking_id = ?`,
+
+                    [
+                        method,
+                        bookingId
+                    ]
+
+                );
+
+            if (
+                result.affectedRows === 0
+            ) {
+
                 return res.status(404).json({
+
                     success: false,
+
                     message:
                         "Booking not found."
+
                 });
+
             }
 
             res.json({
+
                 success: true,
+
                 message:
                     "Payment updated successfully.",
-                bookingId,
-                paymentMethod: method,
-                status: "Paid"
+
+                bookingId:
+                    bookingId,
+
+                paymentMethod:
+                    method,
+
+                status:
+                    "Paid"
+
             });
+
         } catch (error) {
+
             console.error(
                 "Payment error:",
                 error.message
             );
 
             res.status(500).json({
+
                 success: false,
-                message: error.message
+
+                message:
+                    error.message
+
             });
+
         }
+
     }
 );
 
@@ -877,7 +1359,9 @@ app.put(
 app.get(
     "/api/bookings/user/:userId",
     async (req, res) => {
+
         try {
+
             const userId =
                 Number(req.params.userId);
 
@@ -885,36 +1369,59 @@ app.get(
                 !Number.isInteger(userId) ||
                 userId <= 0
             ) {
+
                 return res.status(400).json({
+
                     success: false,
+
                     message:
                         "Invalid user ID."
+
                 });
+
             }
 
-            const [rows] = await db.execute(
-                `SELECT *
-                 FROM bookings
-                 WHERE user_id = ?
-                 ORDER BY id DESC`,
-                [userId]
-            );
+            const [rows] =
+                await db.execute(
+
+                    `SELECT *
+                     FROM bookings
+                     WHERE user_id = ?
+                     ORDER BY id DESC`,
+
+                    [
+                        userId
+                    ]
+
+                );
 
             res.json({
+
                 success: true,
-                bookings: rows
+
+                bookings:
+                    rows
+
             });
+
         } catch (error) {
+
             console.error(
                 "Booking history error:",
                 error.message
             );
 
             res.status(500).json({
+
                 success: false,
-                message: error.message
+
+                message:
+                    error.message
+
             });
+
         }
+
     }
 );
 
@@ -925,40 +1432,60 @@ app.get(
 app.get(
     "/api/bookings/:bookingId",
     async (req, res) => {
-        try {
-            const [rows] = await db.execute(
-                `SELECT *
-                 FROM bookings
-                 WHERE booking_id = ?
-                 LIMIT 1`,
-                [
-                    req.params.bookingId
-                ]
-            );
 
-            if (rows.length === 0) {
+        try {
+
+            const [rows] =
+                await db.execute(
+
+                    `SELECT *
+                     FROM bookings
+                     WHERE booking_id = ?
+                     LIMIT 1`,
+
+                    [
+                        req.params.bookingId
+                    ]
+
+                );
+
+            if (
+                rows.length === 0
+            ) {
+
                 return res.status(404).json({
+
                     success: false,
+
                     message:
                         "Booking not found."
+
                 });
+
             }
 
             res.json({
+
                 success: true,
-                booking: rows[0]
+
+                booking:
+                    rows[0]
+
             });
+
         } catch (error) {
-            console.error(
-                "Single booking error:",
-                error.message
-            );
 
             res.status(500).json({
+
                 success: false,
-                message: error.message
+
+                message:
+                    error.message
+
             });
+
         }
+
     }
 );
 
@@ -969,39 +1496,63 @@ app.get(
 app.delete(
     "/api/bookings/:bookingId",
     async (req, res) => {
-        try {
-            const [result] = await db.execute(
-                `DELETE FROM bookings
-                 WHERE booking_id = ?`,
-                [
-                    req.params.bookingId
-                ]
-            );
 
-            if (result.affectedRows === 0) {
+        try {
+
+            const [result] =
+                await db.execute(
+
+                    `DELETE FROM bookings
+                     WHERE booking_id = ?`,
+
+                    [
+                        req.params.bookingId
+                    ]
+
+                );
+
+            if (
+                result.affectedRows === 0
+            ) {
+
                 return res.status(404).json({
+
                     success: false,
+
                     message:
                         "Booking not found."
+
                 });
+
             }
 
             res.json({
+
                 success: true,
+
                 message:
                     "Booking deleted successfully."
+
             });
+
         } catch (error) {
+
             console.error(
                 "Delete booking error:",
                 error.message
             );
 
             res.status(500).json({
+
                 success: false,
-                message: error.message
+
+                message:
+                    error.message
+
             });
+
         }
+
     }
 );
 
@@ -1012,27 +1563,35 @@ app.delete(
 app.delete(
     "/api/bookings",
     async (req, res) => {
+
         try {
+
             await db.execute(
                 "DELETE FROM bookings"
             );
 
             res.json({
+
                 success: true,
+
                 message:
                     "All bookings deleted successfully."
+
             });
+
         } catch (error) {
-            console.error(
-                "Delete all bookings error:",
-                error.message
-            );
 
             res.status(500).json({
+
                 success: false,
-                message: error.message
+
+                message:
+                    error.message
+
             });
+
         }
+
     }
 );
 
@@ -1043,7 +1602,9 @@ app.delete(
 app.post(
     "/api/admin/login",
     async (req, res) => {
+
         try {
+
             const {
                 email,
                 password
@@ -1058,40 +1619,62 @@ app.post(
                 "admin123";
 
             if (
-                String(email || "")
+
+                String(email)
                     .trim()
                     .toLowerCase() !==
-                    adminEmail.toLowerCase() ||
-                String(password || "") !==
-                    adminPassword
+                adminEmail.toLowerCase()
+
+                ||
+
+                String(password) !==
+                adminPassword
+
             ) {
+
                 return res.status(401).json({
+
                     success: false,
+
                     message:
                         "Invalid admin email or password."
+
                 });
+
             }
 
             res.json({
+
                 success: true,
+
                 message:
                     "Admin login successful.",
+
                 admin: {
-                    email: adminEmail,
-                    name: "Administrator"
+
+                    email:
+                        adminEmail,
+
+                    name:
+                        "Administrator"
+
                 }
+
             });
+
         } catch (error) {
-            console.error(
-                "Admin login error:",
-                error.message
-            );
 
             res.status(500).json({
+
                 success: false,
-                message: error.message
+
+                message:
+                    error.message
+
             });
+
         }
+
     }
 );
 
@@ -1102,28 +1685,45 @@ app.post(
 app.get(
     "/api/admin/bookings",
     async (req, res) => {
+
         try {
-            const [rows] = await db.execute(
-                `SELECT *
-                 FROM bookings
-                 ORDER BY id DESC`
-            );
+
+            const [rows] =
+                await db.execute(
+
+                    `SELECT *
+                     FROM bookings
+                     ORDER BY id DESC`
+
+                );
 
             res.json({
+
                 success: true,
-                bookings: rows
+
+                bookings:
+                    rows
+
             });
+
         } catch (error) {
+
             console.error(
                 "Admin bookings error:",
                 error.message
             );
 
             res.status(500).json({
+
                 success: false,
-                message: error.message
+
+                message:
+                    error.message
+
             });
+
         }
+
     }
 );
 
@@ -1134,7 +1734,9 @@ app.get(
 app.post(
     "/api/contact",
     async (req, res) => {
+
         try {
+
             const {
                 name,
                 email,
@@ -1143,15 +1745,25 @@ app.post(
                 message
             } = req.body;
 
-            if (!name || !email || !message) {
+            if (
+                !name ||
+                !email ||
+                !message
+            ) {
+
                 return res.status(400).json({
+
                     success: false,
+
                     message:
                         "Name, email and message are required."
+
                 });
+
             }
 
             await db.execute(
+
                 `INSERT INTO contact_messages
                 (
                     name,
@@ -1161,33 +1773,52 @@ app.post(
                     message
                 )
                 VALUES (?, ?, ?, ?, ?)`,
+
                 [
+
                     String(name).trim(),
+
                     String(email)
                         .trim()
                         .toLowerCase(),
+
                     mobile || null,
+
                     subject || null,
+
                     String(message).trim()
+
                 ]
+
             );
 
             res.json({
+
                 success: true,
+
                 message:
                     "Your message has been sent successfully."
+
             });
+
         } catch (error) {
+
             console.error(
                 "Contact error:",
                 error.message
             );
 
             res.status(500).json({
+
                 success: false,
-                message: error.message
+
+                message:
+                    error.message
+
             });
+
         }
+
     }
 );
 
@@ -1198,36 +1829,45 @@ app.post(
 app.use(
     "/api",
     (req, res) => {
+
         res.status(404).json({
+
             success: false,
+
             message:
                 "API route not found."
+
         });
+
     }
 );
 
 /* =====================================================
-   GENERAL ERROR HANDLER
+   GENERAL ERROR
 ===================================================== */
 
 app.use(
     (error, req, res, next) => {
+
         console.error(
             "Server error:",
-            error.message
+            error
         );
 
         res.status(500).json({
+
             success: false,
+
             message:
                 "Internal server error."
+
         });
+
     }
 );
 
 /* =====================================================
    START SERVER
-   0.0.0.0 = ACCESS FROM OTHER DEVICES
 ===================================================== */
 
 app.listen(
@@ -1235,41 +1875,44 @@ app.listen(
     "0.0.0.0",
     () => {
 
-        console.log("");
         console.log(
             "========================================"
         );
+
         console.log(
             "🚍 KARNATAKA TRAVEL SERVER"
         );
+
         console.log(
             "========================================"
         );
+
         console.log(
             "🚀 Server running on port:",
             PORT
         );
+
         console.log(
-            "💻 PC: http://localhost:" +
-            PORT
+            "💻 Local:",
+            `http://localhost:${PORT}`
         );
+
         console.log(
-            "📱 Other devices:"
+            "📱 LAN:",
+            `http://YOUR-PC-IP:${PORT}`
         );
-        console.log(
-            "   http://YOUR-PC-IP:" +
-            PORT
-        );
+
         console.log(
             "========================================"
         );
+
         console.log(
             "✅ Server ready"
         );
+
         console.log(
             "========================================"
         );
-        console.log("");
 
     }
 );
