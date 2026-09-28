@@ -5,12 +5,17 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Booking History - Karnataka Travel</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
     <style>
 
@@ -24,13 +29,18 @@
             background: #f4faf6;
         }
 
+        /* ================= HEADER ================= */
+
         header {
             background: white;
             padding: 18px 6%;
+
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+
+            box-shadow:
+                0 2px 10px rgba(0,0,0,0.08);
         }
 
         .logo {
@@ -63,15 +73,21 @@
             border: none;
             background: #c62828;
             color: white;
+
             padding: 9px 15px;
+
             border-radius: 6px;
+
             cursor: pointer;
+
             font-weight: bold;
         }
 
         .logout-btn:hover {
             background: #a91f1f;
         }
+
+        /* ================= PAGE ================= */
 
         .history-page {
             min-height: 100vh;
@@ -85,28 +101,42 @@
 
         .history-heading {
             text-align: center;
+
             color: #087f3d;
+
             font-size: 36px;
+
             margin-bottom: 8px;
         }
 
         .history-subtitle {
             text-align: center;
+
             color: #666;
+
             margin-bottom: 30px;
         }
 
+        /* ================= USER BOX ================= */
+
         .user-box {
             background: white;
+
             padding: 18px 22px;
+
             border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.08);
+
             margin-bottom: 25px;
         }
 
         .user-box strong {
             color: #087f3d;
         }
+
+        /* ================= BOOKING LIST ================= */
 
         .booking-list {
             display: grid;
@@ -115,31 +145,50 @@
 
         .history-card {
             background: white;
+
             padding: 25px;
+
             border-radius: 14px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.10);
         }
+
+        /* ================= BOOKING HEADER ================= */
 
         .booking-header {
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
+
             gap: 15px;
+
             margin-bottom: 20px;
+
             border-bottom: 1px solid #eee;
+
             padding-bottom: 15px;
         }
 
         .booking-header h2 {
             margin: 0;
+
             color: #087f3d;
+
             font-size: 22px;
         }
 
+        /* ================= STATUS ================= */
+
         .status {
             padding: 7px 12px;
+
             border-radius: 20px;
+
             font-size: 13px;
+
             font-weight: bold;
         }
 
@@ -153,60 +202,89 @@
             color: #ef6c00;
         }
 
+        /* ================= DETAILS ================= */
+
         .booking-details {
             display: grid;
+
             grid-template-columns: 1fr 1fr;
+
             gap: 13px 25px;
         }
 
         .detail {
             padding: 10px;
+
             background: #f8fbf9;
+
             border-radius: 7px;
         }
 
         .detail-label {
             color: #777;
+
             font-size: 13px;
+
             margin-bottom: 4px;
         }
 
         .detail-value {
             color: #222;
+
             font-weight: bold;
+
+            word-break: break-word;
         }
+
+        /* ================= TOTAL ================= */
 
         .total-box {
             margin-top: 20px;
+
             padding: 15px;
+
             background: #f4faf6;
+
             border-radius: 10px;
 
             display: flex;
+
             justify-content: space-between;
 
             color: #087f3d;
+
             font-size: 20px;
+
             font-weight: bold;
         }
 
+        /* ================= BUTTONS ================= */
+
         .booking-actions {
             margin-top: 18px;
+
             display: flex;
+
             gap: 10px;
+
             flex-wrap: wrap;
         }
 
         .action-btn {
             border: none;
+
             padding: 11px 17px;
+
             border-radius: 7px;
+
             cursor: pointer;
+
             font-weight: bold;
         }
 
         .pay-btn {
             background: #087f3d;
+
             color: white;
         }
 
@@ -216,6 +294,7 @@
 
         .delete-btn {
             background: #c62828;
+
             color: white;
         }
 
@@ -223,19 +302,31 @@
             background: #a91f1f;
         }
 
+        /* ================= LOADING ================= */
+
         .loading {
             text-align: center;
+
             padding: 40px;
+
             color: #666;
+
             font-size: 18px;
         }
 
+        /* ================= EMPTY ================= */
+
         .empty-box {
             background: white;
+
             padding: 45px 20px;
+
             text-align: center;
+
             border-radius: 14px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.10);
         }
 
         .empty-box h2 {
@@ -248,53 +339,52 @@
 
         .book-now-btn {
             display: inline-block;
+
             margin-top: 15px;
+
             padding: 12px 20px;
+
             background: #087f3d;
+
             color: white;
+
             text-decoration: none;
+
             border-radius: 7px;
+
             font-weight: bold;
         }
+
+        /* ================= ERROR ================= */
 
         .error-box {
             background: #ffebee;
+
             color: #c62828;
-            padding: 20px;
+
+            padding: 15px;
+
             border-radius: 8px;
+
             text-align: center;
+
             margin-bottom: 20px;
         }
 
-        .retry-btn {
-            border: none;
-            background: #087f3d;
-            color: white;
-            padding: 10px 18px;
-            border-radius: 7px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .retry-btn:hover {
-            background: #05652f;
-        }
+        /* ================= MOBILE ================= */
 
         @media (max-width: 700px) {
 
             header {
                 flex-direction: column;
+
                 gap: 15px;
             }
 
             nav {
                 flex-wrap: wrap;
-                justify-content: center;
-                gap: 12px;
-            }
 
-            .history-page {
-                padding: 30px 12px;
+                justify-content: center;
             }
 
             .history-heading {
@@ -307,6 +397,7 @@
 
             .booking-header {
                 flex-direction: column;
+
                 align-items: flex-start;
             }
 
@@ -324,11 +415,19 @@
 <body>
 
 
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
 <header>
 
     <div class="logo">
-        🏛️ Karnataka <span>Travel</span>
+
+        🏛️ Karnataka
+        <span>Travel</span>
+
     </div>
+
 
     <nav>
 
@@ -350,7 +449,9 @@
 
         <button
             class="logout-btn"
-            id="logoutBtn">
+            id="logoutBtn"
+            type="button"
+        >
             Logout
         </button>
 
@@ -359,39 +460,52 @@
 </header>
 
 
+<!-- =====================================================
+     HISTORY
+===================================================== -->
+
 <section class="history-page">
 
     <div class="history-container">
 
+
         <h1 class="history-heading">
+
             📋 Booking History
+
         </h1>
 
+
         <p class="history-subtitle">
+
             View all your Karnataka Travel bookings
+
         </p>
 
 
+        <!-- USER INFORMATION -->
+
         <div
             class="user-box"
-            id="userBox">
-        </div>
+            id="userBox"
+        ></div>
 
 
-        <div
-            id="messageArea">
-        </div>
-
+        <!-- BOOKINGS -->
 
         <div
             id="bookingList"
-            class="booking-list">
+            class="booking-list"
+        >
 
             <div class="loading">
+
                 ⏳ Loading your bookings...
+
             </div>
 
         </div>
+
 
     </div>
 
@@ -405,7 +519,7 @@
 
 /* =====================================================
    IMPORTANT
-   RENDER BACKEND URL
+   DEPLOYED BACKEND URL
 ===================================================== */
 
 const API_BASE =
@@ -413,7 +527,7 @@ const API_BASE =
 
 
 /* =====================================================
-   GET LOGGED-IN USER
+   GET USER
 ===================================================== */
 
 const savedUser =
@@ -422,9 +536,13 @@ const savedUser =
 
 if (!savedUser) {
 
-    alert("Please login first.");
+    alert(
+        "Please login first."
+    );
 
-    window.location.replace("login.html");
+    window.location.replace(
+        "login.html"
+    );
 
 }
 
@@ -438,7 +556,8 @@ let user = null;
 
 try {
 
-    user = JSON.parse(savedUser);
+    user =
+        JSON.parse(savedUser);
 
 }
 catch (error) {
@@ -463,7 +582,10 @@ catch (error) {
    CHECK USER
 ===================================================== */
 
-if (!user || !user.id) {
+if (
+    !user ||
+    !user.id
+) {
 
     alert(
         "User information not found. Please login again."
@@ -481,7 +603,7 @@ if (!user || !user.id) {
 
 
 /* =====================================================
-   SHOW USER INFORMATION
+   SHOW USER
 ===================================================== */
 
 document.getElementById(
@@ -490,24 +612,31 @@ document.getElementById(
 
 `
     👤 Logged in as:
+
     <strong>
-        ${escapeHTML(user.name || "User")}
+        ${escapeHTML(
+            user.name || "User"
+        )}
     </strong>
 
     &nbsp; | &nbsp;
 
     📧
-    ${escapeHTML(user.email || "-")}
+    ${escapeHTML(
+        user.email || "-"
+    )}
 
     &nbsp; | &nbsp;
 
     📱
-    ${escapeHTML(user.mobile || "-")}
+    ${escapeHTML(
+        user.mobile || "-"
+    )}
 `;
 
 
 /* =====================================================
-   LOAD BOOKINGS FROM RENDER SERVER
+   LOAD BOOKINGS
 ===================================================== */
 
 async function loadBookings() {
@@ -520,57 +649,49 @@ async function loadBookings() {
 
     bookingList.innerHTML =
 
-    `
-        <div class="loading">
-            ⏳ Loading bookings...
-        </div>
-    `;
+`
+    <div class="loading">
+
+        ⏳ Loading bookings...
+
+    </div>
+`;
 
 
     try {
 
+        const url =
+            API_BASE +
+            "/api/bookings/user/" +
+            encodeURIComponent(
+                user.id
+            );
+
+
+        console.log(
+            "Loading bookings from:",
+            url
+        );
+
+
         const response =
-            await fetch(
-
-                API_BASE +
-                "/api/bookings/user/" +
-                encodeURIComponent(user.id),
-
-                {
-                    method: "GET",
-
-                    headers: {
-                        "Accept":
-                            "application/json"
-                    }
-                }
-
-            );
+            await fetch(url);
 
 
-        const text =
-            await response.text();
+        const data =
+            await response.json();
 
 
-        let data = null;
+        console.log(
+            "Booking API response:",
+            data
+        );
 
 
-        try {
-
-            data =
-                JSON.parse(text);
-
-        }
-        catch {
-
-            throw new Error(
-                "Server returned invalid response."
-            );
-
-        }
-
-
-        if (!response.ok) {
+        if (
+            !response.ok ||
+            !data.success
+        ) {
 
             throw new Error(
                 data.message ||
@@ -581,59 +702,69 @@ async function loadBookings() {
 
 
         const bookings =
-            Array.isArray(data.bookings)
+            Array.isArray(
+                data.bookings
+            )
                 ? data.bookings
                 : [];
 
 
-        if (bookings.length === 0) {
+        /* NO BOOKINGS */
+
+        if (
+            bookings.length === 0
+        ) {
 
             bookingList.innerHTML =
 
-            `
-                <div class="empty-box">
+`
+    <div class="empty-box">
 
-                    <h2>
-                        📭 No Bookings Found
-                    </h2>
+        <h2>
+            📭 No Bookings Found
+        </h2>
 
-                    <p>
-                        You have not created any bookings yet.
-                    </p>
+        <p>
+            You have not created any bookings yet.
+        </p>
 
-                    <a
-                        href="booking.html"
-                        class="book-now-btn">
+        <a
+            href="booking.html"
+            class="book-now-btn"
+        >
+            🚌 Book Your Trip
+        </a>
 
-                        🚌 Book Your Trip
-
-                    </a>
-
-                </div>
-            `;
+    </div>
+`;
 
             return;
 
         }
 
 
-        bookingList.innerHTML = "";
+        /* CLEAR LOADING */
+
+        bookingList.innerHTML =
+            "";
 
 
-        bookings
-            .slice()
-            .reverse()
-            .forEach(
-                function(booking) {
+        /* SHOW BOOKINGS */
 
-                    bookingList.appendChild(
-                        createBookingCard(
-                            booking
-                        )
+        bookings.forEach(
+            function(booking) {
+
+                const card =
+                    createBookingCard(
+                        booking
                     );
 
-                }
-            );
+                bookingList.appendChild(
+                    card
+                );
+
+            }
+        );
 
 
     }
@@ -647,28 +778,28 @@ async function loadBookings() {
 
         bookingList.innerHTML =
 
-        `
-            <div class="error-box">
+`
+    <div class="error-box">
 
-                ❌
+        ❌
 
-                ${escapeHTML(
-                    error.message ||
-                    "Failed to fetch bookings."
-                )}
+        ${escapeHTML(
+            error.message ||
+            "Failed to fetch bookings."
+        )}
 
-                <br><br>
+        <br><br>
 
-                <button
-                    class="retry-btn"
-                    onclick="loadBookings()">
+        <button
+            class="action-btn pay-btn"
+            type="button"
+            onclick="loadBookings()"
+        >
+            🔄 Try Again
+        </button>
 
-                    🔄 Try Again
-
-                </button>
-
-            </div>
-        `;
+    </div>
+`;
 
     }
 
@@ -679,10 +810,14 @@ async function loadBookings() {
    CREATE BOOKING CARD
 ===================================================== */
 
-function createBookingCard(booking) {
+function createBookingCard(
+    booking
+) {
 
     const card =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     card.className =
@@ -774,200 +909,251 @@ function createBookingCard(booking) {
 
     card.innerHTML =
 
-    `
-        <div class="booking-header">
+`
+    <div class="booking-header">
 
-            <h2>
-                🚌 Booking #${escapeHTML(
-                    bookingId
-                )}
-            </h2>
+        <h2>
 
-            <span
-                class="status ${statusClass}">
+            🚌 Booking #
+
+            ${escapeHTML(
+                bookingId
+            )}
+
+        </h2>
+
+
+        <span
+            class="status ${statusClass}"
+        >
+
+            ${escapeHTML(
+                statusText
+            )}
+
+        </span>
+
+    </div>
+
+
+    <div class="booking-details">
+
+
+        <div class="detail">
+
+            <div class="detail-label">
+                👤 Name
+            </div>
+
+            <div class="detail-value">
 
                 ${escapeHTML(
-                    statusText
+                    name
                 )}
 
-            </span>
+            </div>
 
         </div>
 
 
-        <div class="booking-details">
+        <div class="detail">
 
-
-            <div class="detail">
-
-                <div class="detail-label">
-                    👤 Name
-                </div>
-
-                <div class="detail-value">
-                    ${escapeHTML(name)}
-                </div>
-
+            <div class="detail-label">
+                📱 Mobile
             </div>
 
+            <div class="detail-value">
 
-            <div class="detail">
-
-                <div class="detail-label">
-                    📱 Mobile
-                </div>
-
-                <div class="detail-value">
-                    ${escapeHTML(mobile)}
-                </div>
+                ${escapeHTML(
+                    mobile
+                )}
 
             </div>
-
-
-            <div class="detail">
-
-                <div class="detail-label">
-                    📍 From Location
-                </div>
-
-                <div class="detail-value">
-                    ${escapeHTML(fromLocation)}
-                </div>
-
-            </div>
-
-
-            <div class="detail">
-
-                <div class="detail-label">
-                    🎯 Destination
-                </div>
-
-                <div class="detail-value">
-                    ${escapeHTML(destination)}
-                </div>
-
-            </div>
-
-
-            <div class="detail">
-
-                <div class="detail-label">
-                    📅 Travel Date
-                </div>
-
-                <div class="detail-value">
-                    ${escapeHTML(travelDate)}
-                </div>
-
-            </div>
-
-
-            <div class="detail">
-
-                <div class="detail-label">
-                    📆 Days
-                </div>
-
-                <div class="detail-value">
-                    ${escapeHTML(days)}
-                </div>
-
-            </div>
-
-
-            <div class="detail">
-
-                <div class="detail-label">
-                    👨‍👩‍👧 Travelers
-                </div>
-
-                <div class="detail-value">
-                    ${escapeHTML(travelers)}
-                </div>
-
-            </div>
-
-
-            <div class="detail">
-
-                <div class="detail-label">
-                    🚗 Vehicle
-                </div>
-
-                <div class="detail-value">
-                    ${escapeHTML(vehicle)}
-                </div>
-
-            </div>
-
-
-            <div class="detail">
-
-                <div class="detail-label">
-                    💳 Payment Method
-                </div>
-
-                <div class="detail-value">
-                    ${escapeHTML(paymentMethod)}
-                </div>
-
-            </div>
-
 
         </div>
 
 
-        <div class="total-box">
+        <div class="detail">
 
-            <span>
-                Total Amount
-            </span>
+            <div class="detail-label">
+                📍 From Location
+            </div>
 
-            <span>
-                ₹${total.toLocaleString("en-IN")}
-            </span>
+            <div class="detail-value">
+
+                ${escapeHTML(
+                    fromLocation
+                )}
+
+            </div>
 
         </div>
 
 
-        <div class="booking-actions">
+        <div class="detail">
 
-            ${
-                !isPaid
+            <div class="detail-label">
+                🎯 Destination
+            </div>
 
+            <div class="detail-value">
+
+                ${escapeHTML(
+                    destination
+                )}
+
+            </div>
+
+        </div>
+
+
+        <div class="detail">
+
+            <div class="detail-label">
+                📅 Travel Date
+            </div>
+
+            <div class="detail-value">
+
+                ${escapeHTML(
+                    travelDate
+                )}
+
+            </div>
+
+        </div>
+
+
+        <div class="detail">
+
+            <div class="detail-label">
+                📆 Days
+            </div>
+
+            <div class="detail-value">
+
+                ${escapeHTML(
+                    days
+                )}
+
+            </div>
+
+        </div>
+
+
+        <div class="detail">
+
+            <div class="detail-label">
+                👨‍👩‍👧 Travelers
+            </div>
+
+            <div class="detail-value">
+
+                ${escapeHTML(
+                    travelers
+                )}
+
+            </div>
+
+        </div>
+
+
+        <div class="detail">
+
+            <div class="detail-label">
+                🚗 Vehicle
+            </div>
+
+            <div class="detail-value">
+
+                ${escapeHTML(
+                    vehicle
+                )}
+
+            </div>
+
+        </div>
+
+
+        <div class="detail">
+
+            <div class="detail-label">
+                💳 Payment Method
+            </div>
+
+            <div class="detail-value">
+
+                ${escapeHTML(
+                    paymentMethod
+                )}
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="total-box">
+
+        <span>
+            Total Amount
+        </span>
+
+        <span>
+
+            ₹${total.toLocaleString(
+                "en-IN"
+            )}
+
+        </span>
+
+    </div>
+
+
+    <div class="booking-actions">
+
+
+        ${
+            !isPaid
                 ?
 
-                `
-                    <button
-                        class="action-btn pay-btn"
-                        onclick="goToPayment('${escapeJS(
-                            bookingId
-                        )}')">
+`
+        <button
+            class="action-btn pay-btn"
+            type="button"
+            onclick="goToPayment('${escapeJS(
+                bookingId
+            )}')"
+        >
 
-                        💳 Pay Now
+            💳 Pay Now
 
-                    </button>
-                `
+        </button>
+`
 
                 :
 
-                ""
-            }
+""
+        }
 
 
-            <button
-                class="action-btn delete-btn"
-                onclick="deleteBooking('${escapeJS(
-                    bookingId
-                )}')">
+        <button
+            class="action-btn delete-btn"
+            type="button"
+            onclick="deleteBooking('${escapeJS(
+                bookingId
+            )}')"
+        >
 
-                🗑️ Delete
+            🗑️ Delete
 
-            </button>
+        </button>
 
-        </div>
-    `;
+
+    </div>
+`;
 
 
     return card;
@@ -976,10 +1162,12 @@ function createBookingCard(booking) {
 
 
 /* =====================================================
-   OPEN PAYMENT
+   PAYMENT
 ===================================================== */
 
-async function goToPayment(bookingId) {
+async function goToPayment(
+    bookingId
+) {
 
     try {
 
@@ -990,15 +1178,8 @@ async function goToPayment(bookingId) {
                 "/api/bookings/" +
                 encodeURIComponent(
                     bookingId
-                ),
+                )
 
-                {
-                    method: "GET",
-                    headers: {
-                        "Accept":
-                            "application/json"
-                    }
-                }
             );
 
 
@@ -1020,10 +1201,13 @@ async function goToPayment(bookingId) {
 
 
         sessionStorage.setItem(
+
             "currentBooking",
+
             JSON.stringify(
                 data.booking
             )
+
         );
 
 
@@ -1039,6 +1223,7 @@ async function goToPayment(bookingId) {
             error
         );
 
+
         alert(
             error.message ||
             "Unable to open payment page."
@@ -1053,7 +1238,9 @@ async function goToPayment(bookingId) {
    DELETE BOOKING
 ===================================================== */
 
-async function deleteBooking(bookingId) {
+async function deleteBooking(
+    bookingId
+) {
 
     const confirmDelete =
         confirm(
@@ -1062,7 +1249,9 @@ async function deleteBooking(bookingId) {
 
 
     if (!confirmDelete) {
+
         return;
+
     }
 
 
@@ -1078,12 +1267,16 @@ async function deleteBooking(bookingId) {
                 ),
 
                 {
+
                     method: "DELETE",
 
                     headers: {
-                        "Accept":
+
+                        "Content-Type":
                             "application/json"
+
                     }
+
                 }
 
             );
@@ -1136,60 +1329,66 @@ async function deleteBooking(bookingId) {
    LOGOUT
 ===================================================== */
 
-document
-    .getElementById("logoutBtn")
-    .addEventListener(
-        "click",
-        function() {
+document.getElementById(
+    "logoutBtn"
+).addEventListener(
+    "click",
+    function() {
 
-            sessionStorage.removeItem(
-                "currentUser"
-            );
+        sessionStorage.removeItem(
+            "currentUser"
+        );
 
-            sessionStorage.removeItem(
-                "currentBooking"
-            );
 
-            window.location.replace(
-                "login.html"
-            );
+        sessionStorage.removeItem(
+            "currentBooking"
+        );
 
-        }
-    );
+
+        window.location.replace(
+            "login.html"
+        );
+
+    }
+);
 
 
 /* =====================================================
    HTML SECURITY
 ===================================================== */
 
-function escapeHTML(value) {
+function escapeHTML(
+    value
+) {
 
-    return String(value ?? "")
+    return String(
+        value ?? ""
+    )
 
-        .replace(
-            /&/g,
-            "&amp;"
-        )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
 
-        .replace(
-            /</g,
-            "&lt;"
-        )
+    .replace(
+        /</g,
+        "&lt;"
+    )
 
-        .replace(
-            />/g,
-            "&gt;"
-        )
+    .replace(
+        />/g,
+        "&gt;"
+    )
 
-        .replace(
-            /"/g,
-            "&quot;"
-        )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
 
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
 
@@ -1198,24 +1397,28 @@ function escapeHTML(value) {
    JAVASCRIPT SECURITY
 ===================================================== */
 
-function escapeJS(value) {
+function escapeJS(
+    value
+) {
 
-    return String(value ?? "")
+    return String(
+        value ?? ""
+    )
 
-        .replace(
-            /\\/g,
-            "\\\\"
-        )
+    .replace(
+        /\\/g,
+        "\\\\"
+    )
 
-        .replace(
-            /'/g,
-            "\\'"
-        )
+    .replace(
+        /'/g,
+        "\\'"
+    )
 
-        .replace(
-            /"/g,
-            '\\"'
-        );
+    .replace(
+        /"/g,
+        '\\"'
+    );
 
 }
 
