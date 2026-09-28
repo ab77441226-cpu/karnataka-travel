@@ -1,20 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>My Profile - Karnataka Travel</title>
 
-    <link rel="stylesheet" href="style.css">
-
     <style>
+        * {
+            box-sizing: border-box;
+        }
 
         body {
             margin: 0;
@@ -23,42 +18,34 @@
             color: #333;
         }
 
-
         /* HEADER */
 
         header {
-            min-height: 60px;
             background: white;
+            height: 60px;
+            padding: 0 8%;
 
             display: flex;
             align-items: center;
             justify-content: space-between;
 
-            padding: 0 7%;
-
-            box-shadow:
-                0 2px 8px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
-
         .logo {
-            font-size: 19px;
+            font-size: 20px;
             font-weight: bold;
             color: #087f3d;
         }
-
 
         .logo span {
             color: #222;
         }
 
-
         nav {
             display: flex;
             gap: 20px;
-            align-items: center;
         }
-
 
         nav a {
             text-decoration: none;
@@ -66,295 +53,336 @@
             font-size: 14px;
         }
 
-
         nav a:hover {
             color: #087f3d;
         }
 
-
-        /* PROFILE PAGE */
+        /* PAGE */
 
         .profile-page {
             min-height: calc(100vh - 60px);
 
-            padding: 50px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 30px 15px;
         }
 
+        /* PROFILE BOX */
 
-        .profile-container {
-            max-width: 600px;
-            margin: auto;
-        }
+        .profile-box {
+            width: 100%;
+            max-width: 550px;
 
-
-        .profile-title {
-            text-align: center;
-
-            color: #087f3d;
-
-            font-size: 32px;
-
-            margin-bottom: 8px;
-        }
-
-
-        .profile-subtitle {
-            text-align: center;
-
-            color: #777;
-
-            margin-bottom: 30px;
-        }
-
-
-        /* PROFILE CARD */
-
-        .profile-card {
             background: white;
 
             padding: 30px;
 
-            border-radius: 16px;
+            border-radius: 18px;
 
             box-shadow:
-                0 5px 20px rgba(0,0,0,0.10);
+                0 10px 35px rgba(0,0,0,0.12);
         }
 
+        /* ICON */
 
         .profile-icon {
-            width: 85px;
-            height: 85px;
+            width: 80px;
+            height: 80px;
 
-            margin: 0 auto 25px;
+            margin: 0 auto 15px;
 
             border-radius: 50%;
 
-            background: #087f3d;
-
-            color: white;
+            background: #e8f5ed;
 
             display: flex;
-
-            justify-content: center;
-
             align-items: center;
+            justify-content: center;
 
             font-size: 40px;
         }
 
+        h1 {
+            text-align: center;
 
-        /* DETAILS */
+            color: #087f3d;
+
+            margin: 0 0 5px;
+
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+
+            color: #777;
+
+            margin-bottom: 25px;
+        }
+
+        /* USER DETAILS */
 
         .profile-details {
             background: #f4faf6;
 
-            border-radius: 10px;
+            border-radius: 12px;
 
-            padding: 5px 20px;
+            padding: 10px 18px;
         }
-
 
         .profile-row {
-            padding: 16px 0;
+            display: flex;
 
-            border-bottom:
-                1px solid #ddd;
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+            padding: 15px 0;
+
+            border-bottom: 1px solid #d7e3dc;
         }
-
 
         .profile-row:last-child {
             border-bottom: none;
         }
 
-
-        .profile-label {
-            display: block;
-
-            font-size: 13px;
-
-            color: #777;
-
-            margin-bottom: 6px;
-
+        .label {
             font-weight: bold;
+
+            color: #666;
+
+            font-size: 14px;
         }
 
-
-        .profile-value {
-            display: block;
-
-            color: #087f3d;
-
-            font-size: 17px;
-
+        .value {
             font-weight: bold;
+
+            color: #222;
+
+            font-size: 14px;
+
+            text-align: right;
 
             word-break: break-word;
         }
 
-
         /* BUTTONS */
 
-        .profile-buttons {
+        .buttons {
+            display: flex;
+
+            gap: 10px;
+
             margin-top: 25px;
-
-            display: grid;
-
-            grid-template-columns:
-                1fr 1fr;
-
-            gap: 12px;
         }
 
+        .btn {
+            flex: 1;
 
-        .profile-buttons a,
-        .logout-btn {
+            padding: 12px;
 
-            padding: 14px;
+            border: none;
 
             border-radius: 8px;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
 
             text-align: center;
 
             text-decoration: none;
-
-            font-weight: bold;
-
-            border: none;
-
-            cursor: pointer;
-
-            font-size: 15px;
         }
-
 
         .home-btn {
             background: #087f3d;
+
             color: white;
         }
 
+        .home-btn:hover {
+            background: #05652f;
+        }
 
         .history-btn {
-            background: #087f3d;
-            color: white;
+            background: #eeeeee;
+
+            color: #333;
         }
 
+        .history-btn:hover {
+            background: #dddddd;
+        }
 
         .logout-btn {
-            grid-column: 1 / -1;
+            width: 100%;
+
+            margin-top: 12px;
+
+            padding: 12px;
+
+            border: none;
+
+            border-radius: 8px;
 
             background: #c62828;
 
             color: white;
-        }
 
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
 
         .logout-btn:hover {
             background: #a91f1f;
         }
 
+        /* MESSAGE */
 
-        @media(max-width:600px) {
+        .message {
+            display: none;
+
+            margin-top: 15px;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            text-align: center;
+
+            font-weight: bold;
+
+            font-size: 14px;
+        }
+
+        .error {
+            display: block;
+
+            background: #ffebee;
+
+            color: #c62828;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
 
             header {
-                padding: 12px 20px;
-
-                flex-direction: column;
-
-                gap: 10px;
+                padding: 0 15px;
             }
 
+            .logo {
+                font-size: 16px;
+            }
 
             nav {
-                flex-wrap: wrap;
-
-                justify-content: center;
+                gap: 8px;
             }
 
-
-            .profile-card {
-                padding: 20px;
+            nav a {
+                font-size: 11px;
             }
 
-
-            .profile-buttons {
-                grid-template-columns: 1fr;
+            .profile-page {
+                padding: 20px 12px;
             }
 
+            .profile-box {
+                padding: 22px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .profile-row {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .value {
+                text-align: left;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
         }
 
     </style>
-
 </head>
-
 
 <body>
 
+    <!-- HEADER -->
 
-<header>
+    <header>
 
-    <div class="logo">
-        🏛️ Karnataka <span>Travel</span>
-    </div>
+        <div class="logo">
+            🏛️ Karnataka <span>Travel</span>
+        </div>
 
+        <nav>
 
-    <nav>
+            <a href="index.html">
+                Home
+            </a>
 
-        <a href="index.html">
-            Home
-        </a>
+            <a href="booking-history.html">
+                Bookings
+            </a>
 
-        <a href="district.html">
-            Districts
-        </a>
+            <a href="contact.html">
+                Contact
+            </a>
 
-        <a href="contact.html">
-            Contact
-        </a>
+        </nav>
 
-    </nav>
-
-</header>
-
-
-
-<section class="profile-page">
-
-    <div class="profile-container">
+    </header>
 
 
-        <h1 class="profile-title">
-            👤 My Profile
-        </h1>
+    <!-- PROFILE -->
 
+    <section class="profile-page">
 
-        <p class="profile-subtitle">
-            Welcome to Karnataka Travel
-        </p>
-
-
-
-        <div class="profile-card">
-
+        <div class="profile-box">
 
             <div class="profile-icon">
                 👤
             </div>
 
+            <h1>
+                My Profile
+            </h1>
+
+            <p class="subtitle">
+                Your Karnataka Travel account details
+            </p>
+
+
+            <!-- DETAILS -->
 
             <div class="profile-details">
 
-
                 <div class="profile-row">
 
-                    <span class="profile-label">
-                        👤 Name
+                    <span class="label">
+                        User ID
                     </span>
 
                     <span
-                        class="profile-value"
-                        id="userName"
-                    >
+                        class="value"
+                        id="userId">
                         -
                     </span>
 
@@ -363,15 +391,14 @@
 
                 <div class="profile-row">
 
-                    <span class="profile-label">
-                        🆔 User ID
+                    <span class="label">
+                        Name
                     </span>
 
                     <span
-                        class="profile-value"
-                        id="userId"
-                    >
-                        -
+                        class="value"
+                        id="userName">
+                        Loading...
                     </span>
 
                 </div>
@@ -379,15 +406,14 @@
 
                 <div class="profile-row">
 
-                    <span class="profile-label">
-                        📱 Mobile Number
+                    <span class="label">
+                        Email
                     </span>
 
                     <span
-                        class="profile-value"
-                        id="userMobile"
-                    >
-                        -
+                        class="value"
+                        id="userEmail">
+                        Loading...
                     </span>
 
                 </div>
@@ -395,207 +421,372 @@
 
                 <div class="profile-row">
 
-                    <span class="profile-label">
-                        📧 Email
+                    <span class="label">
+                        Mobile
                     </span>
 
                     <span
-                        class="profile-value"
-                        id="userEmail"
-                    >
-                        -
+                        class="value"
+                        id="userMobile">
+                        Loading...
                     </span>
 
                 </div>
 
+
+                <div class="profile-row">
+
+                    <span class="label">
+                        Account Created
+                    </span>
+
+                    <span
+                        class="value"
+                        id="createdAt">
+                        -
+                    </span>
+
+                </div>
 
             </div>
 
 
+            <!-- MESSAGE -->
 
-            <div class="profile-buttons">
+            <div
+                id="message"
+                class="message">
+            </div>
 
+
+            <!-- BUTTONS -->
+
+            <div class="buttons">
 
                 <a
                     href="index.html"
-                    class="home-btn"
-                >
+                    class="btn home-btn">
+
                     🏠 Home
+
                 </a>
 
 
                 <a
                     href="booking-history.html"
-                    class="history-btn"
-                >
-                    📋 Booking History
+                    class="btn history-btn">
+
+                    📋 My Bookings
+
                 </a>
-
-
-                <button
-                    type="button"
-                    id="logoutBtn"
-                    class="logout-btn"
-                >
-                    🚪 Logout
-                </button>
-
 
             </div>
 
 
+            <button
+                type="button"
+                class="logout-btn"
+                onclick="logout()">
+
+                🚪 Logout
+
+            </button>
+
         </div>
 
-    </div>
-
-</section>
+    </section>
 
 
+    <script>
 
-<script>
-
-"use strict";
-
-
-/* =====================================================
-   CHECK LOGIN
-===================================================== */
-
-const currentUserString =
-    sessionStorage.getItem(
-        "currentUser"
-    );
+        "use strict";
 
 
-/*
-   Login ಇಲ್ಲದಿದ್ದರೆ ಮಾತ್ರ
-   login page ಗೆ ಕಳುಹಿಸುತ್ತದೆ.
-*/
+        /* =====================================================
+           API URL
 
-if (!currentUserString) {
+           Same computer:
+           http://localhost:5000
 
-    window.location.replace(
-        "login.html"
-    );
+           Other device:
+           Automatically uses computer hostname/IP
+        ===================================================== */
 
-} else {
+        const API_BASE =
+            window.location.protocol === "file:"
+                ? "http://192.168.1.103:5000"
+                : `${window.location.protocol}//${window.location.hostname}:5000`;
 
-    let currentUser = null;
+
+        /* =====================================================
+           GET LOGIN USER
+        ===================================================== */
+
+        let user = null;
 
 
-    try {
+        const userString =
+            sessionStorage.getItem("user");
 
-        currentUser =
-            JSON.parse(
-                currentUserString
+
+        if (userString) {
+
+            try {
+
+                user =
+                    JSON.parse(userString);
+
+            } catch (error) {
+
+                console.error(
+                    "User data error:",
+                    error
+                );
+
+                user = null;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           IF USER NOT LOGGED IN
+        ===================================================== */
+
+        if (!user || !user.id) {
+
+            showMessage(
+                "Please login first.",
+                "error"
             );
 
-    } catch (error) {
+            setTimeout(
+                function() {
 
-        sessionStorage.removeItem(
-            "currentUser"
-        );
+                    window.location.href =
+                        "login.html";
 
-        window.location.replace(
-            "login.html"
-        );
+                },
+                1000
+            );
 
-    }
+        } else {
 
+            loadProfile();
 
-    if (
-        !currentUser ||
-        !currentUser.id
-    ) {
-
-        sessionStorage.removeItem(
-            "currentUser"
-        );
-
-        window.location.replace(
-            "login.html"
-        );
-
-    } else {
+        }
 
 
-        /* =============================================
-           SHOW USER INFORMATION
-        ============================================= */
+        /* =====================================================
+           LOAD PROFILE
+        ===================================================== */
 
-        document.getElementById(
-            "userName"
-        ).textContent =
-            currentUser.name || "-";
+        async function loadProfile() {
 
+            try {
 
-        document.getElementById(
-            "userId"
-        ).textContent =
-            currentUser.id || "-";
-
-
-        document.getElementById(
-            "userMobile"
-        ).textContent =
-            currentUser.mobile || "-";
+                const response =
+                    await fetch(
+                        API_BASE +
+                        "/api/profile/" +
+                        encodeURIComponent(user.id)
+                    );
 
 
-        document.getElementById(
-            "userEmail"
-        ).textContent =
-            currentUser.email || "-";
-
-    }
-
-}
+                const data =
+                    await response.json();
 
 
-/* =====================================================
-   LOGOUT
-===================================================== */
+                if (
+                    !response.ok ||
+                    !data.success
+                ) {
 
-document.getElementById(
-    "logoutBtn"
-).addEventListener(
-    "click",
-    function() {
+                    throw new Error(
 
+                        data.message ||
+                        "Unable to load profile."
 
-        /* Remove login session */
+                    );
 
-        sessionStorage.removeItem(
-            "currentUser"
-        );
-
-        sessionStorage.removeItem(
-            "loggedInUser"
-        );
-
-        sessionStorage.removeItem(
-            "user"
-        );
-
-        sessionStorage.removeItem(
-            "currentBooking"
-        );
+                }
 
 
-        /*
-           Logout ಆದ ನಂತರ ಮಾತ್ರ
-           login page open ಆಗುತ್ತದೆ.
-        */
+                const profile =
+                    data.user;
 
-        window.location.replace(
-            "login.html"
-        );
 
-    }
-);
+                /* USER ID */
 
-</script>
+                document.getElementById(
+                    "userId"
+                ).textContent =
+                    profile.id || "-";
 
+
+                /* NAME */
+
+                document.getElementById(
+                    "userName"
+                ).textContent =
+                    profile.name || "-";
+
+
+                /* EMAIL */
+
+                document.getElementById(
+                    "userEmail"
+                ).textContent =
+                    profile.email || "-";
+
+
+                /* MOBILE */
+
+                document.getElementById(
+                    "userMobile"
+                ).textContent =
+                    profile.mobile || "-";
+
+
+                /* CREATED DATE */
+
+                document.getElementById(
+                    "createdAt"
+                ).textContent =
+                    formatDate(
+                        profile.created_at
+                    );
+
+
+                /* UPDATE SESSION */
+
+                sessionStorage.setItem(
+                    "user",
+                    JSON.stringify(profile)
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Profile error:",
+                    error
+                );
+
+
+                showMessage(
+
+                    error.message ||
+                    "Unable to load profile.",
+
+                    "error"
+
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
+           DATE FORMAT
+        ===================================================== */
+
+        function formatDate(dateValue) {
+
+            if (!dateValue) {
+
+                return "-";
+
+            }
+
+
+            const date =
+                new Date(dateValue);
+
+
+            if (
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
+
+                return dateValue;
+
+            }
+
+
+            return date.toLocaleDateString(
+                "en-IN",
+                {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric"
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           LOGOUT
+        ===================================================== */
+
+        function logout() {
+
+            sessionStorage.removeItem(
+                "user"
+            );
+
+            sessionStorage.removeItem(
+                "currentBooking"
+            );
+
+            sessionStorage.removeItem(
+                "adminLoggedIn"
+            );
+
+            sessionStorage.removeItem(
+                "adminUser"
+            );
+
+
+            window.location.href =
+                "login.html";
+
+        }
+
+
+        /* =====================================================
+           MESSAGE
+        ===================================================== */
+
+        function showMessage(
+            text,
+            type
+        ) {
+
+            const message =
+                document.getElementById(
+                    "message"
+                );
+
+
+            message.textContent =
+                text;
+
+
+            message.className =
+                "message " + type;
+
+
+            message.style.display =
+                "block";
+
+        }
+
+    </script>
 
 </body>
-
 </html>
