@@ -260,10 +260,24 @@
         .error-box {
             background: #ffebee;
             color: #c62828;
-            padding: 15px;
+            padding: 20px;
             border-radius: 8px;
             text-align: center;
             margin-bottom: 20px;
+        }
+
+        .retry-btn {
+            border: none;
+            background: #087f3d;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .retry-btn:hover {
+            background: #05652f;
         }
 
         @media (max-width: 700px) {
@@ -276,6 +290,11 @@
             nav {
                 flex-wrap: wrap;
                 justify-content: center;
+                gap: 12px;
+            }
+
+            .history-page {
+                padding: 30px 12px;
             }
 
             .history-heading {
@@ -289,6 +308,10 @@
             .booking-header {
                 flex-direction: column;
                 align-items: flex-start;
+            }
+
+            .total-box {
+                font-size: 17px;
             }
 
         }
@@ -313,7 +336,7 @@
             Home
         </a>
 
-        <a href="district.html">
+        <a href="index.html#destinations">
             Districts
         </a>
 
@@ -336,21 +359,17 @@
 </header>
 
 
-
 <section class="history-page">
 
     <div class="history-container">
-
 
         <h1 class="history-heading">
             📋 Booking History
         </h1>
 
-
         <p class="history-subtitle">
             View all your Karnataka Travel bookings
         </p>
-
 
 
         <div
@@ -359,11 +378,9 @@
         </div>
 
 
-
         <div
             id="messageArea">
         </div>
-
 
 
         <div
@@ -371,16 +388,14 @@
             class="booking-list">
 
             <div class="loading">
-                Loading your bookings...
+                ⏳ Loading your bookings...
             </div>
 
         </div>
 
-
     </div>
 
 </section>
-
 
 
 <script>
@@ -389,31 +404,12 @@
 
 
 /* =====================================================
-   BACKEND URL
+   IMPORTANT
+   RENDER BACKEND URL
 ===================================================== */
 
-/*
-   Computer:
-   http://localhost:5000
-
-   Phone:
-   http://COMPUTER-IP:5000
-
-   This automatically uses the current page host.
-*/
-
 const API_BASE =
-    window.location.protocol === "file:"
-        ? "http://localhost:5000"
-        : (
-            window.location.hostname === "localhost" ||
-            window.location.hostname === "127.0.0.1"
-        )
-            ? "http://localhost:5000"
-            : window.location.protocol +
-              "//" +
-              window.location.hostname +
-              ":5000";
+    "https://karnataka-travel-4z5m.onrender.com";
 
 
 /* =====================================================
@@ -421,20 +417,14 @@ const API_BASE =
 ===================================================== */
 
 const savedUser =
-    sessionStorage.getItem(
-        "currentUser"
-    );
+    sessionStorage.getItem("currentUser");
 
 
 if (!savedUser) {
 
-    alert(
-        "Please login first."
-    );
+    alert("Please login first.");
 
-    window.location.replace(
-        "login.html"
-    );
+    window.location.replace("login.html");
 
 }
 
@@ -448,14 +438,13 @@ let user = null;
 
 try {
 
-    user =
-        JSON.parse(
-            savedUser
-        );
+    user = JSON.parse(savedUser);
 
-} catch (error) {
+}
+catch (error) {
 
     console.error(
+        "User JSON error:",
         error
     );
 
@@ -471,13 +460,10 @@ try {
 
 
 /* =====================================================
-   CHECK USER ID
+   CHECK USER
 ===================================================== */
 
-if (
-    !user ||
-    !user.id
-) {
+if (!user || !user.id) {
 
     alert(
         "User information not found. Please login again."
@@ -495,35 +481,33 @@ if (
 
 
 /* =====================================================
-   USER INFORMATION
+   SHOW USER INFORMATION
 ===================================================== */
 
 document.getElementById(
     "userBox"
 ).innerHTML =
 
-    `
-        👤 Logged in as:
-        <strong>${escapeHTML(
-            user.name || "User"
-        )}</strong>
+`
+    👤 Logged in as:
+    <strong>
+        ${escapeHTML(user.name || "User")}
+    </strong>
 
-        &nbsp; | &nbsp;
+    &nbsp; | &nbsp;
 
-        📧 ${escapeHTML(
-            user.email || "-"
-        )}
+    📧
+    ${escapeHTML(user.email || "-")}
 
-        &nbsp; | &nbsp;
+    &nbsp; | &nbsp;
 
-        📱 ${escapeHTML(
-            user.mobile || "-"
-        )}
-    `;
+    📱
+    ${escapeHTML(user.mobile || "-")}
+`;
 
 
 /* =====================================================
-   LOAD BOOKINGS
+   LOAD BOOKINGS FROM RENDER SERVER
 ===================================================== */
 
 async function loadBookings() {
@@ -535,33 +519,58 @@ async function loadBookings() {
 
 
     bookingList.innerHTML =
-        `
-            <div class="loading">
-                ⏳ Loading bookings...
-            </div>
-        `;
+
+    `
+        <div class="loading">
+            ⏳ Loading bookings...
+        </div>
+    `;
 
 
     try {
 
         const response =
             await fetch(
+
                 API_BASE +
                 "/api/bookings/user/" +
-                encodeURIComponent(
-                    user.id
-                )
+                encodeURIComponent(user.id),
+
+                {
+                    method: "GET",
+
+                    headers: {
+                        "Accept":
+                            "application/json"
+                    }
+                }
+
             );
 
 
-        const data =
-            await response.json();
+        const text =
+            await response.text();
 
 
-        if (
-            !response.ok ||
-            !data.success
-        ) {
+        let data = null;
+
+
+        try {
+
+            data =
+                JSON.parse(text);
+
+        }
+        catch {
+
+            throw new Error(
+                "Server returned invalid response."
+            );
+
+        }
+
+
+        if (!response.ok) {
 
             throw new Error(
                 data.message ||
@@ -572,61 +581,63 @@ async function loadBookings() {
 
 
         const bookings =
-            Array.isArray(
-                data.bookings
-            )
+            Array.isArray(data.bookings)
                 ? data.bookings
                 : [];
 
 
-        if (
-            bookings.length === 0
-        ) {
+        if (bookings.length === 0) {
 
             bookingList.innerHTML =
-                `
-                    <div class="empty-box">
 
-                        <h2>
-                            📭 No Bookings Found
-                        </h2>
+            `
+                <div class="empty-box">
 
-                        <p>
-                            You have not created any bookings yet.
-                        </p>
+                    <h2>
+                        📭 No Bookings Found
+                    </h2>
 
-                        <a
-                            href="booking.html"
-                            class="book-now-btn">
-                            🚌 Book Your Trip
-                        </a>
+                    <p>
+                        You have not created any bookings yet.
+                    </p>
 
-                    </div>
-                `;
+                    <a
+                        href="booking.html"
+                        class="book-now-btn">
+
+                        🚌 Book Your Trip
+
+                    </a>
+
+                </div>
+            `;
 
             return;
 
         }
 
 
-        bookingList.innerHTML =
-            "";
+        bookingList.innerHTML = "";
 
 
-        bookings.forEach(
-            function(booking) {
+        bookings
+            .slice()
+            .reverse()
+            .forEach(
+                function(booking) {
 
-                bookingList.appendChild(
-                    createBookingCard(
-                        booking
-                    )
-                );
+                    bookingList.appendChild(
+                        createBookingCard(
+                            booking
+                        )
+                    );
 
-            }
-        );
+                }
+            );
 
 
-    } catch (error) {
+    }
+    catch (error) {
 
         console.error(
             "Booking history error:",
@@ -635,24 +646,29 @@ async function loadBookings() {
 
 
         bookingList.innerHTML =
-            `
-                <div class="error-box">
 
-                    ❌ ${escapeHTML(
-                        error.message ||
-                        "Failed to fetch bookings."
-                    )}
+        `
+            <div class="error-box">
 
-                    <br><br>
+                ❌
 
-                    <button
-                        class="action-btn pay-btn"
-                        onclick="loadBookings()">
-                        🔄 Try Again
-                    </button>
+                ${escapeHTML(
+                    error.message ||
+                    "Failed to fetch bookings."
+                )}
 
-                </div>
-            `;
+                <br><br>
+
+                <button
+                    class="retry-btn"
+                    onclick="loadBookings()">
+
+                    🔄 Try Again
+
+                </button>
+
+            </div>
+        `;
 
     }
 
@@ -663,14 +679,10 @@ async function loadBookings() {
    CREATE BOOKING CARD
 ===================================================== */
 
-function createBookingCard(
-    booking
-) {
+function createBookingCard(booking) {
 
     const card =
-        document.createElement(
-            "div"
-        );
+        document.createElement("div");
 
 
     card.className =
@@ -696,6 +708,7 @@ function createBookingCard(
     const fromLocation =
         booking.from_location ||
         booking.fromLocation ||
+        booking.from ||
         "-";
 
 
@@ -744,17 +757,13 @@ function createBookingCard(
 
 
     const statusText =
-        String(
-            status
-        );
+        String(status);
 
 
     const isPaid =
         statusText
             .toLowerCase()
-            .includes(
-                "paid"
-            );
+            .includes("paid");
 
 
     const statusClass =
@@ -765,210 +774,200 @@ function createBookingCard(
 
     card.innerHTML =
 
-        `
-            <div class="booking-header">
+    `
+        <div class="booking-header">
 
-                <h2>
-                    🚌 Booking #${escapeHTML(
-                        bookingId
-                    )}
-                </h2>
+            <h2>
+                🚌 Booking #${escapeHTML(
+                    bookingId
+                )}
+            </h2>
 
-                <span
-                    class="status ${statusClass}">
-                    ${escapeHTML(
-                        statusText
-                    )}
-                </span>
+            <span
+                class="status ${statusClass}">
+
+                ${escapeHTML(
+                    statusText
+                )}
+
+            </span>
+
+        </div>
+
+
+        <div class="booking-details">
+
+
+            <div class="detail">
+
+                <div class="detail-label">
+                    👤 Name
+                </div>
+
+                <div class="detail-value">
+                    ${escapeHTML(name)}
+                </div>
 
             </div>
 
 
-            <div class="booking-details">
+            <div class="detail">
 
-
-                <div class="detail">
-
-                    <div class="detail-label">
-                        👤 Name
-                    </div>
-
-                    <div class="detail-value">
-                        ${escapeHTML(
-                            name
-                        )}
-                    </div>
-
+                <div class="detail-label">
+                    📱 Mobile
                 </div>
 
-
-                <div class="detail">
-
-                    <div class="detail-label">
-                        📱 Mobile
-                    </div>
-
-                    <div class="detail-value">
-                        ${escapeHTML(
-                            mobile
-                        )}
-                    </div>
-
+                <div class="detail-value">
+                    ${escapeHTML(mobile)}
                 </div>
-
-
-                <div class="detail">
-
-                    <div class="detail-label">
-                        📍 From Location
-                    </div>
-
-                    <div class="detail-value">
-                        ${escapeHTML(
-                            fromLocation
-                        )}
-                    </div>
-
-                </div>
-
-
-                <div class="detail">
-
-                    <div class="detail-label">
-                        📍 Destination
-                    </div>
-
-                    <div class="detail-value">
-                        ${escapeHTML(
-                            destination
-                        )}
-                    </div>
-
-                </div>
-
-
-                <div class="detail">
-
-                    <div class="detail-label">
-                        📅 Travel Date
-                    </div>
-
-                    <div class="detail-value">
-                        ${escapeHTML(
-                            travelDate
-                        )}
-                    </div>
-
-                </div>
-
-
-                <div class="detail">
-
-                    <div class="detail-label">
-                        📆 Days
-                    </div>
-
-                    <div class="detail-value">
-                        ${escapeHTML(
-                            days
-                        )}
-                    </div>
-
-                </div>
-
-
-                <div class="detail">
-
-                    <div class="detail-label">
-                        👨‍👩‍👧 Travelers
-                    </div>
-
-                    <div class="detail-value">
-                        ${escapeHTML(
-                            travelers
-                        )}
-                    </div>
-
-                </div>
-
-
-                <div class="detail">
-
-                    <div class="detail-label">
-                        🚗 Vehicle
-                    </div>
-
-                    <div class="detail-value">
-                        ${escapeHTML(
-                            vehicle
-                        )}
-                    </div>
-
-                </div>
-
-
-                <div class="detail">
-
-                    <div class="detail-label">
-                        💳 Payment Method
-                    </div>
-
-                    <div class="detail-value">
-                        ${escapeHTML(
-                            paymentMethod
-                        )}
-                    </div>
-
-                </div>
-
 
             </div>
 
 
-            <div class="total-box">
+            <div class="detail">
 
-                <span>
-                    Total Amount
-                </span>
+                <div class="detail-label">
+                    📍 From Location
+                </div>
 
-                <span>
-                    ₹${total.toLocaleString(
-                        "en-IN"
-                    )}
-                </span>
+                <div class="detail-value">
+                    ${escapeHTML(fromLocation)}
+                </div>
 
             </div>
 
 
-            <div class="booking-actions">
+            <div class="detail">
 
-                ${
-                    !isPaid
-                    ?
-                    `
-                        <button
-                            class="action-btn pay-btn"
-                            onclick="goToPayment('${escapeJS(
-                                bookingId
-                            )}')">
-                            💳 Pay Now
-                        </button>
-                    `
-                    :
-                    ""
-                }
+                <div class="detail-label">
+                    🎯 Destination
+                </div>
 
-
-                <button
-                    class="action-btn delete-btn"
-                    onclick="deleteBooking('${escapeJS(
-                        bookingId
-                    )}')">
-                    🗑️ Delete
-                </button>
+                <div class="detail-value">
+                    ${escapeHTML(destination)}
+                </div>
 
             </div>
-        `;
+
+
+            <div class="detail">
+
+                <div class="detail-label">
+                    📅 Travel Date
+                </div>
+
+                <div class="detail-value">
+                    ${escapeHTML(travelDate)}
+                </div>
+
+            </div>
+
+
+            <div class="detail">
+
+                <div class="detail-label">
+                    📆 Days
+                </div>
+
+                <div class="detail-value">
+                    ${escapeHTML(days)}
+                </div>
+
+            </div>
+
+
+            <div class="detail">
+
+                <div class="detail-label">
+                    👨‍👩‍👧 Travelers
+                </div>
+
+                <div class="detail-value">
+                    ${escapeHTML(travelers)}
+                </div>
+
+            </div>
+
+
+            <div class="detail">
+
+                <div class="detail-label">
+                    🚗 Vehicle
+                </div>
+
+                <div class="detail-value">
+                    ${escapeHTML(vehicle)}
+                </div>
+
+            </div>
+
+
+            <div class="detail">
+
+                <div class="detail-label">
+                    💳 Payment Method
+                </div>
+
+                <div class="detail-value">
+                    ${escapeHTML(paymentMethod)}
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="total-box">
+
+            <span>
+                Total Amount
+            </span>
+
+            <span>
+                ₹${total.toLocaleString("en-IN")}
+            </span>
+
+        </div>
+
+
+        <div class="booking-actions">
+
+            ${
+                !isPaid
+
+                ?
+
+                `
+                    <button
+                        class="action-btn pay-btn"
+                        onclick="goToPayment('${escapeJS(
+                            bookingId
+                        )}')">
+
+                        💳 Pay Now
+
+                    </button>
+                `
+
+                :
+
+                ""
+            }
+
+
+            <button
+                class="action-btn delete-btn"
+                onclick="deleteBooking('${escapeJS(
+                    bookingId
+                )}')">
+
+                🗑️ Delete
+
+            </button>
+
+        </div>
+    `;
 
 
     return card;
@@ -977,22 +976,29 @@ function createBookingCard(
 
 
 /* =====================================================
-   PAYMENT
+   OPEN PAYMENT
 ===================================================== */
 
-async function goToPayment(
-    bookingId
-) {
+async function goToPayment(bookingId) {
 
     try {
 
         const response =
             await fetch(
+
                 API_BASE +
                 "/api/bookings/" +
                 encodeURIComponent(
                     bookingId
-                )
+                ),
+
+                {
+                    method: "GET",
+                    headers: {
+                        "Accept":
+                            "application/json"
+                    }
+                }
             );
 
 
@@ -1025,7 +1031,13 @@ async function goToPayment(
             "payment.html";
 
 
-    } catch (error) {
+    }
+    catch (error) {
+
+        console.error(
+            "Payment error:",
+            error
+        );
 
         alert(
             error.message ||
@@ -1041,9 +1053,7 @@ async function goToPayment(
    DELETE BOOKING
 ===================================================== */
 
-async function deleteBooking(
-    bookingId
-) {
+async function deleteBooking(bookingId) {
 
     const confirmDelete =
         confirm(
@@ -1052,30 +1062,69 @@ async function deleteBooking(
 
 
     if (!confirmDelete) {
-
         return;
-
     }
 
 
     try {
 
-        /*
-           Your current server.js does NOT contain
-           DELETE /api/bookings/:bookingId.
+        const response =
+            await fetch(
 
-           Therefore this function shows a message
-           instead of pretending deletion succeeded.
-        */
+                API_BASE +
+                "/api/bookings/" +
+                encodeURIComponent(
+                    bookingId
+                ),
+
+                {
+                    method: "DELETE",
+
+                    headers: {
+                        "Accept":
+                            "application/json"
+                    }
+                }
+
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Delete failed."
+            );
+
+        }
+
 
         alert(
-            "Delete API is not added in server.js yet."
+            "Booking deleted successfully."
         );
 
-    } catch (error) {
+
+        loadBookings();
+
+    }
+    catch (error) {
 
         console.error(
+            "Delete error:",
             error
+        );
+
+
+        alert(
+            error.message ||
+            "Delete API is not available."
         );
 
     }
@@ -1087,86 +1136,86 @@ async function deleteBooking(
    LOGOUT
 ===================================================== */
 
-document.getElementById(
-    "logoutBtn"
-).addEventListener(
-    "click",
-    function() {
+document
+    .getElementById("logoutBtn")
+    .addEventListener(
+        "click",
+        function() {
 
-        sessionStorage.removeItem(
-            "currentUser"
-        );
+            sessionStorage.removeItem(
+                "currentUser"
+            );
 
-        sessionStorage.removeItem(
-            "currentBooking"
-        );
+            sessionStorage.removeItem(
+                "currentBooking"
+            );
 
-        window.location.replace(
-            "login.html"
-        );
+            window.location.replace(
+                "login.html"
+            );
 
-    }
-);
+        }
+    );
 
 
 /* =====================================================
    HTML SECURITY
 ===================================================== */
 
-function escapeHTML(
-    value
-) {
+function escapeHTML(value) {
 
-    return String(
-        value ?? ""
-    )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
+    return String(value ?? "")
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
 
 /* =====================================================
-   JAVASCRIPT STRING SECURITY
+   JAVASCRIPT SECURITY
 ===================================================== */
 
-function escapeJS(
-    value
-) {
+function escapeJS(value) {
 
-    return String(
-        value ?? ""
-    )
-    .replace(
-        /\\/g,
-        "\\\\"
-    )
-    .replace(
-        /'/g,
-        "\\'"
-    )
-    .replace(
-        /"/g,
-        '\\"'
-    );
+    return String(value ?? "")
+
+        .replace(
+            /\\/g,
+            "\\\\"
+        )
+
+        .replace(
+            /'/g,
+            "\\'"
+        )
+
+        .replace(
+            /"/g,
+            '\\"'
+        );
 
 }
 
