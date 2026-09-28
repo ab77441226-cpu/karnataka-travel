@@ -2,456 +2,499 @@
 <html lang="en">
 
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta charset="UTF-8">
+<title>Booking History - Karnataka Travel</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<style>
 
-    <title>Booking History - Karnataka Travel</title>
+* {
+    box-sizing: border-box;
+}
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4faf6;
+    color: #333;
+}
 
-    <style>
+/* HEADER */
 
-        * {
-            box-sizing: border-box;
-        }
+header {
+    min-height: 65px;
+    background: white;
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4faf6;
-        }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-        /* ================= HEADER ================= */
+    padding: 12px 7%;
 
-        header {
-            background: white;
-            padding: 18px 6%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
 
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+    gap: 20px;
+}
 
-            box-shadow:
-                0 2px 10px rgba(0,0,0,0.08);
-        }
+.logo {
+    color: #087f3d;
+    font-size: 20px;
+    font-weight: bold;
+}
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #087f3d;
-        }
+.logo span {
+    color: #222;
+}
 
-        .logo span {
-            color: #222;
-        }
+nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
 
-        nav {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
+nav a {
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
 
-        nav a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
-        }
+nav a:hover {
+    color: #087f3d;
+}
 
-        nav a:hover {
-            color: #087f3d;
-        }
+.logout-btn {
+    border: none;
+    background: #c62828;
+    color: white;
 
-        .logout-btn {
-            border: none;
-            background: #c62828;
-            color: white;
+    padding: 9px 15px;
 
-            padding: 9px 15px;
+    border-radius: 7px;
 
-            border-radius: 6px;
+    font-weight: bold;
 
-            cursor: pointer;
+    cursor: pointer;
+}
 
-            font-weight: bold;
-        }
+.logout-btn:hover {
+    background: #a91f1f;
+}
 
-        .logout-btn:hover {
-            background: #a91f1f;
-        }
+/* PAGE */
 
-        /* ================= PAGE ================= */
+.history-page {
+    width: 92%;
+    max-width: 1200px;
 
-        .history-page {
-            min-height: 100vh;
-            padding: 45px 20px;
-        }
+    margin: 35px auto;
 
-        .history-container {
-            max-width: 1100px;
-            margin: auto;
-        }
+    min-height: calc(100vh - 120px);
+}
 
-        .history-heading {
-            text-align: center;
+.history-heading {
+    color: #087f3d;
+    font-size: 30px;
+    margin: 0 0 6px;
+}
 
-            color: #087f3d;
+.history-subtitle {
+    color: #777;
+    margin: 0 0 25px;
+}
 
-            font-size: 36px;
+/* USER INFO */
 
-            margin-bottom: 8px;
-        }
+.user-info {
+    background: white;
 
-        .history-subtitle {
-            text-align: center;
+    padding: 18px 20px;
 
-            color: #666;
+    border-radius: 12px;
 
-            margin-bottom: 30px;
-        }
+    margin-bottom: 22px;
 
-        /* ================= USER BOX ================= */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
 
-        .user-box {
-            background: white;
+    display: flex;
 
-            padding: 18px 22px;
+    justify-content: space-between;
 
-            border-radius: 12px;
+    align-items: center;
 
-            box-shadow:
-                0 5px 20px rgba(0,0,0,0.08);
+    gap: 15px;
+}
 
-            margin-bottom: 25px;
-        }
+.user-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #087f3d;
+}
 
-        .user-box strong {
-            color: #087f3d;
-        }
+.user-email {
+    color: #777;
+    font-size: 13px;
+    margin-top: 4px;
+}
 
-        /* ================= BOOKING LIST ================= */
+.refresh-btn {
+    background: #087f3d;
+    color: white;
 
-        .booking-list {
-            display: grid;
-            gap: 20px;
-        }
+    border: none;
 
-        .history-card {
-            background: white;
+    padding: 10px 17px;
 
-            padding: 25px;
+    border-radius: 7px;
 
-            border-radius: 14px;
+    font-weight: bold;
 
-            box-shadow:
-                0 5px 20px rgba(0,0,0,0.10);
-        }
+    cursor: pointer;
+}
 
-        /* ================= BOOKING HEADER ================= */
+.refresh-btn:hover {
+    background: #05652f;
+}
 
-        .booking-header {
-            display: flex;
+/* MESSAGE */
 
-            justify-content: space-between;
+.message {
+    display: none;
 
-            align-items: center;
+    padding: 13px;
 
-            gap: 15px;
+    margin-bottom: 20px;
 
-            margin-bottom: 20px;
+    border-radius: 8px;
 
-            border-bottom: 1px solid #eee;
+    text-align: center;
 
-            padding-bottom: 15px;
-        }
+    font-weight: bold;
+}
 
-        .booking-header h2 {
-            margin: 0;
+.message.error {
+    display: block;
+    background: #ffebee;
+    color: #c62828;
+}
 
-            color: #087f3d;
+.message.success {
+    display: block;
+    background: #e8f5e9;
+    color: #087f3d;
+}
 
-            font-size: 22px;
-        }
+/* LOADING */
 
-        /* ================= STATUS ================= */
+.loading {
+    background: white;
 
-        .status {
-            padding: 7px 12px;
+    padding: 40px;
 
-            border-radius: 20px;
+    text-align: center;
 
-            font-size: 13px;
+    border-radius: 14px;
 
-            font-weight: bold;
-        }
+    color: #087f3d;
 
-        .status-paid {
-            background: #e8f5e9;
-            color: #2e7d32;
-        }
+    font-weight: bold;
 
-        .status-pending {
-            background: #fff3e0;
-            color: #ef6c00;
-        }
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
 
-        /* ================= DETAILS ================= */
+/* EMPTY */
 
-        .booking-details {
-            display: grid;
+.empty {
+    background: white;
 
-            grid-template-columns: 1fr 1fr;
+    padding: 50px 20px;
 
-            gap: 13px 25px;
-        }
+    text-align: center;
 
-        .detail {
-            padding: 10px;
+    border-radius: 14px;
 
-            background: #f8fbf9;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
 
-            border-radius: 7px;
-        }
+    color: #777;
+}
 
-        .detail-label {
-            color: #777;
+.empty-icon {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
 
-            font-size: 13px;
+.empty h3 {
+    color: #333;
+    margin-bottom: 8px;
+}
 
-            margin-bottom: 4px;
-        }
+/* BOOKING LIST */
 
-        .detail-value {
-            color: #222;
+.booking-list {
+    display: grid;
+    gap: 20px;
+}
 
-            font-weight: bold;
+/* BOOKING CARD */
 
-            word-break: break-word;
-        }
+.history-card {
+    background: white;
 
-        /* ================= TOTAL ================= */
+    border-radius: 14px;
 
-        .total-box {
-            margin-top: 20px;
+    padding: 22px;
 
-            padding: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+}
 
-            background: #f4faf6;
+/* CARD HEADER */
 
-            border-radius: 10px;
+.card-header {
+    display: flex;
 
-            display: flex;
+    justify-content: space-between;
 
-            justify-content: space-between;
+    align-items: center;
 
-            color: #087f3d;
+    gap: 15px;
 
-            font-size: 20px;
+    padding-bottom: 15px;
 
-            font-weight: bold;
-        }
+    border-bottom: 1px solid #e0e0e0;
+}
 
-        /* ================= BUTTONS ================= */
+.booking-id {
+    color: #087f3d;
 
-        .booking-actions {
-            margin-top: 18px;
+    font-size: 17px;
 
-            display: flex;
+    font-weight: bold;
+}
 
-            gap: 10px;
+.booking-date-created {
+    color: #888;
 
-            flex-wrap: wrap;
-        }
+    font-size: 12px;
 
-        .action-btn {
-            border: none;
+    margin-top: 5px;
+}
 
-            padding: 11px 17px;
+/* STATUS */
 
-            border-radius: 7px;
+.status {
+    display: inline-block;
 
-            cursor: pointer;
+    padding: 6px 12px;
 
-            font-weight: bold;
-        }
+    border-radius: 20px;
 
-        .pay-btn {
-            background: #087f3d;
+    font-size: 11px;
 
-            color: white;
-        }
+    font-weight: bold;
+}
 
-        .pay-btn:hover {
-            background: #05652f;
-        }
+.status.paid {
+    background: #dff5e8;
+    color: #087f3d;
+}
 
-        .delete-btn {
-            background: #c62828;
+.status.pending {
+    background: #fff3cd;
+    color: #795548;
+}
 
-            color: white;
-        }
+/* DETAILS */
 
-        .delete-btn:hover {
-            background: #a91f1f;
-        }
+.booking-details {
+    display: grid;
 
-        /* ================= LOADING ================= */
+    grid-template-columns: repeat(3, 1fr);
 
-        .loading {
-            text-align: center;
+    gap: 14px;
 
-            padding: 40px;
+    padding: 20px 0;
+}
 
-            color: #666;
+.detail {
+    background: #f4faf6;
 
-            font-size: 18px;
-        }
+    padding: 13px;
 
-        /* ================= EMPTY ================= */
+    border-radius: 8px;
+}
 
-        .empty-box {
-            background: white;
+.detail-label {
+    display: block;
 
-            padding: 45px 20px;
+    color: #777;
 
-            text-align: center;
+    font-size: 12px;
 
-            border-radius: 14px;
+    margin-bottom: 6px;
+}
 
-            box-shadow:
-                0 5px 20px rgba(0,0,0,0.10);
-        }
+.detail-value {
+    display: block;
 
-        .empty-box h2 {
-            color: #087f3d;
-        }
+    color: #222;
 
-        .empty-box p {
-            color: #666;
-        }
+    font-size: 14px;
 
-        .book-now-btn {
-            display: inline-block;
+    font-weight: bold;
 
-            margin-top: 15px;
+    word-break: break-word;
+}
 
-            padding: 12px 20px;
+/* FOOTER */
 
-            background: #087f3d;
+.card-footer {
+    border-top: 1px solid #e0e0e0;
 
-            color: white;
+    padding-top: 15px;
 
-            text-decoration: none;
+    display: flex;
 
-            border-radius: 7px;
+    justify-content: space-between;
 
-            font-weight: bold;
-        }
+    align-items: center;
 
-        /* ================= ERROR ================= */
+    gap: 15px;
+}
 
-        .error-box {
-            background: #ffebee;
+.total-label {
+    color: #777;
+    font-size: 13px;
+}
 
-            color: #c62828;
+.total-amount {
+    color: #087f3d;
 
-            padding: 15px;
+    font-size: 21px;
 
-            border-radius: 8px;
+    font-weight: bold;
+}
 
-            text-align: center;
+/* ONLY VIEW BUTTON */
 
-            margin-bottom: 20px;
-        }
+.view-btn {
+    background: #087f3d;
 
-        /* ================= MOBILE ================= */
+    color: white;
 
-        @media (max-width: 700px) {
+    text-decoration: none;
 
-            header {
-                flex-direction: column;
+    padding: 10px 16px;
 
-                gap: 15px;
-            }
+    border-radius: 7px;
 
-            nav {
-                flex-wrap: wrap;
+    font-size: 13px;
 
-                justify-content: center;
-            }
+    font-weight: bold;
+}
 
-            .history-heading {
-                font-size: 29px;
-            }
+.view-btn:hover {
+    background: #05652f;
+}
 
-            .booking-details {
-                grid-template-columns: 1fr;
-            }
+/* MOBILE */
 
-            .booking-header {
-                flex-direction: column;
+@media (max-width: 900px) {
 
-                align-items: flex-start;
-            }
+    .booking-details {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
-            .total-box {
-                font-size: 17px;
-            }
+}
 
-        }
+@media (max-width: 650px) {
 
-    </style>
+    header {
+        padding: 12px 15px;
+
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    nav {
+        justify-content: center;
+
+        flex-wrap: wrap;
+
+        gap: 10px;
+    }
+
+    .history-page {
+        width: 94%;
+
+        margin-top: 25px;
+    }
+
+    .history-heading {
+        font-size: 25px;
+    }
+
+    .user-info {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .refresh-btn {
+        width: 100%;
+    }
+
+    .booking-details {
+        grid-template-columns: 1fr;
+    }
+
+    .card-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .card-footer {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        text-align: center;
+    }
+
+    .view-btn {
+        display: block;
+    }
+
+}
+
+</style>
 
 </head>
 
-
 <body>
-
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
 
 <header>
 
     <div class="logo">
-
-        🏛️ Karnataka
-        <span>Travel</span>
-
+        🏛️ Karnataka <span>Travel</span>
     </div>
-
 
     <nav>
 
-        <a href="index.html">
-            Home
-        </a>
+        <a href="index.html">Home</a>
 
-        <a href="index.html#destinations">
-            Districts
-        </a>
+        <a href="district.html">Districts</a>
 
-        <a href="booking.html">
-            Book Trip
-        </a>
+        <a href="booking.html">Book Trip</a>
 
-        <a href="contact.html">
-            Contact
-        </a>
+        <a href="contact.html">Contact</a>
 
         <button
-            class="logout-btn"
-            id="logoutBtn"
             type="button"
-        >
+            class="logout-btn"
+            id="logoutBtn">
             Logout
         </button>
 
@@ -460,179 +503,217 @@
 </header>
 
 
-<!-- =====================================================
-     HISTORY
-===================================================== -->
+<main class="history-page">
 
-<section class="history-page">
+    <h1 class="history-heading">
+        📋 My Booking History
+    </h1>
 
-    <div class="history-container">
-
-
-        <h1 class="history-heading">
-
-            📋 Booking History
-
-        </h1>
+    <p class="history-subtitle">
+        View all your Karnataka Travel bookings.
+    </p>
 
 
-        <p class="history-subtitle">
+    <section class="user-info">
 
-            View all your Karnataka Travel bookings
+        <div>
 
-        </p>
+            <div
+                class="user-name"
+                id="userName">
+                Customer
+            </div>
 
-
-        <!-- USER INFORMATION -->
-
-        <div
-            class="user-box"
-            id="userBox"
-        ></div>
-
-
-        <!-- BOOKINGS -->
-
-        <div
-            id="bookingList"
-            class="booking-list"
-        >
-
-            <div class="loading">
-
-                ⏳ Loading your bookings...
-
+            <div
+                class="user-email"
+                id="userEmail">
+                -
             </div>
 
         </div>
 
+        <button
+            type="button"
+            class="refresh-btn"
+            id="refreshBtn">
 
+            🔄 Refresh Bookings
+
+        </button>
+
+    </section>
+
+
+    <div
+        id="message"
+        class="message">
     </div>
 
-</section>
+
+    <section
+        id="bookingList"
+        class="booking-list">
+
+        <div class="loading">
+            Loading your bookings...
+        </div>
+
+    </section>
+
+</main>
 
 
 <script>
 
 "use strict";
 
-
 /* =====================================================
-   IMPORTANT
-   DEPLOYED BACKEND URL
+   API
 ===================================================== */
 
-const API_BASE =
-    "https://karnataka-travel-4z5m.onrender.com";
+const API_BASE = "http://localhost:5000";
 
 
 /* =====================================================
-   GET USER
+   SESSION
 ===================================================== */
 
-const savedUser =
-    sessionStorage.getItem("currentUser");
+const loggedIn =
+    sessionStorage.getItem("loggedIn");
 
+const userId =
+    sessionStorage.getItem("userId");
 
-if (!savedUser) {
-
-    alert(
-        "Please login first."
-    );
-
-    window.location.replace(
-        "login.html"
-    );
-
-}
-
-
-/* =====================================================
-   PARSE USER
-===================================================== */
-
-let user = null;
-
+let savedUser = null;
 
 try {
 
-    user =
-        JSON.parse(savedUser);
+    const userData =
+        sessionStorage.getItem("user");
 
-}
-catch (error) {
+    if (userData) {
 
-    console.error(
-        "User JSON error:",
-        error
-    );
+        savedUser =
+            JSON.parse(userData);
 
-    sessionStorage.removeItem(
-        "currentUser"
-    );
+    }
 
-    window.location.replace(
-        "login.html"
-    );
+} catch (error) {
+
+    savedUser = null;
 
 }
 
 
 /* =====================================================
-   CHECK USER
+   FINAL USER ID
+===================================================== */
+
+const finalUserId =
+    userId ||
+    (
+        savedUser &&
+        savedUser.id
+            ? savedUser.id
+            : null
+    );
+
+
+/* =====================================================
+   LOGIN CHECK
 ===================================================== */
 
 if (
-    !user ||
-    !user.id
+    loggedIn !== "true" &&
+    !finalUserId
 ) {
 
-    alert(
-        "User information not found. Please login again."
-    );
-
-    sessionStorage.removeItem(
-        "currentUser"
-    );
-
-    window.location.replace(
-        "login.html"
-    );
+    window.location.href =
+        "login.html";
 
 }
 
 
 /* =====================================================
-   SHOW USER
+   SHOW SAVED USER
 ===================================================== */
 
-document.getElementById(
-    "userBox"
-).innerHTML =
+if (savedUser) {
 
-`
-    👤 Logged in as:
+    document.getElementById(
+        "userName"
+    ).textContent =
+        savedUser.name ||
+        "Customer";
 
-    <strong>
-        ${escapeHTML(
-            user.name || "User"
-        )}
-    </strong>
+    document.getElementById(
+        "userEmail"
+    ).textContent =
+        savedUser.email ||
+        savedUser.mobile ||
+        "-";
 
-    &nbsp; | &nbsp;
+}
 
-    📧
-    ${escapeHTML(
-        user.email || "-"
-    )}
 
-    &nbsp; | &nbsp;
+/* =====================================================
+   LOAD PROFILE
+===================================================== */
 
-    📱
-    ${escapeHTML(
-        user.mobile || "-"
-    )}
-`;
+async function loadProfile() {
+
+    if (!finalUserId) {
+        return;
+    }
+
+    try {
+
+        const response =
+            await fetch(
+                API_BASE +
+                "/api/profile/" +
+                encodeURIComponent(finalUserId)
+            );
+
+        const data =
+            await response.json();
+
+        if (
+            response.ok &&
+            data.success &&
+            data.user
+        ) {
+
+            document.getElementById(
+                "userName"
+            ).textContent =
+                data.user.name ||
+                "Customer";
+
+            document.getElementById(
+                "userEmail"
+            ).textContent =
+                data.user.email ||
+                data.user.mobile ||
+                "-";
+
+            sessionStorage.setItem(
+                "user",
+                JSON.stringify(data.user)
+            );
+
+        }
+
+    } catch (error) {
+
+        console.log(
+            "Profile error:",
+            error
+        );
+
+    }
+
+}
 
 
 /* =====================================================
@@ -647,35 +728,54 @@ async function loadBookings() {
         );
 
 
-    bookingList.innerHTML =
+    if (!finalUserId) {
 
-`
-    <div class="loading">
+        bookingList.innerHTML = `
 
-        ⏳ Loading bookings...
+            <div class="empty">
 
-    </div>
-`;
+                <div class="empty-icon">
+                    🔐
+                </div>
+
+                <h3>
+                    Please Login
+                </h3>
+
+                <p>
+                    Login to view your booking history.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    bookingList.innerHTML = `
+
+        <div class="loading">
+            Loading your bookings...
+        </div>
+
+    `;
 
 
     try {
 
-        const url =
-            API_BASE +
-            "/api/bookings/user/" +
-            encodeURIComponent(
-                user.id
-            );
-
-
-        console.log(
-            "Loading bookings from:",
-            url
-        );
-
-
         const response =
-            await fetch(url);
+            await fetch(
+
+                API_BASE +
+                "/api/bookings/user/" +
+                encodeURIComponent(
+                    finalUserId
+                )
+
+            );
 
 
         const data =
@@ -683,7 +783,7 @@ async function loadBookings() {
 
 
         console.log(
-            "Booking API response:",
+            "Booking API:",
             data
         );
 
@@ -702,73 +802,17 @@ async function loadBookings() {
 
 
         const bookings =
-            Array.isArray(
-                data.bookings
-            )
+            Array.isArray(data.bookings)
                 ? data.bookings
                 : [];
 
 
-        /* NO BOOKINGS */
-
-        if (
-            bookings.length === 0
-        ) {
-
-            bookingList.innerHTML =
-
-`
-    <div class="empty-box">
-
-        <h2>
-            📭 No Bookings Found
-        </h2>
-
-        <p>
-            You have not created any bookings yet.
-        </p>
-
-        <a
-            href="booking.html"
-            class="book-now-btn"
-        >
-            🚌 Book Your Trip
-        </a>
-
-    </div>
-`;
-
-            return;
-
-        }
-
-
-        /* CLEAR LOADING */
-
-        bookingList.innerHTML =
-            "";
-
-
-        /* SHOW BOOKINGS */
-
-        bookings.forEach(
-            function(booking) {
-
-                const card =
-                    createBookingCard(
-                        booking
-                    );
-
-                bookingList.appendChild(
-                    card
-                );
-
-            }
+        displayBookings(
+            bookings
         );
 
 
-    }
-    catch (error) {
+    } catch (error) {
 
         console.error(
             "Booking history error:",
@@ -776,30 +820,31 @@ async function loadBookings() {
         );
 
 
-        bookingList.innerHTML =
+        bookingList.innerHTML = `
 
-`
-    <div class="error-box">
+            <div class="empty">
 
-        ❌
+                <div class="empty-icon">
+                    ⚠️
+                </div>
 
-        ${escapeHTML(
-            error.message ||
-            "Failed to fetch bookings."
-        )}
+                <h3>
+                    Unable to load bookings
+                </h3>
 
-        <br><br>
+                <p>
+                    ${escapeHTML(
+                        error.message
+                    )}
+                </p>
 
-        <button
-            class="action-btn pay-btn"
-            type="button"
-            onclick="loadBookings()"
-        >
-            🔄 Try Again
-        </button>
+                <p>
+                    Please make sure the Node.js server is running.
+                </p>
 
-    </div>
-`;
+            </div>
+
+        `;
 
     }
 
@@ -807,42 +852,80 @@ async function loadBookings() {
 
 
 /* =====================================================
-   CREATE BOOKING CARD
+   DISPLAY BOOKINGS
 ===================================================== */
 
-function createBookingCard(
-    booking
-) {
+function displayBookings(list) {
 
-    const card =
-        document.createElement(
-            "div"
+    const bookingList =
+        document.getElementById(
+            "bookingList"
         );
 
 
-    card.className =
-        "history-card";
+    if (
+        !Array.isArray(list) ||
+        list.length === 0
+    ) {
 
+        bookingList.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📭
+                </div>
+
+                <h3>
+                    No bookings yet
+                </h3>
+
+                <p>
+                    You have not made any travel bookings.
+                </p>
+
+                <br>
+
+                <a
+                    href="booking.html"
+                    class="view-btn">
+
+                    🚌 Book Your Trip
+
+                </a>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    bookingList.innerHTML =
+        list
+        .map(createBookingCard)
+        .join("");
+
+}
+
+
+/* =====================================================
+   CREATE CARD
+===================================================== */
+
+function createBookingCard(booking) {
 
     const bookingId =
         booking.booking_id ||
         booking.bookingId ||
-        "-";
+        booking.id ||
+        "KT-DEMO";
 
 
-    const name =
-        booking.name ||
-        "-";
-
-
-    const mobile =
-        booking.mobile ||
-        "-";
-
-
-    const fromLocation =
+    const from =
         booking.from_location ||
-        booking.fromLocation ||
         booking.from ||
         "-";
 
@@ -861,23 +944,17 @@ function createBookingCard(
 
     const days =
         booking.days ||
-        "-";
+        1;
 
 
     const travelers =
         booking.travelers ||
-        "-";
+        1;
 
 
     const vehicle =
         booking.vehicle ||
         "-";
-
-
-    const total =
-        Number(
-            booking.total || 0
-        );
 
 
     const paymentMethod =
@@ -891,462 +968,262 @@ function createBookingCard(
         "Pending Payment";
 
 
-    const statusText =
-        String(status);
+    const total =
+        booking.total ||
+        booking.total_amount ||
+        booking.totalAmount ||
+        0;
+
+
+    const createdAt =
+        booking.created_at ||
+        booking.createdAt ||
+        "";
 
 
     const isPaid =
-        statusText
-            .toLowerCase()
-            .includes("paid");
+        String(status)
+        .toLowerCase()
+        .includes("paid");
 
 
     const statusClass =
         isPaid
-            ? "status-paid"
-            : "status-pending";
+            ? "paid"
+            : "pending";
 
 
-    card.innerHTML =
+    return `
 
-`
-    <div class="booking-header">
+        <article class="history-card">
 
-        <h2>
+            <div class="card-header">
 
-            🚌 Booking #
+                <div>
 
-            ${escapeHTML(
-                bookingId
-            )}
+                    <div class="booking-id">
 
-        </h2>
+                        🚌 Booking #
+                        ${escapeHTML(
+                            bookingId
+                        )}
 
+                    </div>
 
-        <span
-            class="status ${statusClass}"
-        >
+                    ${
+                        createdAt
+                            ? `
+                                <div class="booking-date-created">
 
-            ${escapeHTML(
-                statusText
-            )}
+                                    Booking created:
+                                    ${formatDateTime(
+                                        createdAt
+                                    )}
 
-        </span>
-
-    </div>
-
-
-    <div class="booking-details">
-
-
-        <div class="detail">
-
-            <div class="detail-label">
-                👤 Name
-            </div>
-
-            <div class="detail-value">
-
-                ${escapeHTML(
-                    name
-                )}
-
-            </div>
-
-        </div>
-
-
-        <div class="detail">
-
-            <div class="detail-label">
-                📱 Mobile
-            </div>
-
-            <div class="detail-value">
-
-                ${escapeHTML(
-                    mobile
-                )}
-
-            </div>
-
-        </div>
-
-
-        <div class="detail">
-
-            <div class="detail-label">
-                📍 From Location
-            </div>
-
-            <div class="detail-value">
-
-                ${escapeHTML(
-                    fromLocation
-                )}
-
-            </div>
-
-        </div>
-
-
-        <div class="detail">
-
-            <div class="detail-label">
-                🎯 Destination
-            </div>
-
-            <div class="detail-value">
-
-                ${escapeHTML(
-                    destination
-                )}
-
-            </div>
-
-        </div>
-
-
-        <div class="detail">
-
-            <div class="detail-label">
-                📅 Travel Date
-            </div>
-
-            <div class="detail-value">
-
-                ${escapeHTML(
-                    travelDate
-                )}
-
-            </div>
-
-        </div>
-
-
-        <div class="detail">
-
-            <div class="detail-label">
-                📆 Days
-            </div>
-
-            <div class="detail-value">
-
-                ${escapeHTML(
-                    days
-                )}
-
-            </div>
-
-        </div>
-
-
-        <div class="detail">
-
-            <div class="detail-label">
-                👨‍👩‍👧 Travelers
-            </div>
-
-            <div class="detail-value">
-
-                ${escapeHTML(
-                    travelers
-                )}
-
-            </div>
-
-        </div>
-
-
-        <div class="detail">
-
-            <div class="detail-label">
-                🚗 Vehicle
-            </div>
-
-            <div class="detail-value">
-
-                ${escapeHTML(
-                    vehicle
-                )}
-
-            </div>
-
-        </div>
-
-
-        <div class="detail">
-
-            <div class="detail-label">
-                💳 Payment Method
-            </div>
-
-            <div class="detail-value">
-
-                ${escapeHTML(
-                    paymentMethod
-                )}
-
-            </div>
-
-        </div>
-
-
-    </div>
-
-
-    <div class="total-box">
-
-        <span>
-            Total Amount
-        </span>
-
-        <span>
-
-            ₹${total.toLocaleString(
-                "en-IN"
-            )}
-
-        </span>
-
-    </div>
-
-
-    <div class="booking-actions">
-
-
-        ${
-            !isPaid
-                ?
-
-`
-        <button
-            class="action-btn pay-btn"
-            type="button"
-            onclick="goToPayment('${escapeJS(
-                bookingId
-            )}')"
-        >
-
-            💳 Pay Now
-
-        </button>
-`
-
-                :
-
-""
-        }
-
-
-        <button
-            class="action-btn delete-btn"
-            type="button"
-            onclick="deleteBooking('${escapeJS(
-                bookingId
-            )}')"
-        >
-
-            🗑️ Delete
-
-        </button>
-
-
-    </div>
-`;
-
-
-    return card;
-
-}
-
-
-/* =====================================================
-   PAYMENT
-===================================================== */
-
-async function goToPayment(
-    bookingId
-) {
-
-    try {
-
-        const response =
-            await fetch(
-
-                API_BASE +
-                "/api/bookings/" +
-                encodeURIComponent(
-                    bookingId
-                )
-
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if (
-            !response.ok ||
-            !data.success
-        ) {
-
-            throw new Error(
-                data.message ||
-                "Booking not found."
-            );
-
-        }
-
-
-        sessionStorage.setItem(
-
-            "currentBooking",
-
-            JSON.stringify(
-                data.booking
-            )
-
-        );
-
-
-        window.location.href =
-            "payment.html";
-
-
-    }
-    catch (error) {
-
-        console.error(
-            "Payment error:",
-            error
-        );
-
-
-        alert(
-            error.message ||
-            "Unable to open payment page."
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   DELETE BOOKING
-===================================================== */
-
-async function deleteBooking(
-    bookingId
-) {
-
-    const confirmDelete =
-        confirm(
-            "Are you sure you want to delete this booking?"
-        );
-
-
-    if (!confirmDelete) {
-
-        return;
-
-    }
-
-
-    try {
-
-        const response =
-            await fetch(
-
-                API_BASE +
-                "/api/bookings/" +
-                encodeURIComponent(
-                    bookingId
-                ),
-
-                {
-
-                    method: "DELETE",
-
-                    headers: {
-
-                        "Content-Type":
-                            "application/json"
-
+                                </div>
+                              `
+                            : ""
                     }
 
-                }
-
-            );
+                </div>
 
 
-        const data =
-            await response.json();
+                <span
+                    class="status ${statusClass}">
+
+                    ${escapeHTML(status)}
+
+                </span>
+
+            </div>
 
 
-        if (
-            !response.ok ||
-            !data.success
-        ) {
-
-            throw new Error(
-                data.message ||
-                "Delete failed."
-            );
-
-        }
+            <div class="booking-details">
 
 
-        alert(
-            "Booking deleted successfully."
-        );
+                <div class="detail">
+
+                    <span class="detail-label">
+                        👤 Name
+                    </span>
+
+                    <span class="detail-value">
+                        ${escapeHTML(
+                            booking.name ||
+                            "Customer"
+                        )}
+                    </span>
+
+                </div>
 
 
-        loadBookings();
+                <div class="detail">
 
-    }
-    catch (error) {
+                    <span class="detail-label">
+                        📱 Mobile
+                    </span>
 
-        console.error(
-            "Delete error:",
-            error
-        );
+                    <span class="detail-value">
+                        ${escapeHTML(
+                            booking.mobile ||
+                            "-"
+                        )}
+                    </span>
+
+                </div>
 
 
-        alert(
-            error.message ||
-            "Delete API is not available."
-        );
+                <div class="detail">
 
-    }
+                    <span class="detail-label">
+                        📍 From
+                    </span>
+
+                    <span class="detail-value">
+                        ${escapeHTML(from)}
+                    </span>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        📍 Destination
+                    </span>
+
+                    <span class="detail-value">
+                        ${escapeHTML(destination)}
+                    </span>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        📅 Travel Date
+                    </span>
+
+                    <span class="detail-value">
+                        ${escapeHTML(
+                            travelDate
+                        )}
+                    </span>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        📆 Number of Days
+                    </span>
+
+                    <span class="detail-value">
+                        ${escapeHTML(days)}
+                    </span>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        👨‍👩‍👦 Travelers
+                    </span>
+
+                    <span class="detail-value">
+                        ${escapeHTML(
+                            travelers
+                        )}
+                    </span>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        🚗 Vehicle
+                    </span>
+
+                    <span class="detail-value">
+                        ${escapeHTML(vehicle)}
+                    </span>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        💳 Payment Method
+                    </span>
+
+                    <span class="detail-value">
+                        ${escapeHTML(
+                            paymentMethod
+                        )}
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="card-footer">
+
+                <div>
+
+                    <div class="total-label">
+                        Total Amount
+                    </div>
+
+                    <div class="total-amount">
+                        ${formatCurrency(total)}
+                    </div>
+
+                </div>
+
+
+                <a
+                    href="booking-success.html?bookingId=${encodeURIComponent(
+                        bookingId
+                    )}"
+                    class="view-btn">
+
+                    👁️ View Booking
+
+                </a>
+
+            </div>
+
+        </article>
+
+    `;
 
 }
 
 
 /* =====================================================
-   LOGOUT
+   REFRESH
 ===================================================== */
 
-document.getElementById(
-    "logoutBtn"
-).addEventListener(
+document
+.getElementById("refreshBtn")
+.addEventListener(
     "click",
-    function() {
+    async function() {
 
-        sessionStorage.removeItem(
-            "currentUser"
-        );
+        await loadProfile();
 
+        await loadBookings();
 
-        sessionStorage.removeItem(
-            "currentBooking"
-        );
-
-
-        window.location.replace(
-            "login.html"
+        showMessage(
+            "Booking history refreshed.",
+            "success"
         );
 
     }
@@ -1354,71 +1231,139 @@ document.getElementById(
 
 
 /* =====================================================
-   HTML SECURITY
+   LOGOUT
 ===================================================== */
 
-function escapeHTML(
-    value
-) {
+document
+.getElementById("logoutBtn")
+.addEventListener(
+    "click",
+    function() {
 
-    return String(
-        value ?? ""
-    )
+        sessionStorage.removeItem(
+            "loggedIn"
+        );
 
-    .replace(
-        /&/g,
-        "&amp;"
-    )
+        sessionStorage.removeItem(
+            "userId"
+        );
 
-    .replace(
-        /</g,
-        "&lt;"
-    )
+        sessionStorage.removeItem(
+            "user"
+        );
 
-    .replace(
-        />/g,
-        "&gt;"
-    )
+        sessionStorage.removeItem(
+            "currentBooking"
+        );
 
-    .replace(
-        /"/g,
-        "&quot;"
-    )
+        window.location.href =
+            "login.html";
 
-    .replace(
-        /'/g,
-        "&#039;"
+    }
+);
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showMessage(text, type) {
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+    message.textContent =
+        text;
+
+    message.className =
+        "message " + type;
+
+    message.style.display =
+        "block";
+
+    setTimeout(
+        function() {
+
+            message.style.display =
+                "none";
+
+        },
+        3000
     );
 
 }
 
 
 /* =====================================================
-   JAVASCRIPT SECURITY
+   CURRENCY
 ===================================================== */
 
-function escapeJS(
-    value
-) {
+function formatCurrency(amount) {
+
+    const number =
+        Number(amount) || 0;
+
+    return (
+        "₹" +
+        number.toLocaleString("en-IN")
+    );
+
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+function formatDateTime(value) {
+
+    if (!value) {
+        return "-";
+    }
+
+    const date =
+        new Date(value);
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return String(value);
+
+    }
+
+    return date.toLocaleString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(value) {
 
     return String(
         value ?? ""
     )
-
-    .replace(
-        /\\/g,
-        "\\\\"
-    )
-
-    .replace(
-        /'/g,
-        "\\'"
-    )
-
-    .replace(
-        /"/g,
-        '\\"'
-    );
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 
 }
 
@@ -1427,11 +1372,11 @@ function escapeJS(
    START
 ===================================================== */
 
+loadProfile();
+
 loadBookings();
 
 </script>
 
-
 </body>
-
 </html>
