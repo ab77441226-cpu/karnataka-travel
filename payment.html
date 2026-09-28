@@ -1,186 +1,332 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Payment - Karnataka Travel</title>
 
-    <link rel="stylesheet" href="style.css">
-
     <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             background: #f4faf6;
+            color: #333;
         }
+
+        /* ================= HEADER ================= */
+
+        header {
+            min-height: 60px;
+
+            background: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 8%;
+
+            box-shadow:
+                0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #087f3d;
+        }
+
+        .logo span {
+            color: #222;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #087f3d;
+        }
+
+        /* ================= PAGE ================= */
 
         .payment-page {
-            min-height: 100vh;
-            padding: 45px 20px;
-        }
+            min-height: calc(100vh - 60px);
 
-        .payment-container {
-            max-width: 850px;
-            margin: auto;
-        }
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-        .payment-title {
-            text-align: center;
-            color: #087f3d;
-            font-size: 36px;
-            margin-bottom: 8px;
-        }
-
-        .payment-subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 30px;
+            padding: 35px 15px;
         }
 
         .payment-box {
+            width: 100%;
+            max-width: 550px;
+
             background: white;
+
             padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 10px 35px rgba(0,0,0,0.12);
         }
 
-        .booking-summary {
-            background: #f4faf6;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 25px;
-        }
+        /* ================= ICON ================= */
 
-        .booking-summary h2 {
-            color: #087f3d;
-            margin-top: 0;
-        }
+        .payment-icon {
+            width: 70px;
+            height: 70px;
 
-        .summary-row {
+            margin: 0 auto 15px;
+
+            border-radius: 50%;
+
+            background: #e8f5ed;
+
             display: flex;
-            justify-content: space-between;
-            gap: 15px;
-            padding: 9px 0;
-            border-bottom: 1px solid #ddd;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 35px;
         }
 
-        .summary-row:last-child {
+        h1 {
+            text-align: center;
+
+            color: #087f3d;
+
+            margin: 0 0 8px;
+
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+
+            color: #777;
+
+            margin-bottom: 25px;
+
+            font-size: 14px;
+        }
+
+        /* ================= BOOKING INFO ================= */
+
+        .booking-info {
+            background: #f4faf6;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            margin-bottom: 22px;
+        }
+
+        .info-row {
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 8px 0;
+
+            border-bottom:
+                1px solid #d9e5dd;
+        }
+
+        .info-row:last-child {
             border-bottom: none;
         }
 
-        .summary-label {
+        .info-label {
+            color: #666;
+
+            font-size: 13px;
+
             font-weight: bold;
-            color: #555;
         }
 
-        .summary-value {
+        .info-value {
             color: #222;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
             text-align: right;
+
+            word-break: break-word;
         }
 
-        .total {
-            font-size: 22px;
-            font-weight: bold;
+        .amount {
             color: #087f3d;
-        }
 
-        .payment-method-title {
             font-size: 20px;
+        }
+
+        /* ================= FORM ================= */
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+
             font-weight: bold;
-            margin: 25px 0 15px;
+
+            margin-bottom: 8px;
+
+            font-size: 14px;
         }
 
-        .payment-options {
+        .form-group input,
+        .form-group select {
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            outline: none;
+
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #087f3d;
+        }
+
+        /* ================= PAYMENT METHODS ================= */
+
+        .payment-methods {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 10px;
+
+            margin-bottom: 20px;
         }
 
-        .payment-option {
-            border: 2px solid #ddd;
+        .method {
+            border: 1px solid #ccc;
+
             border-radius: 10px;
-            padding: 18px;
-            cursor: pointer;
+
+            padding: 14px 8px;
+
             text-align: center;
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+            background: white;
+
             transition: 0.2s;
         }
 
-        .payment-option:hover {
+        .method:hover {
             border-color: #087f3d;
         }
 
-        .payment-option.selected {
-            border-color: #087f3d;
-            background: #f4faf6;
-        }
+        .method.selected {
+            border: 2px solid #087f3d;
 
-        .payment-option input {
-            display: none;
-        }
+            background: #e8f5ed;
 
-        .payment-icon {
-            font-size: 30px;
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .payment-name {
-            font-weight: bold;
-        }
-
-        .details-box {
-            display: none;
-            margin-top: 20px;
-            padding: 20px;
-            background: #f8fbf9;
-            border: 1px solid #dce9df;
-            border-radius: 10px;
-        }
-
-        .details-box.show {
-            display: block;
-        }
-
-        .details-box h3 {
-            margin-top: 0;
             color: #087f3d;
-        }
 
-        .input-group {
-            margin-bottom: 15px;
-        }
-
-        .input-group label {
-            display: block;
             font-weight: bold;
-            margin-bottom: 7px;
         }
 
-        .input-group input {
-            width: 100%;
-            box-sizing: border-box;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 7px;
-            font-size: 15px;
+        .method-icon {
+            display: block;
+
+            font-size: 25px;
+
+            margin-bottom: 6px;
         }
 
-        .input-group input:focus {
-            outline: none;
-            border-color: #087f3d;
+        /* ================= CARD DETAILS ================= */
+
+        #cardDetails {
+            display: none;
+
+            background: #f8fbf9;
+
+            border: 1px solid #dce8e0;
+
+            padding: 18px;
+
+            border-radius: 10px;
+
+            margin-bottom: 18px;
         }
+
+        .card-row {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 12px;
+        }
+
+        /* ================= UPI ================= */
+
+        #upiDetails {
+            display: none;
+
+            margin-bottom: 18px;
+        }
+
+        /* ================= PAY BUTTON ================= */
 
         .pay-btn {
             width: 100%;
-            margin-top: 25px;
-            padding: 15px;
+
+            padding: 14px;
+
             border: none;
+
             border-radius: 8px;
+
             background: #087f3d;
+
             color: white;
+
             font-size: 17px;
+
             font-weight: bold;
+
             cursor: pointer;
         }
 
@@ -190,234 +336,346 @@
 
         .pay-btn:disabled {
             background: #999;
+
             cursor: not-allowed;
         }
 
+        /* ================= MESSAGE ================= */
+
         .message {
             display: none;
-            margin-top: 15px;
-            padding: 13px;
-            border-radius: 7px;
+
+            margin-bottom: 18px;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
             text-align: center;
+
+            font-size: 14px;
+
             font-weight: bold;
         }
 
-        .message.error {
+        .error {
             display: block;
+
             background: #ffebee;
+
             color: #c62828;
         }
 
-        .message.success {
+        .success {
             display: block;
+
             background: #e8f5e9;
+
             color: #087f3d;
         }
 
-        .back-link {
-            display: block;
+        /* ================= SECURITY ================= */
+
+        .security-note {
             text-align: center;
-            margin-top: 20px;
-            color: #087f3d;
-            font-weight: bold;
-            text-decoration: none;
+
+            margin-top: 18px;
+
+            color: #777;
+
+            font-size: 12px;
         }
 
-        @media (max-width: 650px) {
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 10px 15px;
+
+                flex-direction: column;
+
+                gap: 8px;
+            }
+
+            nav {
+                gap: 12px;
+            }
+
+            nav a {
+                font-size: 11px;
+            }
+
+            .payment-page {
+                padding: 20px 12px;
+
+                align-items: flex-start;
+            }
+
             .payment-box {
-                padding: 20px;
+                padding: 22px;
             }
 
-            .payment-title {
-                font-size: 29px;
+            h1 {
+                font-size: 24px;
             }
 
-            .payment-options {
+            .payment-methods {
                 grid-template-columns: 1fr;
             }
 
-            .summary-row {
-                flex-direction: column;
-                gap: 4px;
+            .card-row {
+                grid-template-columns: 1fr;
             }
 
-            .summary-value {
+            .info-row {
+                flex-direction: column;
+
+                gap: 3px;
+            }
+
+            .info-value {
                 text-align: left;
             }
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-<header>
-    <div class="logo">
-        🏛️ Karnataka <span>Travel</span>
-    </div>
 
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="district.html">Districts</a>
-        <a href="index.html#vehicles">Vehicles</a>
-        <a href="contact.html">Contact</a>
-    </nav>
-</header>
+    <!-- ================= HEADER ================= -->
 
-<section class="payment-page">
+    <header>
 
-    <div class="payment-container">
+        <div class="logo">
 
-        <h1 class="payment-title">
-            💳 Complete Payment
-        </h1>
+            🏛️ Karnataka
+            <span>Travel</span>
 
-        <p class="payment-subtitle">
-            Review your booking and select a payment method.
-        </p>
+        </div>
+
+        <nav>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="booking-history.html">
+                Bookings
+            </a>
+
+            <a href="contact.html">
+                Contact
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ================= PAYMENT PAGE ================= -->
+
+    <section class="payment-page">
+
 
         <div class="payment-box">
 
-            <!-- BOOKING SUMMARY -->
 
-            <div class="booking-summary">
+            <div class="payment-icon">
 
-                <h2>🚌 Booking Summary</h2>
+                💳
 
-                <div class="summary-row">
-                    <span class="summary-label">Booking ID</span>
-                    <span class="summary-value" id="bookingId">-</span>
+            </div>
+
+
+            <h1>
+
+                Complete Payment
+
+            </h1>
+
+
+            <p class="subtitle">
+
+                Choose your payment method and complete your booking.
+
+            </p>
+
+
+            <!-- ================= BOOKING INFO ================= -->
+
+            <div class="booking-info">
+
+
+                <div class="info-row">
+
+                    <span class="info-label">
+                        Booking ID
+                    </span>
+
+                    <span
+                        class="info-value"
+                        id="bookingId">
+                        Loading...
+                    </span>
+
                 </div>
 
-                <div class="summary-row">
-                    <span class="summary-label">Name</span>
-                    <span class="summary-value" id="bookingName">-</span>
+
+                <div class="info-row">
+
+                    <span class="info-label">
+                        Name
+                    </span>
+
+                    <span
+                        class="info-value"
+                        id="bookingName">
+                        Loading...
+                    </span>
+
                 </div>
 
-                <div class="summary-row">
-                    <span class="summary-label">Mobile</span>
-                    <span class="summary-value" id="bookingMobile">-</span>
+
+                <div class="info-row">
+
+                    <span class="info-label">
+                        Destination
+                    </span>
+
+                    <span
+                        class="info-value"
+                        id="destination">
+                        Loading...
+                    </span>
+
                 </div>
 
-                <div class="summary-row">
-                    <span class="summary-label">From</span>
-                    <span class="summary-value" id="bookingFrom">-</span>
+
+                <div class="info-row">
+
+                    <span class="info-label">
+                        Vehicle
+                    </span>
+
+                    <span
+                        class="info-value"
+                        id="vehicle">
+                        Loading...
+                    </span>
+
                 </div>
 
-                <div class="summary-row">
-                    <span class="summary-label">Destination</span>
-                    <span class="summary-value" id="bookingDestination">-</span>
-                </div>
 
-                <div class="summary-row">
-                    <span class="summary-label">Travel Date</span>
-                    <span class="summary-value" id="bookingDate">-</span>
-                </div>
+                <div class="info-row">
 
-                <div class="summary-row">
-                    <span class="summary-label">Days</span>
-                    <span class="summary-value" id="bookingDays">-</span>
-                </div>
+                    <span class="info-label">
+                        Total Amount
+                    </span>
 
-                <div class="summary-row">
-                    <span class="summary-label">Travelers</span>
-                    <span class="summary-value" id="bookingTravelers">-</span>
-                </div>
-
-                <div class="summary-row">
-                    <span class="summary-label">Vehicle</span>
-                    <span class="summary-value" id="bookingVehicle">-</span>
-                </div>
-
-                <div class="summary-row">
-                    <span class="summary-label total">Total Amount</span>
-                    <span class="summary-value total" id="bookingTotal">
+                    <span
+                        class="info-value amount"
+                        id="totalAmount">
                         ₹0
                     </span>
+
                 </div>
 
-            </div>
-
-
-            <!-- PAYMENT METHODS -->
-
-            <div class="payment-method-title">
-                Select Payment Method
-            </div>
-
-            <div class="payment-options">
-
-                <label class="payment-option" id="upiOption">
-
-                    <input
-                        type="radio"
-                        name="paymentMethod"
-                        value="UPI"
-                    >
-
-                    <span class="payment-icon">📱</span>
-
-                    <span class="payment-name">
-                        UPI
-                    </span>
-
-                </label>
-
-
-                <label class="payment-option" id="cardOption">
-
-                    <input
-                        type="radio"
-                        name="paymentMethod"
-                        value="Card"
-                    >
-
-                    <span class="payment-icon">💳</span>
-
-                    <span class="payment-name">
-                        Card
-                    </span>
-
-                </label>
-
-
-                <label class="payment-option" id="cashOption">
-
-                    <input
-                        type="radio"
-                        name="paymentMethod"
-                        value="Cash"
-                    >
-
-                    <span class="payment-icon">💵</span>
-
-                    <span class="payment-name">
-                        Cash
-                    </span>
-
-                </label>
 
             </div>
 
 
-            <!-- UPI DETAILS -->
+            <!-- ================= MESSAGE ================= -->
 
             <div
-                id="upiDetails"
-                class="details-box"
-            >
+                id="message"
+                class="message">
+            </div>
 
-                <h3>📱 UPI Payment</h3>
 
-                <div class="input-group">
+            <!-- ================= PAYMENT METHODS ================= -->
+
+            <label
+                style="
+                    display:block;
+                    font-weight:bold;
+                    margin-bottom:10px;
+                ">
+
+                Select Payment Method
+
+            </label>
+
+
+            <div class="payment-methods">
+
+
+                <div
+                    class="method"
+                    id="upiMethod"
+                    onclick="selectMethod('UPI')">
+
+                    <span class="method-icon">
+                        📱
+                    </span>
+
+                    UPI
+
+                </div>
+
+
+                <div
+                    class="method"
+                    id="cardMethod"
+                    onclick="selectMethod('Card')">
+
+                    <span class="method-icon">
+                        💳
+                    </span>
+
+                    Card
+
+                </div>
+
+
+                <div
+                    class="method"
+                    id="cashMethod"
+                    onclick="selectMethod('Cash')">
+
+                    <span class="method-icon">
+                        💵
+                    </span>
+
+                    Cash
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ================= UPI ================= -->
+
+            <div id="upiDetails">
+
+                <div class="form-group">
 
                     <label for="upiId">
+
                         UPI ID
+
                     </label>
 
                     <input
                         type="text"
                         id="upiId"
                         placeholder="example@upi"
+                        autocomplete="off"
                     >
 
                 </div>
@@ -425,34 +683,36 @@
             </div>
 
 
-            <!-- CARD DETAILS -->
+            <!-- ================= CARD ================= -->
 
-            <div
-                id="cardDetails"
-                class="details-box"
-            >
+            <div id="cardDetails">
 
-                <h3>💳 Card Payment</h3>
 
-                <div class="input-group">
+                <div class="form-group">
 
                     <label for="cardNumber">
+
                         Card Number
+
                     </label>
 
                     <input
                         type="text"
                         id="cardNumber"
-                        maxlength="19"
                         placeholder="1234 5678 9012 3456"
+                        maxlength="19"
+                        inputmode="numeric"
                     >
 
                 </div>
 
-                <div class="input-group">
+
+                <div class="form-group">
 
                     <label for="cardName">
+
                         Card Holder Name
+
                     </label>
 
                     <input
@@ -463,888 +723,860 @@
 
                 </div>
 
-                <div
-                    style="
-                        display:grid;
-                        grid-template-columns:1fr 1fr;
-                        gap:15px;
-                    "
-                >
 
-                    <div class="input-group">
+                <div class="card-row">
+
+
+                    <div class="form-group">
 
                         <label for="expiry">
+
                             Expiry
+
                         </label>
 
                         <input
                             type="text"
                             id="expiry"
-                            maxlength="5"
                             placeholder="MM/YY"
+                            maxlength="5"
+                            inputmode="numeric"
                         >
 
                     </div>
 
-                    <div class="input-group">
+
+                    <div class="form-group">
 
                         <label for="cvv">
+
                             CVV
+
                         </label>
 
                         <input
                             type="password"
                             id="cvv"
-                            maxlength="3"
-                            placeholder="123"
+                            placeholder="CVV"
+                            maxlength="4"
+                            inputmode="numeric"
                         >
 
                     </div>
+
 
                 </div>
 
             </div>
 
 
-            <!-- CASH DETAILS -->
-
-            <div
-                id="cashDetails"
-                class="details-box"
-            >
-
-                <h3>💵 Cash Payment</h3>
-
-                <p>
-                    You have selected cash payment.
-                    Please pay the amount at the time
-                    of travel/service confirmation.
-                </p>
-
-            </div>
-
-
-            <!-- PAY BUTTON -->
+            <!-- ================= PAY BUTTON ================= -->
 
             <button
                 type="button"
-                id="payBtn"
                 class="pay-btn"
-            >
+                id="payButton"
+                onclick="completePayment()">
+
                 💳 Pay Now
+
             </button>
 
 
-            <div
-                id="paymentMessage"
-                class="message"
-            ></div>
+            <p class="security-note">
 
+                🔒 Demo payment page. Do not enter real card details.
 
-            <a
-                href="booking.html"
-                class="back-link"
-            >
-                ← Back to Booking
-            </a>
+            </p>
+
 
         </div>
 
-    </div>
+    </section>
 
-</section>
 
+    <script>
 
-<script>
+        "use strict";
 
-"use strict";
 
+        /* =====================================================
+           API BASE
 
-/* =====================================================
-   GET CURRENT USER
-===================================================== */
+           Computer:
+           http://localhost:5000
 
-const savedUser =
-    sessionStorage.getItem("currentUser");
+           Other device:
+           http://YOUR-COMPUTER-IP:5000
+        ===================================================== */
 
-let currentUser = null;
+        const API_BASE =
+            window.location.protocol === "file:"
+                ? "http://192.168.1.103:5000"
+                : `${window.location.protocol}//${window.location.hostname}:5000`;
 
-if (savedUser) {
 
-    try {
+        /* =====================================================
+           VARIABLES
+        ===================================================== */
 
-        currentUser =
-            JSON.parse(savedUser);
+        let booking = null;
 
-    } catch (error) {
+        let selectedMethod = "";
 
-        currentUser = null;
 
-    }
+        /* =====================================================
+           GET CURRENT BOOKING
+        ===================================================== */
 
-}
+        const bookingString =
+            sessionStorage.getItem(
+                "currentBooking"
+            );
 
 
-/* =====================================================
-   GET CURRENT BOOKING
-===================================================== */
+        if (bookingString) {
 
-const savedBooking =
-    sessionStorage.getItem("currentBooking");
+            try {
 
-let booking = null;
-
-if (savedBooking) {
-
-    try {
-
-        booking =
-            JSON.parse(savedBooking);
-
-    } catch (error) {
-
-        booking = null;
-
-    }
-
-}
-
-
-/* =====================================================
-   CHECK LOGIN
-===================================================== */
-
-if (
-    !currentUser ||
-    !currentUser.id
-) {
-
-    alert(
-        "Please login first."
-    );
-
-    window.location.href =
-        "login.html";
-
-}
-
-
-/* =====================================================
-   CHECK BOOKING
-===================================================== */
-
-if (!booking) {
-
-    alert(
-        "No booking found. Please create a booking first."
-    );
-
-    window.location.href =
-        "booking.html";
-
-}
-
-
-/* =====================================================
-   ELEMENTS
-===================================================== */
-
-const bookingIdElement =
-    document.getElementById(
-        "bookingId"
-    );
-
-const bookingNameElement =
-    document.getElementById(
-        "bookingName"
-    );
-
-const bookingMobileElement =
-    document.getElementById(
-        "bookingMobile"
-    );
-
-const bookingFromElement =
-    document.getElementById(
-        "bookingFrom"
-    );
-
-const bookingDestinationElement =
-    document.getElementById(
-        "bookingDestination"
-    );
-
-const bookingDateElement =
-    document.getElementById(
-        "bookingDate"
-    );
-
-const bookingDaysElement =
-    document.getElementById(
-        "bookingDays"
-    );
-
-const bookingTravelersElement =
-    document.getElementById(
-        "bookingTravelers"
-    );
-
-const bookingVehicleElement =
-    document.getElementById(
-        "bookingVehicle"
-    );
-
-const bookingTotalElement =
-    document.getElementById(
-        "bookingTotal"
-    );
-
-
-/* =====================================================
-   DISPLAY BOOKING
-===================================================== */
-
-if (booking) {
-
-    bookingIdElement.textContent =
-        booking.bookingId ||
-        booking.booking_id ||
-        "-";
-
-    bookingNameElement.textContent =
-        booking.name ||
-        currentUser.name ||
-        "-";
-
-    bookingMobileElement.textContent =
-        booking.mobile ||
-        currentUser.mobile ||
-        "-";
-
-    bookingFromElement.textContent =
-        booking.from_location ||
-        booking.from ||
-        booking.fromCity ||
-        "-";
-
-    bookingDestinationElement.textContent =
-        booking.destination ||
-        booking.toCity ||
-        "-";
-
-    bookingDateElement.textContent =
-        booking.travelDate ||
-        booking.travel_date ||
-        "-";
-
-    bookingDaysElement.textContent =
-        booking.days ||
-        "-";
-
-    bookingTravelersElement.textContent =
-        booking.travelers ||
-        "-";
-
-    bookingVehicleElement.textContent =
-        booking.vehicle ||
-        "-";
-
-    const total =
-        Number(
-            booking.total || 0
-        );
-
-    bookingTotalElement.textContent =
-        "₹" +
-        total.toLocaleString(
-            "en-IN"
-        );
-
-}
-
-
-/* =====================================================
-   PAYMENT ELEMENTS
-===================================================== */
-
-const paymentOptions =
-    document.querySelectorAll(
-        ".payment-option"
-    );
-
-const upiDetails =
-    document.getElementById(
-        "upiDetails"
-    );
-
-const cardDetails =
-    document.getElementById(
-        "cardDetails"
-    );
-
-const cashDetails =
-    document.getElementById(
-        "cashDetails"
-    );
-
-const payBtn =
-    document.getElementById(
-        "payBtn"
-    );
-
-const paymentMessage =
-    document.getElementById(
-        "paymentMessage"
-    );
-
-
-/* =====================================================
-   SELECT PAYMENT METHOD
-===================================================== */
-
-paymentOptions.forEach(
-    function(option) {
-
-        option.addEventListener(
-            "click",
-            function() {
-
-                paymentOptions.forEach(
-                    function(item) {
-
-                        item.classList.remove(
-                            "selected"
-                        );
-
-                    }
-                );
-
-
-                option.classList.add(
-                    "selected"
-                );
-
-
-                const radio =
-                    option.querySelector(
-                        "input"
+                booking =
+                    JSON.parse(
+                        bookingString
                     );
 
+            } catch (error) {
 
-                radio.checked =
-                    true;
-
-
-                upiDetails.classList.remove(
-                    "show"
+                console.error(
+                    "Booking data error:",
+                    error
                 );
 
-                cardDetails.classList.remove(
-                    "show"
-                );
-
-                cashDetails.classList.remove(
-                    "show"
-                );
-
-
-                if (
-                    radio.value ===
-                    "UPI"
-                ) {
-
-                    upiDetails.classList.add(
-                        "show"
-                    );
-
-                }
-
-
-                if (
-                    radio.value ===
-                    "Card"
-                ) {
-
-                    cardDetails.classList.add(
-                        "show"
-                    );
-
-                }
-
-
-                if (
-                    radio.value ===
-                    "Cash"
-                ) {
-
-                    cashDetails.classList.add(
-                        "show"
-                    );
-
-                }
+                booking = null;
 
             }
-        );
-
-    }
-);
-
-
-/* =====================================================
-   MESSAGE
-===================================================== */
-
-function showMessage(
-    text,
-    type
-) {
-
-    paymentMessage.textContent =
-        text;
-
-    paymentMessage.className =
-        "message " +
-        type;
-
-    paymentMessage.style.display =
-        "block";
-
-}
-
-
-/* =====================================================
-   CARD NUMBER FORMAT
-===================================================== */
-
-const cardNumber =
-    document.getElementById(
-        "cardNumber"
-    );
-
-
-cardNumber.addEventListener(
-    "input",
-    function() {
-
-        let value =
-            this.value.replace(
-                /\D/g,
-                ""
-            );
-
-        value =
-            value.substring(
-                0,
-                16
-            );
-
-        const parts =
-            value.match(
-                /.{1,4}/g
-            );
-
-        this.value =
-            parts ?
-            parts.join(" ") :
-            "";
-
-    }
-);
-
-
-/* =====================================================
-   EXPIRY FORMAT
-===================================================== */
-
-const expiry =
-    document.getElementById(
-        "expiry"
-    );
-
-
-expiry.addEventListener(
-    "input",
-    function() {
-
-        let value =
-            this.value.replace(
-                /\D/g,
-                ""
-            );
-
-        value =
-            value.substring(
-                0,
-                4
-            );
-
-        if (
-            value.length > 2
-        ) {
-
-            value =
-                value.substring(
-                    0,
-                    2
-                ) +
-                "/" +
-                value.substring(
-                    2
-                );
-
-        }
-
-        this.value =
-            value;
-
-    }
-);
-
-
-/* =====================================================
-   CVV
-===================================================== */
-
-const cvv =
-    document.getElementById(
-        "cvv"
-    );
-
-
-cvv.addEventListener(
-    "input",
-    function() {
-
-        this.value =
-            this.value
-                .replace(
-                    /\D/g,
-                    ""
-                )
-                .substring(
-                    0,
-                    3
-                );
-
-    }
-);
-
-
-/* =====================================================
-   PAY NOW
-===================================================== */
-
-payBtn.addEventListener(
-    "click",
-    async function() {
-
-        const selected =
-            document.querySelector(
-                'input[name="paymentMethod"]:checked'
-            );
-
-
-        if (!selected) {
-
-            showMessage(
-                "Please select a payment method.",
-                "error"
-            );
-
-            return;
 
         }
 
 
-        const method =
-            selected.value;
+        /* =====================================================
+           LOAD BOOKING
+        ===================================================== */
+
+        if (booking) {
+
+            displayBooking();
+
+        } else {
+
+            /*
+             * If currentBooking is not available,
+             * try bookingId from URL.
+             */
+
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+            const bookingId =
+                params.get("bookingId");
 
 
-        /* =========================================
-           UPI VALIDATION
-        ========================================= */
+            if (bookingId) {
 
-        if (
-            method === "UPI"
-        ) {
+                loadBookingFromServer(
+                    bookingId
+                );
 
-            const upiId =
+            } else {
+
+                showMessage(
+                    "Booking information not found. Please create a booking first.",
+                    "error"
+                );
+
                 document.getElementById(
-                    "upiId"
-                ).value.trim();
-
-
-            if (!upiId) {
-
-                showMessage(
-                    "Please enter your UPI ID.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            if (
-                !/^[\w.-]+@[\w.-]+$/.test(
-                    upiId
-                )
-            ) {
-
-                showMessage(
-                    "Please enter a valid UPI ID.",
-                    "error"
-                );
-
-                return;
+                    "payButton"
+                ).disabled = true;
 
             }
 
         }
 
 
-        /* =========================================
-           CARD VALIDATION
-        ========================================= */
+        /* =====================================================
+           DISPLAY BOOKING
+        ===================================================== */
 
-        if (
-            method === "Card"
-        ) {
-
-            const number =
-                cardNumber.value.replace(
-                    /\s/g,
-                    ""
-                );
-
-            const holder =
-                document.getElementById(
-                    "cardName"
-                ).value.trim();
-
-            const exp =
-                expiry.value.trim();
-
-            const cvvValue =
-                cvv.value.trim();
-
-
-            if (
-                number.length !== 16
-            ) {
-
-                showMessage(
-                    "Please enter a valid 16 digit card number.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            if (!holder) {
-
-                showMessage(
-                    "Please enter card holder name.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            if (
-                !/^\d{2}\/\d{2}$/.test(
-                    exp
-                )
-            ) {
-
-                showMessage(
-                    "Please enter expiry as MM/YY.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            if (
-                !/^\d{3}$/.test(
-                    cvvValue
-                )
-            ) {
-
-                showMessage(
-                    "Please enter a valid CVV.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-        }
-
-
-        payBtn.disabled =
-            true;
-
-        payBtn.textContent =
-            "Processing Payment...";
-
-
-        try {
+        function displayBooking() {
 
             const id =
+                booking.bookingId ||
+                booking.booking_id ||
+                booking.id;
+
+
+            document.getElementById(
+                "bookingId"
+            ).textContent =
+                id || "-";
+
+
+            document.getElementById(
+                "bookingName"
+            ).textContent =
+                booking.name || "-";
+
+
+            document.getElementById(
+                "destination"
+            ).textContent =
+                booking.destination ||
+                booking.to ||
+                "-";
+
+
+            document.getElementById(
+                "vehicle"
+            ).textContent =
+                booking.vehicle || "-";
+
+
+            const total =
+                Number(
+                    booking.total ||
+                    booking.totalAmount ||
+                    booking.total_amount ||
+                    0
+                );
+
+
+            document.getElementById(
+                "totalAmount"
+            ).textContent =
+                formatCurrency(total);
+
+        }
+
+
+        /* =====================================================
+           LOAD BOOKING FROM SERVER
+        ===================================================== */
+
+        async function loadBookingFromServer(
+            bookingId
+        ) {
+
+            try {
+
+                const response =
+                    await fetch(
+
+                        API_BASE +
+                        "/api/bookings/" +
+                        encodeURIComponent(
+                            bookingId
+                        )
+
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (
+                    !response.ok ||
+                    !data.success
+                ) {
+
+                    throw new Error(
+
+                        data.message ||
+                        "Booking not found."
+
+                    );
+
+                }
+
+
+                booking =
+                    data.booking;
+
+
+                sessionStorage.setItem(
+
+                    "currentBooking",
+
+                    JSON.stringify(
+                        booking
+                    )
+
+                );
+
+
+                displayBooking();
+
+
+            } catch (error) {
+
+                console.error(
+                    "Booking loading error:",
+                    error
+                );
+
+
+                showMessage(
+                    error.message ||
+                    "Unable to load booking.",
+                    "error"
+                );
+
+
+                document.getElementById(
+                    "payButton"
+                ).disabled = true;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           SELECT PAYMENT METHOD
+        ===================================================== */
+
+        function selectMethod(
+            method
+        ) {
+
+            selectedMethod =
+                method;
+
+
+            document
+                .getElementById("upiMethod")
+                .classList.remove("selected");
+
+
+            document
+                .getElementById("cardMethod")
+                .classList.remove("selected");
+
+
+            document
+                .getElementById("cashMethod")
+                .classList.remove("selected");
+
+
+            if (method === "UPI") {
+
+                document
+                    .getElementById("upiMethod")
+                    .classList.add("selected");
+
+                document
+                    .getElementById("upiDetails")
+                    .style.display = "block";
+
+                document
+                    .getElementById("cardDetails")
+                    .style.display = "none";
+
+            }
+
+
+            else if (method === "Card") {
+
+                document
+                    .getElementById("cardMethod")
+                    .classList.add("selected");
+
+                document
+                    .getElementById("cardDetails")
+                    .style.display = "block";
+
+                document
+                    .getElementById("upiDetails")
+                    .style.display = "none";
+
+            }
+
+
+            else if (method === "Cash") {
+
+                document
+                    .getElementById("cashMethod")
+                    .classList.add("selected");
+
+                document
+                    .getElementById("upiDetails")
+                    .style.display = "none";
+
+                document
+                    .getElementById("cardDetails")
+                    .style.display = "none";
+
+            }
+
+        }
+
+
+        /* =====================================================
+           COMPLETE PAYMENT
+        ===================================================== */
+
+        async function completePayment() {
+
+            if (!booking) {
+
+                showMessage(
+                    "Booking information not found.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            if (!selectedMethod) {
+
+                showMessage(
+                    "Please select a payment method.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            /* ================= UPI VALIDATION ================= */
+
+            if (
+                selectedMethod === "UPI"
+            ) {
+
+                const upi =
+                    document
+                        .getElementById(
+                            "upiId"
+                        )
+                        .value
+                        .trim();
+
+
+                if (!upi) {
+
+                    showMessage(
+                        "Please enter UPI ID.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+            }
+
+
+            /* ================= CARD VALIDATION ================= */
+
+            if (
+                selectedMethod === "Card"
+            ) {
+
+                const cardNumber =
+                    document
+                        .getElementById(
+                            "cardNumber"
+                        )
+                        .value
+                        .replace(/\s/g, "");
+
+
+                const cardName =
+                    document
+                        .getElementById(
+                            "cardName"
+                        )
+                        .value
+                        .trim();
+
+
+                const expiry =
+                    document
+                        .getElementById(
+                            "expiry"
+                        )
+                        .value
+                        .trim();
+
+
+                const cvv =
+                    document
+                        .getElementById(
+                            "cvv"
+                        )
+                        .value
+                        .trim();
+
+
+                if (
+                    cardNumber.length < 12 ||
+                    !cardName ||
+                    !expiry ||
+                    cvv.length < 3
+                ) {
+
+                    showMessage(
+                        "Please enter valid card details.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+            }
+
+
+            /* ================= BOOKING ID ================= */
+
+            const bookingId =
                 booking.bookingId ||
                 booking.booking_id;
 
 
-            if (!id) {
+            if (!bookingId) {
 
-                throw new Error(
-                    "Booking ID not found."
+                showMessage(
+                    "Booking ID is missing.",
+                    "error"
                 );
+
+                return;
 
             }
 
 
-            /* =========================================
-               UPDATE PAYMENT IN DATABASE
-            ========================================= */
-
-            const response =
-                await fetch(
-                    "http://localhost:5000/api/bookings/payment",
-                    {
-
-                        method: "PUT",
-
-                        headers: {
-
-                            "Content-Type":
-                                "application/json"
-
-                        },
-
-                        body:
-                            JSON.stringify({
-
-                                bookingId:
-                                    id,
-
-                                paymentMethod:
-                                    method
-
-                            })
-
-                    }
+            const payButton =
+                document.getElementById(
+                    "payButton"
                 );
 
 
-            const data =
-                await response.json();
+            payButton.disabled = true;
+
+            payButton.textContent =
+                "Processing Payment...";
 
 
-            if (
-                !response.ok ||
-                !data.success
-            ) {
-
-                throw new Error(
-                    data.message ||
-                    "Payment failed."
-                );
-
-            }
+            try {
 
 
-            /* =========================================
-               UPDATE SESSION BOOKING
-            ========================================= */
+                /* =============================================
+                   SEND PAYMENT TO NODE.JS BACKEND
+                ============================================= */
 
-            booking.paymentMethod =
-                method;
+                const response =
+                    await fetch(
 
-            booking.payment_method =
-                method;
+                        API_BASE +
+                        "/api/bookings/" +
+                        encodeURIComponent(
+                            bookingId
+                        ) +
+                        "/payment",
 
-            booking.status =
-                "Paid";
+                        {
 
+                            method: "PUT",
 
-            sessionStorage.setItem(
-                "currentBooking",
-                JSON.stringify(
-                    booking
-                )
-            );
+                            headers: {
 
+                                "Content-Type":
+                                    "application/json"
 
-            /* =========================================
-               SUCCESS
-            ========================================= */
+                            },
 
-            showMessage(
-                "Payment successful! Booking confirmed.",
-                "success"
-            );
+                            body:
+                                JSON.stringify({
 
+                                    paymentMethod:
+                                        selectedMethod
 
-            payBtn.textContent =
-                "✅ Payment Completed";
+                                })
 
+                        }
 
-            /* =========================================
-               REDIRECT TO BOOKING HISTORY
-            ========================================= */
-
-            setTimeout(
-                function() {
-
-                    sessionStorage.removeItem(
-                        "currentBooking"
                     );
 
-                    window.location.href =
-                        "booking-history.html";
 
-                },
-                1500
-            );
+                const data =
+                    await response.json();
 
 
-        } catch (error) {
+                if (
+                    !response.ok ||
+                    !data.success
+                ) {
 
-            console.error(
-                "Payment error:",
-                error
-            );
+                    throw new Error(
+
+                        data.message ||
+                        "Payment failed."
+
+                    );
+
+                }
 
 
-            showMessage(
-                error.message ||
-                "Unable to process payment.",
-                "error"
-            );
+                /* =============================================
+                   UPDATE CURRENT BOOKING
+                ============================================= */
+
+                booking.paymentMethod =
+                    selectedMethod;
 
 
-            payBtn.disabled =
-                false;
+                booking.payment_method =
+                    selectedMethod;
 
-            payBtn.textContent =
-                "💳 Pay Now";
+
+                booking.status =
+                    "Paid";
+
+
+                booking.paymentStatus =
+                    "Paid";
+
+
+                sessionStorage.setItem(
+
+                    "currentBooking",
+
+                    JSON.stringify(
+                        booking
+                    )
+
+                );
+
+
+                /* =============================================
+                   SUCCESS MESSAGE
+                ============================================= */
+
+                showMessage(
+                    "Payment successful!",
+                    "success"
+                );
+
+
+                payButton.textContent =
+                    "✓ Payment Successful";
+
+
+                /* =============================================
+                   OPEN SUCCESS PAGE
+                ============================================= */
+
+                setTimeout(
+                    function() {
+
+                        window.location.href =
+                            "booking-success.html";
+
+                    },
+                    800
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Payment error:",
+                    error
+                );
+
+
+                showMessage(
+
+                    error.message ||
+                    "Payment failed. Please try again.",
+
+                    "error"
+
+                );
+
+
+                payButton.disabled =
+                    false;
+
+
+                payButton.textContent =
+                    "💳 Pay Now";
+
+            }
 
         }
 
-    }
-);
 
-</script>
+        /* =====================================================
+           FORMAT CURRENCY
+        ===================================================== */
+
+        function formatCurrency(
+            amount
+        ) {
+
+            const number =
+                Number(amount) || 0;
+
+
+            return (
+                "₹" +
+                number.toLocaleString(
+                    "en-IN"
+                )
+            );
+
+        }
+
+
+        /* =====================================================
+           MESSAGE
+        ===================================================== */
+
+        function showMessage(
+            text,
+            type
+        ) {
+
+            const message =
+                document.getElementById(
+                    "message"
+                );
+
+
+            message.textContent =
+                text;
+
+
+            message.className =
+                "message " + type;
+
+
+            message.style.display =
+                "block";
+
+        }
+
+
+        /* =====================================================
+           CARD NUMBER FORMATTING
+        ===================================================== */
+
+        document
+            .getElementById(
+                "cardNumber"
+            )
+            .addEventListener(
+                "input",
+                function() {
+
+                    let value =
+                        this.value
+                            .replace(/\D/g, "")
+                            .substring(0, 16);
+
+
+                    value =
+                        value.replace(
+                            /(.{4})/g,
+                            "$1 "
+                        )
+                        .trim();
+
+
+                    this.value =
+                        value;
+
+                }
+            );
+
+
+        /* =====================================================
+           EXPIRY FORMATTING
+        ===================================================== */
+
+        document
+            .getElementById(
+                "expiry"
+            )
+            .addEventListener(
+                "input",
+                function() {
+
+                    let value =
+                        this.value
+                            .replace(/\D/g, "")
+                            .substring(0, 4);
+
+
+                    if (
+                        value.length >= 3
+                    ) {
+
+                        value =
+                            value.substring(
+                                0,
+                                2
+                            ) +
+                            "/" +
+                            value.substring(
+                                2
+                            );
+
+                    }
+
+
+                    this.value =
+                        value;
+
+                }
+            );
+
+
+        /* =====================================================
+           CVV NUMBERS ONLY
+        ===================================================== */
+
+        document
+            .getElementById(
+                "cvv"
+            )
+            .addEventListener(
+                "input",
+                function() {
+
+                    this.value =
+                        this.value
+                            .replace(
+                                /\D/g,
+                                ""
+                            )
+                            .substring(
+                                0,
+                                4
+                            );
+
+                }
+            );
+
+    </script>
 
 </body>
+
 </html>
