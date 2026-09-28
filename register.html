@@ -9,78 +9,115 @@
 
     <title>Register - Karnataka Travel</title>
 
-    <link rel="stylesheet" href="style.css">
-
     <style>
-        .auth-page {
-            min-height: 100vh;
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
             background: #f4faf6;
+            color: #333;
+        }
+
+        .register-page {
+            min-height: 100vh;
 
             display: flex;
             justify-content: center;
             align-items: center;
 
-            padding: 40px 20px;
+            padding: 20px;
         }
 
-        .auth-box {
+        .register-box {
             width: 100%;
             max-width: 450px;
 
             background: white;
 
-            padding: 40px;
+            padding: 35px;
 
             border-radius: 18px;
 
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+            box-shadow:
+                0 10px 40px
+                rgba(0, 0, 0, 0.12);
         }
 
-        .auth-icon {
-            text-align: center;
-            font-size: 55px;
-            margin-bottom: 10px;
+        .register-icon {
+            width: 75px;
+            height: 75px;
+
+            margin: 0 auto 18px;
+
+            border-radius: 50%;
+
+            background: #e8f5ed;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 38px;
         }
 
-        .auth-box h1 {
+        .title {
             text-align: center;
+
             color: #087f3d;
-            margin-bottom: 8px;
+
+            margin: 0 0 7px;
+
+            font-size: 30px;
         }
 
-        .auth-box > p {
+        .subtitle {
             text-align: center;
-            color: #666;
-            margin-bottom: 28px;
+
+            color: #777;
+
+            margin-bottom: 25px;
+
+            font-size: 14px;
         }
 
         .form-group {
             margin-bottom: 17px;
         }
 
-        .form-group label {
+        label {
             display: block;
-            margin-bottom: 7px;
+
             font-weight: bold;
-            color: #333;
+
+            margin-bottom: 7px;
+
+            font-size: 14px;
         }
 
-        .form-group input {
+        input {
             width: 100%;
-            box-sizing: border-box;
 
             padding: 13px;
 
             border: 1px solid #ccc;
-            border-radius: 7px;
+
+            border-radius: 8px;
 
             font-size: 15px;
 
             outline: none;
         }
 
-        .form-group input:focus {
+        input:focus {
             border-color: #087f3d;
+
+            box-shadow:
+                0 0 0 2px
+                rgba(8, 127, 61, 0.08);
         }
 
         .register-btn {
@@ -89,15 +126,20 @@
             padding: 14px;
 
             border: none;
+
             border-radius: 8px;
 
             background: #087f3d;
+
             color: white;
 
-            font-size: 16px;
+            font-size: 17px;
+
             font-weight: bold;
 
             cursor: pointer;
+
+            margin-top: 5px;
         }
 
         .register-btn:hover {
@@ -106,124 +148,155 @@
 
         .register-btn:disabled {
             background: #999;
+
             cursor: not-allowed;
         }
 
         .message {
             display: none;
 
-            margin-top: 15px;
+            margin-top: 18px;
 
             padding: 12px;
 
-            border-radius: 7px;
+            border-radius: 8px;
 
             text-align: center;
 
+            font-size: 14px;
+
             font-weight: bold;
+
+            line-height: 1.4;
         }
 
         .message.success {
             display: block;
+
             background: #e8f5e9;
+
             color: #087f3d;
         }
 
         .message.error {
             display: block;
+
             background: #ffebee;
+
             color: #c62828;
         }
 
-        .auth-links {
+        .login-link {
             text-align: center;
+
             margin-top: 22px;
+
+            font-size: 14px;
         }
 
-        .auth-links a {
+        .login-link a {
             color: #087f3d;
-            font-weight: bold;
+
             text-decoration: none;
+
+            font-weight: bold;
         }
 
-        .auth-links a:hover {
+        .login-link a:hover {
             text-decoration: underline;
         }
 
-        @media (max-width: 600px) {
-            .auth-box {
+        .home-link {
+            text-align: center;
+
+            margin-top: 12px;
+
+            font-size: 13px;
+        }
+
+        .home-link a {
+            color: #555;
+
+            text-decoration: none;
+        }
+
+        .home-link a:hover {
+            color: #087f3d;
+        }
+
+        .password-note {
+            color: #777;
+
+            font-size: 11px;
+
+            margin-top: 5px;
+        }
+
+        @media (max-width: 500px) {
+
+            .register-page {
+                padding: 15px;
+            }
+
+            .register-box {
                 padding: 25px 20px;
             }
+
+            .title {
+                font-size: 25px;
+            }
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
 
-<header>
-
-    <div class="logo">
-        🏛️ Karnataka <span>Travel</span>
-    </div>
-
-    <nav>
-
-        <a href="index.html">
-            Home
-        </a>
-
-        <a href="district.html">
-            Districts
-        </a>
-
-        <a href="contact.html">
-            Contact
-        </a>
-
-    </nav>
-
-</header>
+<div class="register-page">
 
 
-<!-- =====================================================
-     REGISTER
-===================================================== -->
+    <div class="register-box">
 
-<section class="auth-page">
 
-    <div class="auth-box">
+        <!-- ICON -->
 
-        <div class="auth-icon">
-            📝
+        <div class="register-icon">
+            👤
         </div>
 
-        <h1>
-            Create Account
+
+        <!-- TITLE -->
+
+        <h1 class="title">
+            Karnataka Travel
         </h1>
 
-        <p>
-            Register to plan and manage your Karnataka trips.
+
+        <p class="subtitle">
+            Create your account
         </p>
 
 
+        <!-- REGISTER FORM -->
+
         <form id="registerForm">
+
 
             <!-- NAME -->
 
             <div class="form-group">
 
                 <label for="name">
-                    Full Name
+                    👤 Full Name
                 </label>
 
                 <input
                     type="text"
                     id="name"
-                    name="name"
                     placeholder="Enter your full name"
                     autocomplete="name"
                     required
@@ -237,13 +310,12 @@
             <div class="form-group">
 
                 <label for="email">
-                    Email
+                    📧 Email
                 </label>
 
                 <input
                     type="email"
                     id="email"
-                    name="email"
                     placeholder="Enter your email"
                     autocomplete="email"
                     required
@@ -257,13 +329,12 @@
             <div class="form-group">
 
                 <label for="mobile">
-                    Mobile Number
+                    📱 Mobile Number
                 </label>
 
                 <input
                     type="tel"
                     id="mobile"
-                    name="mobile"
                     placeholder="Enter 10 digit mobile number"
                     maxlength="10"
                     inputmode="numeric"
@@ -279,18 +350,21 @@
             <div class="form-group">
 
                 <label for="password">
-                    Password
+                    🔒 Password
                 </label>
 
                 <input
                     type="password"
                     id="password"
-                    name="password"
-                    placeholder="Create a password"
+                    placeholder="Enter password"
                     minlength="6"
                     autocomplete="new-password"
                     required
                 >
+
+                <div class="password-note">
+                    Password must contain at least 6 characters.
+                </div>
 
             </div>
 
@@ -300,14 +374,13 @@
             <div class="form-group">
 
                 <label for="confirmPassword">
-                    Confirm Password
+                    🔐 Confirm Password
                 </label>
 
                 <input
                     type="password"
                     id="confirmPassword"
-                    name="confirmPassword"
-                    placeholder="Confirm your password"
+                    placeholder="Re-enter password"
                     minlength="6"
                     autocomplete="new-password"
                     required
@@ -316,28 +389,32 @@
             </div>
 
 
-            <!-- REGISTER BUTTON -->
+            <!-- BUTTON -->
 
             <button
                 type="submit"
-                id="registerBtn"
                 class="register-btn"
-            >
-                Create Account →
+                id="registerBtn">
+
+                Create Account
+
             </button>
 
-
-            <!-- MESSAGE -->
-
-            <div
-                id="registerMessage"
-                class="message"
-            ></div>
 
         </form>
 
 
-        <div class="auth-links">
+        <!-- MESSAGE -->
+
+        <div
+            id="registerMessage"
+            class="message">
+        </div>
+
+
+        <!-- LOGIN -->
+
+        <div class="login-link">
 
             Already have an account?
 
@@ -347,12 +424,45 @@
 
         </div>
 
+
+        <!-- HOME -->
+
+        <div class="home-link">
+
+            <a href="index.html">
+                ← Back to Home
+            </a>
+
+        </div>
+
+
     </div>
 
-</section>
+</div>
+
 
 
 <script>
+
+"use strict";
+
+
+/* =====================================================
+   API BASE URL
+
+   Same computer:
+   http://localhost:5000
+
+   Other device:
+   Automatically uses the computer IP when page
+   is opened through the computer's network address.
+===================================================== */
+
+const API_BASE =
+    window.location.protocol === "file:"
+        ? "http://localhost:5000"
+        : `${window.location.protocol}//${window.location.hostname}:5000`;
+
 
 /* =====================================================
    ELEMENTS
@@ -369,33 +479,64 @@ const registerMessage =
 
 
 /* =====================================================
+   MOBILE INPUT
+   Only numbers
+===================================================== */
+
+document.getElementById("mobile")
+    .addEventListener("input", function () {
+
+        this.value =
+            this.value
+                .replace(/\D/g, "")
+                .slice(0, 10);
+
+    });
+
+
+/* =====================================================
+   SHOW MESSAGE
+===================================================== */
+
+function showMessage(text, type) {
+
+    registerMessage.textContent = text;
+
+    registerMessage.className =
+        "message " + type;
+
+    registerMessage.style.display =
+        "block";
+}
+
+
+/* =====================================================
    REGISTER
 ===================================================== */
 
 registerForm.addEventListener(
     "submit",
-    async function(event) {
+    async function (event) {
 
         event.preventDefault();
 
 
-        /* GET VALUES */
+        /* ---------------------------------------------
+           GET VALUES
+        --------------------------------------------- */
 
         const name =
             document.getElementById("name")
-                .value
-                .trim();
+                .value.trim();
 
         const email =
             document.getElementById("email")
-                .value
-                .trim()
+                .value.trim()
                 .toLowerCase();
 
         const mobile =
             document.getElementById("mobile")
-                .value
-                .trim();
+                .value.trim();
 
         const password =
             document.getElementById("password")
@@ -406,14 +547,14 @@ registerForm.addEventListener(
                 .value;
 
 
-        /* =================================================
+        /* ---------------------------------------------
            VALIDATION
-        ================================================= */
+        --------------------------------------------- */
 
-        if (name.length < 2) {
+        if (!name) {
 
             showMessage(
-                "Please enter a valid name.",
+                "Please enter your name.",
                 "error"
             );
 
@@ -421,10 +562,33 @@ registerForm.addEventListener(
         }
 
 
-        if (
-            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
-                .test(email)
-        ) {
+        if (name.length < 2) {
+
+            showMessage(
+                "Name must contain at least 2 characters.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        if (!email) {
+
+            showMessage(
+                "Please enter your email.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        const emailPattern =
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+        if (!emailPattern.test(email)) {
 
             showMessage(
                 "Please enter a valid email address.",
@@ -435,12 +599,10 @@ registerForm.addEventListener(
         }
 
 
-        if (
-            !/^[0-9]{10}$/.test(mobile)
-        ) {
+        if (!/^[0-9]{10}$/.test(mobile)) {
 
             showMessage(
-                "Please enter a valid 10 digit mobile number.",
+                "Mobile number must contain exactly 10 digits.",
                 "error"
             );
 
@@ -470,60 +632,77 @@ registerForm.addEventListener(
         }
 
 
-        /* =================================================
-           BUTTON
-        ================================================= */
+        /* ---------------------------------------------
+           DISABLE BUTTON
+        --------------------------------------------- */
 
         registerBtn.disabled = true;
 
         registerBtn.textContent =
             "Creating Account...";
 
-        registerMessage.style.display =
-            "none";
-
-
-        /* =================================================
-           API CALL
-        ================================================= */
 
         try {
 
+
+            /* -----------------------------------------
+               API REQUEST
+            ----------------------------------------- */
+
             const response =
                 await fetch(
-                    "http://localhost:5000/api/register",
+                    API_BASE + "/api/register",
                     {
+
                         method: "POST",
 
                         headers: {
+
                             "Content-Type":
                                 "application/json"
+
                         },
 
-                        body: JSON.stringify({
+                        body:
+                            JSON.stringify({
 
-                            name: name,
+                                name: name,
 
-                            email: email,
+                                email: email,
 
-                            mobile: mobile,
+                                mobile: mobile,
 
-                            password: password
+                                password: password
 
-                        })
+                            })
+
                     }
                 );
 
 
-            /* READ RESPONSE */
+            /* -----------------------------------------
+               RESPONSE
+            ----------------------------------------- */
 
-            const data =
-                await response.json();
+            let data;
+
+            try {
+
+                data =
+                    await response.json();
+
+            } catch {
+
+                throw new Error(
+                    "Invalid server response."
+                );
+
+            }
 
 
-            /* =================================================
+            /* -----------------------------------------
                ERROR
-            ================================================= */
+            ----------------------------------------- */
 
             if (
                 !response.ok ||
@@ -531,18 +710,47 @@ registerForm.addEventListener(
             ) {
 
                 throw new Error(
+
                     data.message ||
                     "Registration failed."
+
                 );
+
             }
 
 
-            /* =================================================
+            /* -----------------------------------------
+               SAVE USER DATA
+            ----------------------------------------- */
+
+            if (data.user) {
+
+                sessionStorage.setItem(
+                    "user",
+                    JSON.stringify(
+                        data.user
+                    )
+                );
+
+
+                if (data.user.id) {
+
+                    sessionStorage.setItem(
+                        "userId",
+                        String(data.user.id)
+                    );
+
+                }
+
+            }
+
+
+            /* -----------------------------------------
                SUCCESS
-            ================================================= */
+            ----------------------------------------- */
 
             showMessage(
-                "✅ Registration successful! Redirecting to login...",
+                "Registration successful! Opening login page...",
                 "success"
             );
 
@@ -550,10 +758,12 @@ registerForm.addEventListener(
             registerForm.reset();
 
 
-            /* REDIRECT */
+            /* -----------------------------------------
+               GO TO LOGIN
+            ----------------------------------------- */
 
             setTimeout(
-                function() {
+                function () {
 
                     window.location.href =
                         "login.html";
@@ -565,70 +775,58 @@ registerForm.addEventListener(
 
         } catch (error) {
 
+
             console.error(
                 "Registration error:",
                 error
             );
 
 
-            showMessage(
+            let message =
                 error.message ||
-                "Unable to connect to server.",
+                "Registration failed.";
+
+
+            /* -----------------------------------------
+               CONNECTION ERROR
+            ----------------------------------------- */
+
+            if (
+                error instanceof TypeError ||
+                message.includes("Failed to fetch")
+            ) {
+
+                message =
+                    "Cannot connect to server. " +
+                    "Please start the Node.js server " +
+                    "and check the computer IP/Wi-Fi.";
+
+            }
+
+
+            showMessage(
+                message,
                 "error"
             );
 
+
+            /* -----------------------------------------
+               ENABLE BUTTON
+            ----------------------------------------- */
 
             registerBtn.disabled =
                 false;
 
             registerBtn.textContent =
-                "Create Account →";
+                "Create Account";
 
         }
 
     }
 );
 
-
-/* =====================================================
-   SHOW MESSAGE
-===================================================== */
-
-function showMessage(
-    text,
-    type
-) {
-
-    registerMessage.textContent =
-        text;
-
-    registerMessage.className =
-        "message " + type;
-
-    registerMessage.style.display =
-        "block";
-}
-
-
-/* =====================================================
-   MOBILE ONLY NUMBERS
-===================================================== */
-
-document
-    .getElementById("mobile")
-    .addEventListener(
-        "input",
-        function() {
-
-            this.value =
-                this.value
-                    .replace(/\D/g, "")
-                    .slice(0, 10);
-
-        }
-    );
-
 </script>
+
 
 </body>
 
