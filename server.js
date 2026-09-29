@@ -13,8 +13,9 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
+
 /* =====================================================
-   CORS
+   MIDDLEWARE
 ===================================================== */
 
 app.use(cors({
@@ -22,51 +23,50 @@ app.use(cors({
     credentials: true
 }));
 
-/* =====================================================
-   MIDDLEWARE
-===================================================== */
-
 app.use(express.json());
 
 app.use(express.urlencoded({
     extended: true
 }));
 
+
 /* =====================================================
-   MYSQL DATABASE
+   MYSQL
 ===================================================== */
+
+/*
+   LOCAL COMPUTER:
+   These values can be placed in environment variables.
+
+   For online deployment:
+   Set DB_HOST, DB_PORT, DB_USER,
+   DB_PASSWORD and DB_NAME in your hosting service.
+*/
 
 const db = mysql.createPool({
 
-    host:
-        process.env.DB_HOST ||
-        "localhost",
+    host: process.env.DB_HOST || "localhost",
 
-    port:
-        Number(
-            process.env.DB_PORT ||
-            3307
-        ),
+    port: Number(
+        process.env.DB_PORT || 3307
+    ),
 
     user:
-        process.env.DB_USER ||
-        "root",
+        process.env.DB_USER || "root",
 
     password:
-        process.env.DB_PASSWORD ||
-        "karnataka@123",
+        process.env.DB_PASSWORD || "karnataka@123",
 
     database:
-        process.env.DB_NAME ||
-        "karnataka_travel",
+        process.env.DB_NAME || "karnataka_travel",
 
     waitForConnections: true,
 
     connectionLimit: 10,
 
     queueLimit: 0
-
 });
+
 
 /* =====================================================
    DATABASE TEST
@@ -96,10 +96,6 @@ async function testDatabase() {
     } catch (error) {
 
         console.error(
-            "========================================"
-        );
-
-        console.error(
             "❌ MySQL connection failed"
         );
 
@@ -107,15 +103,11 @@ async function testDatabase() {
             error.message
         );
 
-        console.error(
-            "========================================"
-        );
-
     }
-
 }
 
 testDatabase();
+
 
 /* =====================================================
    HOME
@@ -130,430 +122,429 @@ app.get("/", (req, res) => {
         message:
             "Karnataka Travel Server is running",
 
-        port:
-            PORT
+        port: PORT
 
     });
 
 });
 
+
 /* =====================================================
    TEST DATABASE
 ===================================================== */
 
-app.get(
-    "/api/test-db",
-    async (req, res) => {
+app.get("/api/test-db", async (req, res) => {
 
-        try {
+    try {
 
-            const [rows] =
-                await db.execute(
-                    "SELECT 1 AS test"
-                );
-
-            res.json({
-
-                success: true,
-
-                message:
-                    "MySQL connection working",
-
-                data:
-                    rows
-
-            });
-
-        } catch (error) {
-
-            console.error(
-                "Database test error:",
-                error.message
+        const [rows] =
+            await db.execute(
+                "SELECT 1 AS test"
             );
 
-            res.status(500).json({
+        res.json({
 
-                success: false,
+            success: true,
 
-                message:
-                    error.message
+            message:
+                "MySQL connection working",
 
-            });
+            data: rows
 
-        }
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Database test error:",
+            error.message
+        );
+
+        res.status(500).json({
+
+            success: false,
+
+            message:
+                error.message
+
+        });
 
     }
-);
+
+});
+
 
 /* =====================================================
    REGISTER
 ===================================================== */
 
-app.post(
-    "/api/register",
-    async (req, res) => {
+app.post("/api/register", async (req, res) => {
 
-        try {
+    try {
 
-            const {
-                name,
-                email,
-                mobile,
-                password
-            } = req.body;
+        const {
+            name,
+            email,
+            mobile,
+            password
+        } = req.body;
 
-            if (
-                !name ||
-                !email ||
-                !mobile ||
-                !password
-            ) {
 
-                return res.status(400).json({
+        if (
+            !name ||
+            !email ||
+            !mobile ||
+            !password
+        ) {
 
-                    success: false,
-
-                    message:
-                        "All fields are required."
-
-                });
-
-            }
-
-            const cleanName =
-                String(name).trim();
-
-            const cleanEmail =
-                String(email)
-                    .trim()
-                    .toLowerCase();
-
-            const cleanMobile =
-                String(mobile)
-                    .replace(/\D/g, "");
-
-            if (
-                cleanName.length < 2
-            ) {
-
-                return res.status(400).json({
-
-                    success: false,
-
-                    message:
-                        "Enter a valid name."
-
-                });
-
-            }
-
-            if (
-                !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
-                    .test(cleanEmail)
-            ) {
-
-                return res.status(400).json({
-
-                    success: false,
-
-                    message:
-                        "Enter a valid email."
-
-                });
-
-            }
-
-            if (
-                !/^[0-9]{10}$/
-                    .test(cleanMobile)
-            ) {
-
-                return res.status(400).json({
-
-                    success: false,
-
-                    message:
-                        "Mobile number must contain 10 digits."
-
-                });
-
-            }
-
-            if (
-                String(password).length < 6
-            ) {
-
-                return res.status(400).json({
-
-                    success: false,
-
-                    message:
-                        "Password must contain at least 6 characters."
-
-                });
-
-            }
-
-            const [existing] =
-                await db.execute(
-
-                    `SELECT id
-                     FROM users
-                     WHERE email = ?
-                     OR mobile = ?
-                     LIMIT 1`,
-
-                    [
-                        cleanEmail,
-                        cleanMobile
-                    ]
-
-                );
-
-            if (
-                existing.length > 0
-            ) {
-
-                return res.status(409).json({
-
-                    success: false,
-
-                    message:
-                        "Email or mobile already registered."
-
-                });
-
-            }
-
-            const hashedPassword =
-                await bcrypt.hash(
-                    String(password),
-                    10
-                );
-
-            const [result] =
-                await db.execute(
-
-                    `INSERT INTO users
-                    (
-                        name,
-                        email,
-                        password,
-                        mobile
-                    )
-                    VALUES (?, ?, ?, ?)`,
-
-                    [
-                        cleanName,
-                        cleanEmail,
-                        hashedPassword,
-                        cleanMobile
-                    ]
-
-                );
-
-            res.status(201).json({
-
-                success: true,
-
-                message:
-                    "Registration successful.",
-
-                user: {
-
-                    id:
-                        result.insertId,
-
-                    name:
-                        cleanName,
-
-                    email:
-                        cleanEmail,
-
-                    mobile:
-                        cleanMobile
-
-                }
-
-            });
-
-        } catch (error) {
-
-            console.error(
-                "Register error:",
-                error.message
-            );
-
-            res.status(500).json({
+            return res.status(400).json({
 
                 success: false,
 
                 message:
-                    error.message
+                    "All fields are required."
 
             });
 
         }
 
+
+        const cleanName =
+            String(name).trim();
+
+
+        const cleanEmail =
+            String(email)
+                .trim()
+                .toLowerCase();
+
+
+        const cleanMobile =
+            String(mobile)
+                .replace(/\D/g, "");
+
+
+        if (cleanName.length < 2) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message:
+                    "Enter a valid name."
+
+            });
+
+        }
+
+
+        if (
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                .test(cleanEmail)
+        ) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message:
+                    "Enter a valid email."
+
+            });
+
+        }
+
+
+        if (
+            !/^[0-9]{10}$/.test(cleanMobile)
+        ) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message:
+                    "Mobile number must contain 10 digits."
+
+            });
+
+        }
+
+
+        if (
+            String(password).length < 6
+        ) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message:
+                    "Password must contain at least 6 characters."
+
+            });
+
+        }
+
+
+        const [existing] =
+            await db.execute(
+
+                `SELECT id
+                 FROM users
+                 WHERE email = ?
+                 OR mobile = ?
+                 LIMIT 1`,
+
+                [
+                    cleanEmail,
+                    cleanMobile
+                ]
+
+            );
+
+
+        if (existing.length > 0) {
+
+            return res.status(409).json({
+
+                success: false,
+
+                message:
+                    "Email or mobile already registered."
+
+            });
+
+        }
+
+
+        const hashedPassword =
+            await bcrypt.hash(
+                String(password),
+                10
+            );
+
+
+        const [result] =
+            await db.execute(
+
+                `INSERT INTO users
+                (name, email, password, mobile)
+                VALUES (?, ?, ?, ?)`,
+
+                [
+                    cleanName,
+                    cleanEmail,
+                    hashedPassword,
+                    cleanMobile
+                ]
+
+            );
+
+
+        res.status(201).json({
+
+            success: true,
+
+            message:
+                "Registration successful.",
+
+            user: {
+
+                id:
+                    result.insertId,
+
+                name:
+                    cleanName,
+
+                email:
+                    cleanEmail,
+
+                mobile:
+                    cleanMobile
+
+            }
+
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Register error:",
+            error.message
+        );
+
+        res.status(500).json({
+
+            success: false,
+
+            message:
+                error.message
+
+        });
+
     }
-);
+
+});
+
 
 /* =====================================================
    LOGIN
 ===================================================== */
 
-app.post(
-    "/api/login",
-    async (req, res) => {
+app.post("/api/login", async (req, res) => {
 
-        try {
+    try {
 
-            const {
-                email,
-                mobile,
-                password
-            } = req.body;
+        const {
+            email,
+            mobile,
+            password
+        } = req.body;
 
-            if (
-                (!email && !mobile) ||
-                !password
-            ) {
 
-                return res.status(400).json({
+        if (
+            (!email && !mobile) ||
+            !password
+        ) {
 
-                    success: false,
-
-                    message:
-                        "Enter email/mobile and password."
-
-                });
-
-            }
-
-            let rows;
-
-            if (email) {
-
-                [rows] =
-                    await db.execute(
-
-                        `SELECT *
-                         FROM users
-                         WHERE email = ?
-                         LIMIT 1`,
-
-                        [
-                            String(email)
-                                .trim()
-                                .toLowerCase()
-                        ]
-
-                    );
-
-            } else {
-
-                [rows] =
-                    await db.execute(
-
-                        `SELECT *
-                         FROM users
-                         WHERE mobile = ?
-                         LIMIT 1`,
-
-                        [
-                            String(mobile)
-                                .replace(/\D/g, "")
-                        ]
-
-                    );
-
-            }
-
-            if (
-                rows.length === 0
-            ) {
-
-                return res.status(401).json({
-
-                    success: false,
-
-                    message:
-                        "User not found."
-
-                });
-
-            }
-
-            const user =
-                rows[0];
-
-            const passwordMatch =
-                await bcrypt.compare(
-
-                    String(password),
-
-                    String(user.password)
-
-                );
-
-            if (!passwordMatch) {
-
-                return res.status(401).json({
-
-                    success: false,
-
-                    message:
-                        "Incorrect password."
-
-                });
-
-            }
-
-            res.json({
-
-                success: true,
-
-                message:
-                    "Login successful.",
-
-                user: {
-
-                    id:
-                        user.id,
-
-                    name:
-                        user.name,
-
-                    email:
-                        user.email,
-
-                    mobile:
-                        user.mobile
-
-                }
-
-            });
-
-        } catch (error) {
-
-            console.error(
-                "Login error:",
-                error.message
-            );
-
-            res.status(500).json({
+            return res.status(400).json({
 
                 success: false,
 
                 message:
-                    error.message
+                    "Enter email/mobile and password."
 
             });
 
         }
 
+
+        let rows;
+
+
+        if (email) {
+
+            [rows] =
+                await db.execute(
+
+                    `SELECT *
+                     FROM users
+                     WHERE email = ?
+                     LIMIT 1`,
+
+                    [
+                        String(email)
+                            .trim()
+                            .toLowerCase()
+                    ]
+
+                );
+
+        } else {
+
+            [rows] =
+                await db.execute(
+
+                    `SELECT *
+                     FROM users
+                     WHERE mobile = ?
+                     LIMIT 1`,
+
+                    [
+                        String(mobile)
+                            .replace(/\D/g, "")
+                    ]
+
+                );
+
+        }
+
+
+        if (rows.length === 0) {
+
+            return res.status(401).json({
+
+                success: false,
+
+                message:
+                    "User not found."
+
+            });
+
+        }
+
+
+        const user =
+            rows[0];
+
+
+        const passwordMatch =
+            await bcrypt.compare(
+                String(password),
+                String(user.password)
+            );
+
+
+        if (!passwordMatch) {
+
+            return res.status(401).json({
+
+                success: false,
+
+                message:
+                    "Incorrect password."
+
+            });
+
+        }
+
+
+        res.json({
+
+            success: true,
+
+            message:
+                "Login successful.",
+
+            user: {
+
+                id:
+                    user.id,
+
+                name:
+                    user.name,
+
+                email:
+                    user.email,
+
+                mobile:
+                    user.mobile
+
+            }
+
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Login error:",
+            error.message
+        );
+
+        res.status(500).json({
+
+            success: false,
+
+            message:
+                error.message
+
+        });
+
     }
-);
+
+});
+
 
 /* =====================================================
    PROFILE
@@ -567,6 +558,7 @@ app.get(
 
             const id =
                 Number(req.params.id);
+
 
             if (
                 !Number.isInteger(id) ||
@@ -583,6 +575,7 @@ app.get(
                 });
 
             }
+
 
             const [rows] =
                 await db.execute(
@@ -601,9 +594,8 @@ app.get(
 
                 );
 
-            if (
-                rows.length === 0
-            ) {
+
+            if (rows.length === 0) {
 
                 return res.status(404).json({
 
@@ -616,6 +608,7 @@ app.get(
 
             }
 
+
             res.json({
 
                 success: true,
@@ -626,6 +619,11 @@ app.get(
             });
 
         } catch (error) {
+
+            console.error(
+                "Profile error:",
+                error.message
+            );
 
             res.status(500).json({
 
@@ -640,6 +638,7 @@ app.get(
 
     }
 );
+
 
 /* =====================================================
    FORGOT PASSWORD
@@ -656,10 +655,8 @@ app.post(
                 mobile
             } = req.body;
 
-            if (
-                !email &&
-                !mobile
-            ) {
+
+            if (!email && !mobile) {
 
                 return res.status(400).json({
 
@@ -672,7 +669,9 @@ app.post(
 
             }
 
+
             let rows;
+
 
             if (email) {
 
@@ -711,9 +710,8 @@ app.post(
 
             }
 
-            if (
-                rows.length === 0
-            ) {
+
+            if (rows.length === 0) {
 
                 return res.status(404).json({
 
@@ -726,8 +724,10 @@ app.post(
 
             }
 
+
             const user =
                 rows[0];
+
 
             const otp =
                 Math.floor(
@@ -735,11 +735,13 @@ app.post(
                     Math.random() * 900000
                 ).toString();
 
+
             const expiry =
                 new Date(
                     Date.now() +
                     10 * 60 * 1000
                 );
+
 
             await db.execute(
 
@@ -755,6 +757,7 @@ app.post(
                 ]
 
             );
+
 
             console.log(
                 "========================================"
@@ -773,6 +776,7 @@ app.post(
                 "========================================"
             );
 
+
             res.json({
 
                 success: true,
@@ -790,6 +794,11 @@ app.post(
 
         } catch (error) {
 
+            console.error(
+                "Forgot password error:",
+                error.message
+            );
+
             res.status(500).json({
 
                 success: false,
@@ -803,6 +812,7 @@ app.post(
 
     }
 );
+
 
 /* =====================================================
    VERIFY OTP
@@ -820,6 +830,7 @@ app.post(
                 otp
             } = req.body;
 
+
             if (
                 (!email && !mobile) ||
                 !otp
@@ -836,7 +847,9 @@ app.post(
 
             }
 
+
             let rows;
+
 
             if (email) {
 
@@ -875,9 +888,8 @@ app.post(
 
             }
 
-            if (
-                rows.length === 0
-            ) {
+
+            if (rows.length === 0) {
 
                 return res.status(404).json({
 
@@ -890,8 +902,10 @@ app.post(
 
             }
 
+
             const user =
                 rows[0];
+
 
             if (
                 String(user.otp) !==
@@ -908,6 +922,7 @@ app.post(
                 });
 
             }
+
 
             if (
                 !user.otp_expiry ||
@@ -926,6 +941,7 @@ app.post(
 
             }
 
+
             res.json({
 
                 success: true,
@@ -940,6 +956,11 @@ app.post(
 
         } catch (error) {
 
+            console.error(
+                "OTP error:",
+                error.message
+            );
+
             res.status(500).json({
 
                 success: false,
@@ -953,6 +974,7 @@ app.post(
 
     }
 );
+
 
 /* =====================================================
    RESET PASSWORD
@@ -969,6 +991,7 @@ app.post(
                 otp,
                 newPassword
             } = req.body;
+
 
             if (
                 !userId ||
@@ -987,6 +1010,7 @@ app.post(
 
             }
 
+
             if (
                 String(newPassword).length < 6
             ) {
@@ -1002,6 +1026,7 @@ app.post(
 
             }
 
+
             const [rows] =
                 await db.execute(
 
@@ -1010,15 +1035,12 @@ app.post(
                      WHERE id = ?
                      LIMIT 1`,
 
-                    [
-                        Number(userId)
-                    ]
+                    [Number(userId)]
 
                 );
 
-            if (
-                rows.length === 0
-            ) {
+
+            if (rows.length === 0) {
 
                 return res.status(404).json({
 
@@ -1031,8 +1053,10 @@ app.post(
 
             }
 
+
             const user =
                 rows[0];
+
 
             if (
                 String(user.otp) !==
@@ -1049,6 +1073,7 @@ app.post(
                 });
 
             }
+
 
             if (
                 !user.otp_expiry ||
@@ -1067,11 +1092,13 @@ app.post(
 
             }
 
+
             const hash =
                 await bcrypt.hash(
                     String(newPassword),
                     10
                 );
+
 
             await db.execute(
 
@@ -1088,6 +1115,7 @@ app.post(
 
             );
 
+
             res.json({
 
                 success: true,
@@ -1098,6 +1126,11 @@ app.post(
             });
 
         } catch (error) {
+
+            console.error(
+                "Reset password error:",
+                error.message
+            );
 
             res.status(500).json({
 
@@ -1112,6 +1145,7 @@ app.post(
 
     }
 );
+
 
 /* =====================================================
    CREATE BOOKING
@@ -1141,6 +1175,7 @@ app.post(
 
             } = req.body;
 
+
             if (
                 !userId ||
                 !name ||
@@ -1164,9 +1199,11 @@ app.post(
 
             }
 
+
             const finalBookingId =
                 bookingId ||
                 "KT" + Date.now();
+
 
             const [result] =
                 await db.execute(
@@ -1224,6 +1261,7 @@ app.post(
 
                 );
 
+
             res.status(201).json({
 
                 success: true,
@@ -1260,6 +1298,7 @@ app.post(
     }
 );
 
+
 /* =====================================================
    PAYMENT
 ===================================================== */
@@ -1273,15 +1312,18 @@ app.put(
             const bookingId =
                 req.params.bookingId;
 
+
             const {
                 paymentMethod,
                 payment_method
             } = req.body;
 
+
             const method =
                 paymentMethod ||
                 payment_method ||
                 "Cash";
+
 
             const [result] =
                 await db.execute(
@@ -1298,6 +1340,7 @@ app.put(
 
                 );
 
+
             if (
                 result.affectedRows === 0
             ) {
@@ -1313,6 +1356,7 @@ app.put(
 
             }
 
+
             res.json({
 
                 success: true,
@@ -1320,8 +1364,7 @@ app.put(
                 message:
                     "Payment updated successfully.",
 
-                bookingId:
-                    bookingId,
+                bookingId,
 
                 paymentMethod:
                     method,
@@ -1352,6 +1395,7 @@ app.put(
     }
 );
 
+
 /* =====================================================
    USER BOOKING HISTORY
 ===================================================== */
@@ -1364,6 +1408,7 @@ app.get(
 
             const userId =
                 Number(req.params.userId);
+
 
             if (
                 !Number.isInteger(userId) ||
@@ -1381,6 +1426,7 @@ app.get(
 
             }
 
+
             const [rows] =
                 await db.execute(
 
@@ -1389,11 +1435,10 @@ app.get(
                      WHERE user_id = ?
                      ORDER BY id DESC`,
 
-                    [
-                        userId
-                    ]
+                    [userId]
 
                 );
+
 
             res.json({
 
@@ -1425,6 +1470,7 @@ app.get(
     }
 );
 
+
 /* =====================================================
    SINGLE BOOKING
 ===================================================== */
@@ -1449,9 +1495,8 @@ app.get(
 
                 );
 
-            if (
-                rows.length === 0
-            ) {
+
+            if (rows.length === 0) {
 
                 return res.status(404).json({
 
@@ -1464,6 +1509,7 @@ app.get(
 
             }
 
+
             res.json({
 
                 success: true,
@@ -1474,6 +1520,11 @@ app.get(
             });
 
         } catch (error) {
+
+            console.error(
+                "Single booking error:",
+                error.message
+            );
 
             res.status(500).json({
 
@@ -1489,8 +1540,9 @@ app.get(
     }
 );
 
+
 /* =====================================================
-   DELETE ONE BOOKING
+   DELETE BOOKING
 ===================================================== */
 
 app.delete(
@@ -1511,6 +1563,7 @@ app.delete(
 
                 );
 
+
             if (
                 result.affectedRows === 0
             ) {
@@ -1525,6 +1578,7 @@ app.delete(
                 });
 
             }
+
 
             res.json({
 
@@ -1556,6 +1610,7 @@ app.delete(
     }
 );
 
+
 /* =====================================================
    DELETE ALL BOOKINGS
 ===================================================== */
@@ -1570,6 +1625,7 @@ app.delete(
                 "DELETE FROM bookings"
             );
 
+
             res.json({
 
                 success: true,
@@ -1580,6 +1636,11 @@ app.delete(
             });
 
         } catch (error) {
+
+            console.error(
+                "Delete all bookings error:",
+                error.message
+            );
 
             res.status(500).json({
 
@@ -1594,6 +1655,7 @@ app.delete(
 
     }
 );
+
 
 /* =====================================================
    ADMIN LOGIN
@@ -1610,26 +1672,25 @@ app.post(
                 password
             } = req.body;
 
+
             const adminEmail =
                 process.env.ADMIN_EMAIL ||
                 "admin@karnatakatravel.com";
+
 
             const adminPassword =
                 process.env.ADMIN_PASSWORD ||
                 "admin123";
 
-            if (
 
+            if (
                 String(email)
                     .trim()
                     .toLowerCase() !==
                 adminEmail.toLowerCase()
-
                 ||
-
                 String(password) !==
                 adminPassword
-
             ) {
 
                 return res.status(401).json({
@@ -1642,6 +1703,7 @@ app.post(
                 });
 
             }
+
 
             res.json({
 
@@ -1664,6 +1726,11 @@ app.post(
 
         } catch (error) {
 
+            console.error(
+                "Admin login error:",
+                error.message
+            );
+
             res.status(500).json({
 
                 success: false,
@@ -1677,6 +1744,7 @@ app.post(
 
     }
 );
+
 
 /* =====================================================
    ADMIN BOOKINGS
@@ -1696,6 +1764,7 @@ app.get(
                      ORDER BY id DESC`
 
                 );
+
 
             res.json({
 
@@ -1727,6 +1796,7 @@ app.get(
     }
 );
 
+
 /* =====================================================
    CONTACT
 ===================================================== */
@@ -1745,6 +1815,7 @@ app.post(
                 message
             } = req.body;
 
+
             if (
                 !name ||
                 !email ||
@@ -1761,6 +1832,7 @@ app.post(
                 });
 
             }
+
 
             await db.execute(
 
@@ -1792,6 +1864,7 @@ app.post(
 
             );
 
+
             res.json({
 
                 success: true,
@@ -1822,6 +1895,7 @@ app.post(
     }
 );
 
+
 /* =====================================================
    API 404
 ===================================================== */
@@ -1842,32 +1916,9 @@ app.use(
     }
 );
 
-/* =====================================================
-   GENERAL ERROR
-===================================================== */
-
-app.use(
-    (error, req, res, next) => {
-
-        console.error(
-            "Server error:",
-            error
-        );
-
-        res.status(500).json({
-
-            success: false,
-
-            message:
-                "Internal server error."
-
-        });
-
-    }
-);
 
 /* =====================================================
-   START SERVER
+   SERVER
 ===================================================== */
 
 app.listen(
@@ -1898,12 +1949,8 @@ app.listen(
         );
 
         console.log(
-            "📱 LAN:",
-            `http://YOUR-PC-IP:${PORT}`
-        );
-
-        console.log(
-            "========================================"
+            "🌍 Host:",
+            "0.0.0.0"
         );
 
         console.log(
