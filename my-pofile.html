@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Profile - Karnataka Travel</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+<body>
+
+<header class="main-header">
+
+    <div class="logo">
+        🏛️ Karnataka <span>Travel</span>
+    </div>
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="district.html">
+            Districts
+        </a>
+
+        <a href="index.html#vehicles">
+            Vehicles
+        </a>
+
+        <a href="contact.html">
+            About
+        </a>
+
+        <a href="contact.html">
+            Contact
+        </a>
+
+        <a href="my-profile.html"
+           class="active">
+            👤 My Profile
+        </a>
+
+        <a href="booking-history.html">
+            Booking History
+        </a>
+
+        <a href="#"
+           id="logoutBtn"
+           class="logout-btn">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="profile-page">
+
+    <div class="profile-card">
+
+        <div class="profile-icon">
+            👤
+        </div>
+
+        <h1>
+            My Profile
+        </h1>
+
+        <p class="profile-subtitle">
+            Welcome to Karnataka Travel
+        </p>
+
+
+        <div class="profile-info">
+
+            <div class="profile-row">
+
+                <span>
+                    👤 Name
+                </span>
+
+                <strong id="profileName">
+                    Loading...
+                </strong>
+
+            </div>
+
+
+            <div class="profile-row">
+
+                <span>
+                    📧 Email
+                </span>
+
+                <strong id="profileEmail">
+                    Loading...
+                </strong>
+
+            </div>
+
+
+            <div class="profile-row">
+
+                <span>
+                    📱 Mobile
+                </span>
+
+                <strong id="profileMobile">
+                    Loading...
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="profile-buttons">
+
+            <a
+                href="booking.html"
+                class="profile-btn"
+            >
+                🚌 Book a Trip
+            </a>
+
+            <a
+                href="booking-history.html"
+                class="profile-btn secondary"
+            >
+                📋 Booking History
+            </a>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const user =
+            JSON.parse(
+                localStorage.getItem("loggedInUser")
+            );
+
+        // ---------------------------------
+        // USER NOT LOGGED IN
+        // ---------------------------------
+
+        if (!user) {
+
+            alert(
+                "Please login first."
+            );
+
+            window.location.href =
+                "login.html";
+
+            return;
+        }
+
+
+        // ---------------------------------
+        // SHOW USER INFORMATION
+        // ---------------------------------
+
+        document.getElementById(
+            "profileName"
+        ).textContent =
+            user.name || "Not available";
+
+
+        document.getElementById(
+            "profileEmail"
+        ).textContent =
+            user.email || "Not available";
+
+
+        document.getElementById(
+            "profileMobile"
+        ).textContent =
+            user.mobile || "Not available";
+
+
+        // ---------------------------------
+        // LOGOUT
+        // ---------------------------------
+
+        document.getElementById(
+            "logoutBtn"
+        ).addEventListener(
+            "click",
+            function (e) {
+
+                e.preventDefault();
+
+                localStorage.removeItem(
+                    "loggedInUser"
+                );
+
+                alert(
+                    "You have been logged out."
+                );
+
+                window.location.href =
+                    "index.html";
+            }
+        );
+
+    }
+);
+
+</script>
+
+</body>
+</html>
