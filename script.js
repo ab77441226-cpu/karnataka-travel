@@ -3363,3 +3363,139 @@ window.calculateBookingTotal =
 
 window.logout =
     logout;
+/* =========================================================
+   LOGIN / MY PROFILE LINK
+========================================================= */
+
+function updateLoginProfileLink() {
+
+    const loginLink =
+        document.getElementById("loginProfileLink");
+
+    if (!loginLink) {
+        return;
+    }
+
+
+    /*
+     * Check logged-in user
+     */
+
+    const loggedInUser =
+        localStorage.getItem("loggedInUser");
+
+
+    /*
+     * USER LOGGED IN
+     */
+
+    if (loggedInUser) {
+
+        loginLink.textContent =
+            "👤 My Profile";
+
+        loginLink.href =
+            "my-profile.html";
+
+    }
+
+
+    /*
+     * USER NOT LOGGED IN
+     */
+
+    else {
+
+        loginLink.textContent =
+            "Login";
+
+        loginLink.href =
+            "login.html";
+
+    }
+
+}
+
+
+/* =========================================================
+   RUN WHEN PAGE LOADS
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        updateLoginProfileLink();
+
+    }
+);
+// ==========================================
+// KARNATAKA TRAVEL - LOGIN PROFILE SYSTEM
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Get logged-in user
+    const loggedInUser =
+        JSON.parse(localStorage.getItem("loggedInUser")) || null;
+
+    // Navbar links
+    const loginLink = document.getElementById("loginProfileLink");
+    const registerLink = document.getElementById("registerLink");
+    const logoutLink = document.getElementById("logoutLink");
+
+    // ------------------------------------------
+    // USER IS LOGGED IN
+    // ------------------------------------------
+    if (loggedInUser) {
+
+        // Login -> My Profile
+        if (loginLink) {
+            loginLink.textContent = "👤 My Profile";
+            loginLink.href = "my-profile.html";
+        }
+
+        // Register -> Logout
+        if (registerLink) {
+            registerLink.textContent = "Logout";
+            registerLink.href = "#";
+            registerLink.classList.remove("register-btn");
+
+            registerLink.onclick = function (event) {
+                event.preventDefault();
+
+                localStorage.removeItem("loggedInUser");
+
+                alert("You have been logged out.");
+
+                window.location.href = "index.html";
+            };
+        }
+
+        // Optional separate logout button
+        if (logoutLink) {
+            logoutLink.style.display = "inline-block";
+        }
+
+    }
+
+    // ------------------------------------------
+    // USER IS NOT LOGGED IN
+    // ------------------------------------------
+    else {
+
+        if (loginLink) {
+            loginLink.textContent = "Login";
+            loginLink.href = "login.html";
+        }
+
+        if (registerLink) {
+            registerLink.textContent = "Register";
+            registerLink.href = "register.html";
+        }
+
+        if (logoutLink) {
+            logoutLink.style.display = "none";
+        }
+    }
+});
