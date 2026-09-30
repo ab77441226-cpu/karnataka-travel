@@ -648,37 +648,23 @@ registerForm.addEventListener(
             /* -----------------------------------------
                API REQUEST
             ----------------------------------------- */
+const response = await fetch(
+    API_BASE + "/api/register",
+    {
+        method: "POST",
 
-            const response =
-                await fetch(
-                    API_BASE + "/api/register",
-                    {
+        headers: {
+            "Content-Type": "application/json"
+        },
 
-                        method: "POST",
-
-                        headers: {
-
-                            "Content-Type":
-                                "application/json"
-
-                        },
-
-                        body:
-                            JSON.stringify({
-
-                                name: name,
-
-                                email: email,
-
-                                mobile: mobile,
-
-                                password: password
-
-                            })
-
-                    }
-                );
-
+        body: JSON.stringify({
+            name: name,
+            email: email,
+            mobile: mobile,
+            password: password
+        })
+    }
+);
 
             /* -----------------------------------------
                RESPONSE
