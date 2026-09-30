@@ -1,316 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Login - Karnataka Travel</title>
 
     <style>
-
         * {
             box-sizing: border-box;
         }
 
         body {
-
             margin: 0;
-
             font-family: Arial, sans-serif;
-
             background: #f4faf6;
-
             color: #333;
         }
 
-
-        /* =====================================================
-           HEADER
-        ===================================================== */
+        /* HEADER */
 
         header {
-
             height: 60px;
-
             background: white;
+            padding: 0 10%;
 
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
 
-            padding: 0 8%;
-
-            box-shadow:
-                0 2px 8px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
-
         .logo {
-
-            font-size: 19px;
-
+            font-size: 18px;
             font-weight: bold;
-
             color: #087f3d;
         }
 
-
         .logo span {
-
             color: #222;
         }
 
-
         nav {
-
             display: flex;
-
-            gap: 20px;
+            gap: 18px;
         }
-
 
         nav a {
-
             text-decoration: none;
-
             color: #333;
-
             font-size: 13px;
-
-            font-weight: 500;
         }
 
-
         nav a:hover {
-
             color: #087f3d;
         }
 
-
-        /* =====================================================
-           LOGIN PAGE
-        ===================================================== */
+        /* LOGIN PAGE */
 
         .login-page {
-
-            min-height:
-                calc(100vh - 60px);
+            min-height: calc(100vh - 60px);
 
             display: flex;
-
             justify-content: center;
-
             align-items: center;
 
             padding: 30px 15px;
         }
 
-
-        /* =====================================================
-           LOGIN BOX
-        ===================================================== */
-
         .login-box {
-
             width: 100%;
-
-            max-width: 430px;
+            max-width: 400px;
 
             background: white;
 
-            padding: 35px;
+            padding: 28px;
 
             border-radius: 18px;
 
             box-shadow:
-                0 10px 40px
-                rgba(0,0,0,0.12);
+                0 10px 40px rgba(0,0,0,0.12);
         }
 
-
-        /* =====================================================
-           ICON
-        ===================================================== */
-
         .login-icon {
+            width: 60px;
+            height: 60px;
 
-            width: 75px;
-
-            height: 75px;
-
-            margin: 0 auto 18px;
+            margin: 0 auto 12px;
 
             border-radius: 50%;
 
             background: #e8f5ed;
 
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
-            font-size: 38px;
-        }
-
-
-        /* =====================================================
-           TITLE
-        ===================================================== */
-
-        .login-title {
-
-            text-align: center;
-
-            color: #087f3d;
-
-            margin: 0 0 7px;
 
             font-size: 30px;
         }
 
+        h1 {
+            text-align: center;
 
-        .login-subtitle {
+            color: #087f3d;
 
+            margin: 0 0 5px;
+
+            font-size: 26px;
+        }
+
+        .subtitle {
             text-align: center;
 
             color: #777;
 
-            font-size: 14px;
+            font-size: 13px;
 
-            margin: 0 0 27px;
+            margin-bottom: 22px;
         }
 
-
-        /* =====================================================
-           FORM
-        ===================================================== */
+        /* FORM */
 
         .form-group {
-
-            margin-bottom: 18px;
+            margin-bottom: 15px;
         }
 
-
-        .form-group label {
-
+        label {
             display: block;
+
+            font-size: 13px;
 
             font-weight: bold;
 
-            font-size: 14px;
+            margin-bottom: 6px;
 
-            margin-bottom: 7px;
+            color: #333;
         }
 
-
-        .form-group input {
-
+        input {
             width: 100%;
 
-            padding: 13px;
+            padding: 12px;
 
             border: 1px solid #ccc;
 
-            border-radius: 8px;
-
-            font-size: 15px;
+            border-radius: 7px;
 
             outline: none;
+
+            font-size: 14px;
         }
 
-
-        .form-group input:focus {
-
+        input:focus {
             border-color: #087f3d;
 
             box-shadow:
-                0 0 0 2px
-                rgba(8,127,61,0.08);
+                0 0 0 2px rgba(8,127,61,0.08);
         }
 
+        .or {
+            text-align: center;
 
-        /* =====================================================
-           PASSWORD AREA
-        ===================================================== */
+            color: #777;
 
-        .password-wrapper {
+            font-size: 12px;
 
-            position: relative;
+            margin: 5px 0 12px;
         }
 
+        /* OPTIONS */
 
-        .password-wrapper input {
-
-            padding-right: 48px;
-        }
-
-
-        .show-password {
-
-            position: absolute;
-
-            right: 12px;
-
-            top: 50%;
-
-            transform:
-                translateY(-50%);
-
-            border: none;
-
-            background: transparent;
-
-            cursor: pointer;
-
-            font-size: 18px;
-        }
-
-
-        /* =====================================================
-           OPTIONS
-        ===================================================== */
-
-        .login-options {
-
+        .options {
             display: flex;
 
             justify-content: space-between;
 
             align-items: center;
 
-            margin-bottom: 20px;
+            margin: 5px 0 18px;
 
-            font-size: 13px;
+            font-size: 12px;
         }
 
-
         .remember {
-
             display: flex;
 
             align-items: center;
 
-            gap: 6px;
+            gap: 5px;
         }
-
 
         .remember input {
-
             width: auto;
-
-            accent-color: #087f3d;
         }
 
-
-        .forgot-link {
-
+        .forgot {
             color: #087f3d;
 
             text-decoration: none;
@@ -318,79 +203,69 @@
             font-weight: bold;
         }
 
-
-        .forgot-link:hover {
-
+        .forgot:hover {
             text-decoration: underline;
         }
 
-
-        /* =====================================================
-           LOGIN BUTTON
-        ===================================================== */
+        /* LOGIN BUTTON */
 
         .login-btn {
-
             width: 100%;
 
-            padding: 14px;
+            padding: 13px;
 
             border: none;
 
-            border-radius: 8px;
+            border-radius: 7px;
 
             background: #087f3d;
 
             color: white;
 
-            font-size: 17px;
+            font-size: 15px;
 
             font-weight: bold;
 
             cursor: pointer;
         }
 
-
         .login-btn:hover {
-
             background: #05652f;
         }
 
-
         .login-btn:disabled {
-
-            background: #999;
+            background: #8ab99d;
 
             cursor: not-allowed;
         }
 
-
-        /* =====================================================
-           MESSAGE
-        ===================================================== */
+        /* MESSAGE */
 
         .message {
-
             display: none;
 
-            margin-top: 18px;
+            padding: 11px;
 
-            padding: 12px;
+            margin-bottom: 15px;
 
-            border-radius: 8px;
+            border-radius: 7px;
 
             text-align: center;
 
             font-size: 13px;
 
             font-weight: bold;
-
-            line-height: 1.4;
         }
 
+        .success {
+            display: block;
 
-        .message.error {
+            background: #e8f5ed;
 
+            color: #087f3d;
+        }
+
+        .error {
             display: block;
 
             background: #ffebee;
@@ -398,402 +273,246 @@
             color: #c62828;
         }
 
-
-        .message.success {
-
-            display: block;
-
-            background: #e8f5e9;
-
-            color: #087f3d;
-        }
-
-
-        .message.info {
-
-            display: block;
-
-            background: #e3f2fd;
-
-            color: #1565c0;
-        }
-
-
-        /* =====================================================
-           REGISTER
-        ===================================================== */
+        /* REGISTER */
 
         .register-text {
-
             text-align: center;
 
-            margin-top: 22px;
+            margin-top: 18px;
 
-            font-size: 14px;
+            font-size: 12px;
 
             color: #666;
         }
 
-
         .register-text a {
-
             color: #087f3d;
 
-            text-decoration: none;
-
             font-weight: bold;
+
+            text-decoration: none;
         }
 
-
         .register-text a:hover {
-
             text-decoration: underline;
         }
 
-
-        /* =====================================================
-           HOME
-        ===================================================== */
-
-        .home-link {
+        .back-home {
+            display: block;
 
             text-align: center;
 
-            margin-top: 18px;
-        }
+            margin-top: 14px;
 
-
-        .home-link a {
-
-            color: #555;
+            color: #777;
 
             text-decoration: none;
 
-            font-size: 13px;
+            font-size: 11px;
         }
 
-
-        .home-link a:hover {
-
+        .back-home:hover {
             color: #087f3d;
-
-            text-decoration: underline;
         }
 
-
-        /* =====================================================
-           MOBILE
-        ===================================================== */
+        /* MOBILE */
 
         @media (max-width: 600px) {
 
             header {
-
                 padding: 0 15px;
             }
 
+            .logo {
+                font-size: 16px;
+            }
 
             nav {
-
-                gap: 9px;
+                gap: 8px;
             }
-
 
             nav a {
-
-                font-size: 10px;
+                font-size: 11px;
             }
-
-
-            .login-page {
-
-                padding: 20px 12px;
-            }
-
 
             .login-box {
-
-                padding: 25px 20px;
-
-                border-radius: 15px;
+                padding: 22px;
             }
 
-
-            .login-title {
-
-                font-size: 25px;
+            h1 {
+                font-size: 23px;
             }
-
-
-            .login-icon {
-
-                width: 62px;
-
-                height: 62px;
-
-                font-size: 30px;
-            }
-
-
-            .login-options {
-
-                font-size: 12px;
-            }
-
         }
-
     </style>
-
 </head>
-
 
 <body>
 
+    <!-- HEADER -->
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
+    <header>
 
-<header>
-
-    <div class="logo">
-
-        🏛️ Karnataka
-        <span>Travel</span>
-
-    </div>
-
-
-    <nav>
-
-        <a href="index.html">
-            Home
-        </a>
-
-        <a href="register.html">
-            Register
-        </a>
-
-    </nav>
-
-</header>
-
-
-
-<!-- =====================================================
-     LOGIN PAGE
-===================================================== -->
-
-<section class="login-page">
-
-
-    <div class="login-box">
-
-
-        <!-- ICON -->
-
-        <div class="login-icon">
-
-            🔐
-
+        <div class="logo">
+            🏛️ Karnataka <span>Travel</span>
         </div>
 
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="register.html">Register</a>
+        </nav>
 
-        <!-- TITLE -->
-
-        <h1 class="login-title">
-
-            Welcome Back
-
-        </h1>
+    </header>
 
 
-        <p class="login-subtitle">
+    <!-- LOGIN -->
 
-            Login to your Karnataka Travel account
+    <section class="login-page">
 
-        </p>
+        <div class="login-box">
+
+            <div class="login-icon">
+                🔐
+            </div>
+
+            <h1>
+                Welcome Back
+            </h1>
+
+            <p class="subtitle">
+                Login to your Karnataka Travel account
+            </p>
 
 
+            <!-- MESSAGE -->
 
-        <!-- =================================================
-             LOGIN FORM
-        ================================================== -->
-
-        <form id="loginForm">
-
-
-            <!-- EMAIL -->
-
-            <div class="form-group">
-
-                <label for="email">
-
-                    📧 Email
-
-                </label>
-
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Enter your registered email"
-                >
-
+            <div
+                id="message"
+                class="message">
             </div>
 
 
+            <!-- LOGIN FORM -->
 
-            <div style="
-                text-align:center;
-                color:#777;
-                font-size:13px;
-                margin:-5px 0 15px;
-            ">
+            <form id="loginForm">
 
-                OR
+                <!-- EMAIL -->
 
-            </div>
+                <div class="form-group">
 
+                    <label for="email">
+                        📧 Email
+                    </label>
 
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                    >
 
-            <!-- MOBILE -->
-
-            <div class="form-group">
-
-                <label for="mobile">
-
-                    📱 Mobile Number
-
-                </label>
-
-                <input
-                    type="tel"
-                    id="mobile"
-                    maxlength="10"
-                    inputmode="numeric"
-                    placeholder="Enter 10 digit mobile number"
-                >
-
-            </div>
+                </div>
 
 
-
-            <!-- PASSWORD -->
-
-            <div class="form-group">
-
-                <label for="password">
-
-                    🔒 Password
-
-                </label>
+                <div class="or">
+                    OR
+                </div>
 
 
-                <div class="password-wrapper">
+                <!-- MOBILE -->
+
+                <div class="form-group">
+
+                    <label for="mobile">
+                        📱 Mobile Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="mobile"
+                        name="mobile"
+                        placeholder="Enter 10 digit mobile number"
+                        maxlength="10"
+                    >
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="password">
+                        🔒 Password
+                    </label>
 
                     <input
                         type="password"
                         id="password"
+                        name="password"
                         placeholder="Enter your password"
                         required
                     >
 
+                </div>
 
-                    <button
-                        type="button"
-                        class="show-password"
-                        id="showPassword"
-                        aria-label="Show password"
-                    >
 
-                        👁️
+                <!-- OPTIONS -->
 
-                    </button>
+                <div class="options">
+
+                    <label class="remember">
+
+                        <input
+                            type="checkbox"
+                            id="remember"
+                        >
+
+                        Remember me
+
+                    </label>
+
+
+                    <a
+                        href="forgot-password.html"
+                        class="forgot">
+
+                        Forgot Password?
+
+                    </a>
 
                 </div>
 
-            </div>
+
+                <!-- BUTTON -->
+
+                <button
+                    type="submit"
+                    class="login-btn"
+                    id="loginBtn">
+
+                    Login
+
+                </button>
+
+            </form>
 
 
+            <!-- REGISTER -->
 
-            <!-- OPTIONS -->
+            <div class="register-text">
 
-            <div class="login-options">
+                Don't have an account?
 
-
-                <label class="remember">
-
-                    <input
-                        type="checkbox"
-                        id="remember"
-                    >
-
-                    Remember me
-
-                </label>
-
-
-                <a
-                    href="forgot-password.html"
-                    class="forgot-link"
-                >
-
-                    Forgot Password?
-
+                <a href="register.html">
+                    Create Account
                 </a>
 
-
             </div>
 
 
-
-            <!-- LOGIN -->
-
-            <button
-                type="submit"
-                class="login-btn"
-                id="loginBtn"
-            >
-
-                Login
-
-            </button>
-
-
-        </form>
-
-
-
-        <!-- MESSAGE -->
-
-        <div
-            id="message"
-            class="message"
-        ></div>
-
-
-
-        <!-- REGISTER -->
-
-        <div class="register-text">
-
-            Don't have an account?
-
-            <a href="register.html">
-
-                Create Account
-
-            </a>
-
-        </div>
-
-
-
-        <!-- HOME -->
-
-        <div class="home-link">
-
-            <a href="index.html">
+            <a
+                href="index.html"
+                class="back-home">
 
                 ← Back to Home
 
@@ -801,541 +520,352 @@
 
         </div>
 
+    </section>
 
-    </div>
 
-</section>
+    <script>
 
+        "use strict";
 
 
-<script>
+        /* =====================================================
+           API URL
+        ===================================================== */
 
-"use strict";
+        const API_BASE =
+            window.location.protocol === "file:"
+                ? "http://localhost:5000"
+                : `${window.location.protocol}//${window.location.hostname}:5000`;
 
 
-/* =====================================================
-   API URL
+        /* =====================================================
+           ELEMENTS
+        ===================================================== */
 
-   Works on:
-   - Computer
-   - Mobile
-   - Same Wi-Fi network
-===================================================== */
+        const loginForm =
+            document.getElementById("loginForm");
 
-const API_BASE =
-    window.location.protocol === "file:"
-        ? "http://localhost:5000"
-        : `${window.location.protocol}//${window.location.hostname}:5000`;
+        const loginBtn =
+            document.getElementById("loginBtn");
 
+        const message =
+            document.getElementById("message");
 
+        const emailInput =
+            document.getElementById("email");
 
-/* =====================================================
-   ELEMENTS
-===================================================== */
+        const mobileInput =
+            document.getElementById("mobile");
 
-const loginForm =
-    document.getElementById("loginForm");
+        const passwordInput =
+            document.getElementById("password");
 
-const loginBtn =
-    document.getElementById("loginBtn");
 
-const message =
-    document.getElementById("message");
+        /* =====================================================
+           MESSAGE
+        ===================================================== */
 
-const emailInput =
-    document.getElementById("email");
+        function showMessage(text, type) {
 
-const mobileInput =
-    document.getElementById("mobile");
+            message.textContent = text;
 
-const passwordInput =
-    document.getElementById("password");
+            message.className =
+                "message " + type;
 
-const rememberInput =
-    document.getElementById("remember");
-
-const showPasswordBtn =
-    document.getElementById("showPassword");
-
-
-
-/* =====================================================
-   SHOW MESSAGE
-===================================================== */
-
-function showMessage(text, type) {
-
-    message.textContent = text;
-
-    message.className =
-        "message " + type;
-
-    message.style.display =
-        "block";
-
-}
-
-
-function clearMessage() {
-
-    message.textContent = "";
-
-    message.className =
-        "message";
-
-    message.style.display =
-        "none";
-
-}
-
-
-
-/* =====================================================
-   SHOW / HIDE PASSWORD
-===================================================== */
-
-showPasswordBtn.addEventListener(
-    "click",
-    function() {
-
-        if (
-            passwordInput.type ===
-            "password"
-        ) {
-
-            passwordInput.type =
-                "text";
-
-            showPasswordBtn.textContent =
-                "🙈";
-
-        } else {
-
-            passwordInput.type =
-                "password";
-
-            showPasswordBtn.textContent =
-                "👁️";
-
-        }
-
-    }
-);
-
-
-
-/* =====================================================
-   MOBILE NUMBER
-===================================================== */
-
-mobileInput.addEventListener(
-    "input",
-    function() {
-
-        this.value =
-            this.value
-                .replace(/\D/g, "")
-                .slice(0, 10);
-
-    }
-);
-
-
-
-/* =====================================================
-   EMAIL / MOBILE
-   User can use either one
-===================================================== */
-
-emailInput.addEventListener(
-    "input",
-    function() {
-
-        if (this.value.trim()) {
-
-            mobileInput.value = "";
-
-        }
-
-    }
-);
-
-
-mobileInput.addEventListener(
-    "input",
-    function() {
-
-        if (this.value.trim()) {
-
-            emailInput.value = "";
-
-        }
-
-    }
-);
-
-
-
-/* =====================================================
-   LOGIN
-===================================================== */
-
-loginForm.addEventListener(
-    "submit",
-    async function(event) {
-
-        event.preventDefault();
-
-        clearMessage();
-
-
-        const email =
-            emailInput.value
-                .trim()
-                .toLowerCase();
-
-
-        const mobile =
-            mobileInput.value
-                .replace(/\D/g, "");
-
-
-        const password =
-            passwordInput.value;
-
-
-        /* =============================================
-           VALIDATION
-        ============================================= */
-
-        if (!email && !mobile) {
-
-            showMessage(
-                "Please enter your email or mobile number.",
-                "error"
-            );
-
-            return;
-
+            message.style.display = "block";
         }
 
 
-        if (
-            mobile &&
-            mobile.length !== 10
-        ) {
+        /* =====================================================
+           HIDE MESSAGE
+        ===================================================== */
 
-            showMessage(
-                "Mobile number must contain 10 digits.",
-                "error"
-            );
+        function hideMessage() {
 
-            return;
+            message.textContent = "";
 
+            message.className = "message";
+
+            message.style.display = "none";
         }
 
 
-        if (!password) {
+        /* =====================================================
+           LOGIN
+        ===================================================== */
 
-            showMessage(
-                "Please enter your password.",
-                "error"
-            );
+        loginForm.addEventListener(
+            "submit",
+            async function(event) {
 
-            return;
+                event.preventDefault();
 
-        }
-
-
-
-        /* =============================================
-           BUTTON
-        ============================================= */
-
-        loginBtn.disabled = true;
-
-        loginBtn.textContent =
-            "Logging in...";
+                hideMessage();
 
 
+                const email =
+                    emailInput.value.trim();
 
-        try {
+                const mobile =
+                    mobileInput.value.trim();
 
-
-            /* =========================================
-               REQUEST
-            ========================================= */
-
-            const body = {
-
-                password:
-                    password
-
-            };
+                const password =
+                    passwordInput.value;
 
 
-            if (email) {
+                /* PASSWORD CHECK */
 
-                body.email =
-                    email;
+                if (!password) {
 
-            } else {
+                    showMessage(
+                        "Please enter your password.",
+                        "error"
+                    );
 
-                body.mobile =
-                    mobile;
-
-            }
+                    return;
+                }
 
 
+                /* EMAIL OR MOBILE CHECK */
 
-            const response =
-                await fetch(
-                    API_BASE +
-                    "/api/login",
-                    {
+                if (!email && !mobile) {
 
-                        method: "POST",
+                    showMessage(
+                        "Please enter email or mobile number.",
+                        "error"
+                    );
 
-                        headers: {
+                    return;
+                }
 
-                            "Content-Type":
-                                "application/json"
 
-                        },
+                /* MOBILE VALIDATION */
 
-                        body:
-                            JSON.stringify(body)
+                if (
+                    mobile &&
+                    !/^[0-9]{10}$/.test(mobile)
+                ) {
+
+                    showMessage(
+                        "Please enter a valid 10 digit mobile number.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                /* BUTTON LOADING */
+
+                loginBtn.disabled = true;
+
+                loginBtn.textContent =
+                    "Logging in...";
+
+
+                try {
+
+                    /* =========================================
+                       SEND LOGIN REQUEST
+                    ========================================= */
+
+                    const response =
+                        await fetch(
+                            API_BASE + "/api/login",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body: JSON.stringify({
+
+                                    email:
+                                        email || null,
+
+                                    mobile:
+                                        mobile || null,
+
+                                    password:
+                                        password
+
+                                })
+                            }
+                        );
+
+
+                    /* RESPONSE */
+
+                    const data =
+                        await response.json();
+
+
+                    console.log(
+                        "Login response:",
+                        data
+                    );
+
+
+                    /* LOGIN FAILED */
+
+                    if (
+                        !response.ok ||
+                        !data.success
+                    ) {
+
+                        throw new Error(
+                            data.message ||
+                            "Invalid email/mobile or password."
+                        );
 
                     }
-                );
 
 
+                    /* =========================================
+                       GET USER
+                    ========================================= */
 
-            const data =
-                await response.json();
-
-
-
-            /* =========================================
-               LOGIN FAILED
-            ========================================= */
-
-            if (
-                !response.ok ||
-                !data.success
-            ) {
-
-                throw new Error(
-
-                    data.message ||
-                    "Login failed."
-
-                );
-
-            }
+                    const user =
+                        data.user;
 
 
+                    if (
+                        !user ||
+                        !user.id
+                    ) {
 
-            /* =========================================
-               SAVE USER
-            ========================================= */
+                        throw new Error(
+                            "Login successful, but user data was not received."
+                        );
 
-            if (data.user) {
-
-                sessionStorage.setItem(
-                    "loggedIn",
-                    "true"
-                );
-
-
-                sessionStorage.setItem(
-                    "user",
-                    JSON.stringify(
-                        data.user
-                    )
-                );
+                    }
 
 
-                sessionStorage.setItem(
-                    "userId",
-                    String(
-                        data.user.id
-                    )
-                );
+                    /* =========================================
+                       SAVE LOGIN USER
+                    ========================================= */
 
-            }
-
-
-
-            /* =========================================
-               REMEMBER ME
-            ========================================= */
-
-            if (
-                rememberInput.checked
-            ) {
-
-                localStorage.setItem(
-                    "rememberLogin",
-                    "true"
-                );
-
-                if (email) {
-
-                    localStorage.setItem(
-                        "loginEmail",
-                        email
+                    sessionStorage.setItem(
+                        "user",
+                        JSON.stringify(user)
                     );
 
-                } else {
 
-                    localStorage.setItem(
-                        "loginMobile",
-                        mobile
+                    /* =========================================
+                       ALSO SAVE USER ID
+                    ========================================= */
+
+                    sessionStorage.setItem(
+                        "userId",
+                        String(user.id)
                     );
+
+
+                    /* =========================================
+                       SUCCESS
+                    ========================================= */
+
+                    showMessage(
+                        "Login successful! Redirecting...",
+                        "success"
+                    );
+
+
+                    loginBtn.textContent =
+                        "Login Successful";
+
+
+                    /* =========================================
+                       GO HOME
+                    ========================================= */
+
+                    setTimeout(
+                        function() {
+
+                            window.location.href =
+                                "index.html";
+
+                        },
+                        700
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Login error:",
+                        error
+                    );
+
+
+                    showMessage(
+                        error.message ||
+                        "Unable to login. Please try again.",
+                        "error"
+                    );
+
+
+                    loginBtn.disabled =
+                        false;
+
+                    loginBtn.textContent =
+                        "Login";
 
                 }
 
-            } else {
+            }
+        );
 
-                localStorage.removeItem(
-                    "rememberLogin"
-                );
 
-                localStorage.removeItem(
-                    "loginEmail"
-                );
+        /* =====================================================
+           IF ALREADY LOGGED IN
+        ===================================================== */
 
-                localStorage.removeItem(
-                    "loginMobile"
-                );
+        window.addEventListener(
+            "DOMContentLoaded",
+            function() {
+
+                const savedUser =
+                    sessionStorage.getItem("user");
+
+
+                if (savedUser) {
+
+                    try {
+
+                        const user =
+                            JSON.parse(savedUser);
+
+
+                        if (user && user.id) {
+
+                            console.log(
+                                "User already logged in:",
+                                user
+                            );
+
+                        }
+
+                    } catch (error) {
+
+                        sessionStorage.removeItem(
+                            "user"
+                        );
+
+                        sessionStorage.removeItem(
+                            "userId"
+                        );
+
+                    }
+
+                }
 
             }
+        );
 
-
-
-            /* =========================================
-               SUCCESS
-            ========================================= */
-
-            showMessage(
-                "Login successful. Opening dashboard...",
-                "success"
-            );
-
-
-            setTimeout(
-                function() {
-
-                    window.location.replace(
-                        "dashboard.html"
-                    );
-
-                },
-                800
-            );
-
-
-        } catch (error) {
-
-            console.error(
-                "Login error:",
-                error
-            );
-
-
-            let errorMessage =
-                error.message ||
-                "Login failed.";
-
-
-            if (
-                error instanceof
-                TypeError
-            ) {
-
-                errorMessage =
-                    "Cannot connect to server. Please start Node.js server and check your network.";
-
-            }
-
-
-            showMessage(
-                errorMessage,
-                "error"
-            );
-
-
-            loginBtn.disabled =
-                false;
-
-            loginBtn.textContent =
-                "Login";
-
-        }
-
-    }
-);
-
-
-
-/* =====================================================
-   LOAD REMEMBERED LOGIN
-===================================================== */
-
-window.addEventListener(
-    "load",
-    function() {
-
-        const remembered =
-            localStorage.getItem(
-                "rememberLogin"
-            );
-
-
-        if (
-            remembered === "true"
-        ) {
-
-            const savedEmail =
-                localStorage.getItem(
-                    "loginEmail"
-                );
-
-
-            const savedMobile =
-                localStorage.getItem(
-                    "loginMobile"
-                );
-
-
-            if (savedEmail) {
-
-                emailInput.value =
-                    savedEmail;
-
-            }
-
-
-            if (savedMobile) {
-
-                mobileInput.value =
-                    savedMobile;
-
-            }
-
-
-            rememberInput.checked =
-                true;
-
-        }
-
-    }
-);
-
-</script>
-
+    </script>
 
 </body>
-
 </html>
